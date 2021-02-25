@@ -1,0 +1,13 @@
+include ':module_notification'
+include ':module_login'
+include ':module_community'
+//include ':lib_smartplayer'
+include ':module_video_detail'
+//include ':lib_imagerloader'//include ':lib_common'
+//include ':lib_net'
+include ':module_mine'
+include ':module_home'
+include ':module_main'
+include ':module_base'
+include ':app'
+rootProject.name = "eyepetizer_kotlin"

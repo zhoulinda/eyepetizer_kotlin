@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="MyTabLayoutStyle" parent="Base.Widget.Design.TabLayout" tools:ignore="ResourceName">
+        <item name="tabBackground">@color/cl_ffffff</item>
+        <item name="tabIndicatorColor">@color/cl_549cf8</item>
+        <item name="tabSelectedTextColor">@color/cl_549cf8</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="tabTextColor">@color/cl_999999</item>
+    </style>
+
+</resources>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="12dp">
+
+    <TextView
+        android:id="@+id/mVideoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:text="如何正确的消灭" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/cl_999999"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/mVideoTitle"
+        app:layout_constraintTop_toBottomOf="@id/mVideoTitle"
+        tool:text="#科技/开眼精选" />
+
+    <TextView
+        android:id="@+id/mVideoBrief"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/cl_aaaaaa"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@id/mVideoTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category"
+        tool:text="建瓯市法的角度来副经理生死狙击建瓯市法的角度来副经理生死狙击建瓯市法的角度来副经理生死狙击建瓯市法的角度来副经理生死狙击建瓯市法的角度来副经理生死狙击" />
+
+    <TextView
+        android:id="@+id/mPraise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_action_like"
+        android:drawablePadding="5dp"
+        android:textColor="@color/cl_ffffff"
+        app:layout_constraintLeft_toLeftOf="@id/mVideoTitle"
+        app:layout_constraintTop_toBottomOf="@id/mVideoBrief"
+        tool:text="100" />
+
+    <TextView
+        android:id="@+id/mShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:drawableLeft="@drawable/ic_action_like"
+        android:drawablePadding="5dp"
+        android:textColor="@color/cl_ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/mPraise"
+        app:layout_constraintLeft_toRightOf="@id/mPraise"
+        app:layout_constraintTop_toBottomOf="@id/mVideoBrief"
+        app:layout_constraintTop_toTopOf="@id/mPraise"
+        tool:text="100" />
+
+    <TextView
+        android:id="@+id/mCache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:drawableLeft="@drawable/ic_action_like"
+        android:drawablePadding="5dp"
+        android:text="缓存"
+        android:textColor="@color/cl_ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/mPraise"
+        app:layout_constraintLeft_toRightOf="@id/mShare"
+        app:layout_constraintTop_toBottomOf="@id/mVideoBrief"
+        app:layout_constraintTop_toTopOf="@id/mPraise" />
+
+    <TextView
+        android:id="@+id/mStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:drawableLeft="@drawable/ic_action_like"
+        android:drawablePadding="5dp"
+        android:text="收藏"
+        android:textColor="@color/cl_ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/mPraise"
+        app:layout_constraintLeft_toRightOf="@id/mCache"
+        app:layout_constraintTop_toBottomOf="@id/mVideoBrief"
+        app:layout_constraintTop_toTopOf="@id/mPraise" />
+
+    <ImageView
+        android:id="@+id/mAvatar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_avatar"
+        app:layout_constraintLeft_toLeftOf="@id/mPraise"
+        app:layout_constraintTop_toBottomOf="@id/mPraise" />
+
+    <TextView
+        android:id="@+id/mAuthorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/mAvatar"
+        app:layout_constraintTop_toTopOf="@id/mAvatar" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/cl_aaaaaa"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/mAvatar"
+        app:layout_constraintLeft_toLeftOf="@id/mAuthorName"
+        app:layout_constraintRight_toLeftOf="@id/mAttention" />
+
+    <TextView
+        android:id="@+id/mAttention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/shape_bg_white_stroke_rect"
+        android:paddingLeft="5dp"
+        android:paddingTop="3dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="3dp"
+        android:text="+关注"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/mAvatar"
+        app:layout_constraintLeft_toRightOf="@id/description"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mAvatar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="@color/cl_aaaaaa"
+        app:layout_constraintTop_toBottomOf="@id/mAvatar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

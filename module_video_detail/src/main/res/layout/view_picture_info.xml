@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/portrait"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mAuthorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/portrait"
+        app:layout_constraintLeft_toRightOf="@id/portrait"
+        app:layout_constraintTop_toTopOf="@id/portrait"
+        tools:text="linda" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/portrait"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/portrait"
+        tools:text="描述描述" />
+
+    <TextView
+        android:id="@+id/mTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/cl_ffffff"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/portrait"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        tools:text="你好,欢迎参观我的家" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="@color/cl_999999"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mTag" />
+
+    <TextView
+        android:id="@+id/storeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:drawableLeft="@drawable/ic_favorites_grey"
+        android:drawablePadding="5dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/cl_999999"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/portrait"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/commentCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:drawableLeft="@drawable/ic_favorites_grey"
+        android:drawablePadding="5dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/cl_999999"
+        app:layout_constraintBottom_toBottomOf="@id/storeCount"
+        app:layout_constraintLeft_toRightOf="@id/storeCount"
+        app:layout_constraintTop_toTopOf="@id/storeCount"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/mStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/cl_999999"
+        app:layout_constraintBottom_toBottomOf="@id/storeCount"
+        app:layout_constraintLeft_toRightOf="@id/commentCount"
+        app:layout_constraintTop_toTopOf="@id/storeCount"
+        tools:text="收藏" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

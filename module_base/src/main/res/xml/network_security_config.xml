@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- 支持网络通信的明文传输，在Android 9.0即targetSDK >= 28时，当webView访问http站点时，需要配置此项 -->
+    <base-config cleartextTrafficPermitted="true">
+        <!-- 只有在debug模式下才会覆写的属性，以支持在Android 7.0即targetSDK >= 24时使用用户自导入CA证书抓包 -->
+        <debug-overrides>
+            <trust-anchors>
+                <!-- 信任系统证书 -->
+                <certificates src="system" />
+                <!-- 信任用户证书 -->
+                <certificates src="user" />
+            </trust-anchors>
+        </debug-overrides>
+    </base-config>
+</network-security-config>

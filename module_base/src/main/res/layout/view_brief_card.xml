@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/mAttention"
+        android:layout_width="55dp"
+        android:layout_height="25dp"
+        android:background="@drawable/shape_bg_stroke_rect"
+        android:text="+ 关注"
+        android:textColor="@color/cl_000000"
+        app:layout_constraintBottom_toBottomOf="@id/cover"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cover" />
+
+    <LinearLayout
+        android:id="@+id/mContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/cover"
+        app:layout_constraintLeft_toRightOf="@id/cover"
+        app:layout_constraintRight_toLeftOf="@id/mAttention"
+        app:layout_constraintTop_toTopOf="@id/cover">
+
+        <TextView
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cl_000000"
+            android:textStyle="bold"
+            tools:text="#开饭了" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/cl_999999"
+            android:textSize="8dp"
+            tools:text="一锅一碗，让美食治愈你的每一天" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="5dp"
+        android:background="@color/cl_dddddd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cover" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

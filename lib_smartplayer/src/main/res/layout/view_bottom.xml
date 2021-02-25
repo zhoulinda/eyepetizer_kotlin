@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:layout_alignParentBottom="true"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <Button
+        android:id="@+id/rePlay"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_action_reply"
+        android:text="重播" />
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/surplus_time"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerVertical="true"-->
+    <!--            android:layout_marginLeft="12dp"-->
+    <!--            android:layout_toRightOf="@id/rePlay"-->
+    <!--            android:text="00:00"-->
+    <!--            android:textColor="@color/color_white" />-->
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/progressTime"
+        android:layout_toRightOf="@id/rePlay" />
+
+    <TextView
+        android:id="@+id/progressTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/fullscreen"
+        android:text="00:00"
+        android:textColor="@color/color_white" />
+
+    <ImageView
+        android:id="@+id/fullscreen"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:src="@drawable/ic_video_fullscreen" />
+
+</RelativeLayout>
