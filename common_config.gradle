@@ -1,0 +1,190 @@
+project.ext {
+
+    compileSdkVersion = 30
+    buildToolsVersion = "30.0.1"
+    minSdkVersion = 19
+    targetSdkVersion = 30
+    applicationId = "com.linda.eyepetizer_kotlin"
+    versionCode = 1
+    versionName = "1.0"
+
+    //是否允许module单独调试
+    isModuleDebug = false
+
+    //设置app配置
+    setAppDefaultConfig = {
+        extension ->
+            extension.apply plugin: 'com.android.application'
+            extension.description "app"
+            extension.apply plugin: 'kotlin-android'
+            extension.apply plugin: 'kotlin-android-extensions'
+            extension.apply plugin: 'kotlin-kapt'
+            //设置通用Android配置
+            setAppAndroidConfig extension.android
+            //设置通用依赖配置
+            setDependencies extension.dependencies
+    }
+
+    //设置lib配置（只可以作为lib,不可单独调试）
+    setLibDefaultConfig = {
+        extension ->
+            extension.apply plugin: 'com.android.library'
+            extension.description "lib"
+            extension.apply plugin: 'kotlin-android'
+            extension.apply plugin: 'kotlin-android-extensions'
+            extension.apply plugin: 'kotlin-kapt'
+            //设置通用Android配置
+            setLibAndroidConfig extension.android
+            //设置通用依赖配置
+            setDependencies extension.dependencies
+    }
+
+    //设置lib配置（可作为project单独调试）
+    setAppOrLibDefaultConfig = {
+        extension ->
+            if (project.ext.isModuleDebug) {
+                extension.apply plugin: 'com.android.application'
+                extension.description "app"
+            } else {
+                extension.apply plugin: 'com.android.library'
+                extension.description "lib"
+            }
+            extension.apply plugin: 'kotlin-android'
+            extension.apply plugin: 'kotlin-android-extensions'
+            extension.apply plugin: 'kotlin-kapt'
+            //设置通用Android配置
+            setAppOrLibAndroidConfig extension.android
+            //设置通用依赖配置
+            setDependencies extension.dependencies
+    }
+
+    //设置app android配置
+    setAppAndroidConfig = {
+        extension -> //extension 相当于 android 对象
+            extension.compileSdkVersion project.ext.compileSdkVersion
+            extension.buildToolsVersion project.ext.buildToolsVersion
+            extension.defaultConfig {
+                applicationId project.ext.applicationId
+                minSdkVersion project.ext.minSdkVersion
+                targetSdkVersion project.ext.targetSdkVersion
+                versionCode project.ext.versionCode
+                versionName project.ext.versionName
+
+                multiDexEnabled true
+
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+                //ARouter 编译生成路由
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [AROUTER_MODULE_NAME: extension.project.getName()]
+                    }
+                }
+            }
+
+            extension.compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+
+            extension.kotlinOptions {
+                jvmTarget = '1.8'
+            }
+
+            androidExtensions {
+                experimental = true
+            }
+    }
+
+    //设置lib android配置（只可以作为lib,不可单独调试）
+    setLibAndroidConfig = {
+        extension -> //extension 相当于 android 对象
+            extension.compileSdkVersion project.ext.compileSdkVersion
+            extension.buildToolsVersion project.ext.buildToolsVersion
+            extension.defaultConfig {
+                minSdkVersion project.ext.minSdkVersion
+                targetSdkVersion project.ext.targetSdkVersion
+                versionCode project.ext.versionCode
+                versionName project.ext.versionName
+
+                multiDexEnabled true
+
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+                //ARouter 编译生成路由
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [AROUTER_MODULE_NAME: extension.project.getName()]
+                    }
+                }
+            }
+
+            extension.kotlinOptions {
+                jvmTarget = '1.8'
+            }
+
+            androidExtensions {
+                experimental = true
+            }
+    }
+
+    //设置lib android配置（可作为project单独调试）
+    setAppOrLibAndroidConfig = {
+        extension -> //extension 相当于 android 对象
+            extension.compileSdkVersion project.ext.compileSdkVersion
+            extension.buildToolsVersion project.ext.buildToolsVersion
+            extension.defaultConfig {
+                minSdkVersion project.ext.minSdkVersion
+                targetSdkVersion project.ext.targetSdkVersion
+                versionCode project.ext.versionCode
+                versionName project.ext.versionName
+
+                multiDexEnabled true
+
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+                //ARouter 编译生成路由
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [AROUTER_MODULE_NAME: extension.project.getName()]
+                    }
+                }
+            }
+
+            if (project.ext.isModuleDebug) {
+                extension.compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+            }
+
+            extension.kotlinOptions {
+                jvmTarget = '1.8'
+            }
+
+            androidExtensions {
+                experimental = true
+            }
+
+            extension.sourceSets {
+                main {
+                    if (project.ext.isModuleDebug) {
+                        manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+                    } else {
+                        manifest.srcFile 'src/main/AndroidManifest.xml'
+                    }
+                }
+            }
+    }
+
+
+    //设置依赖
+    setDependencies = {
+        extension ->
+            extension.implementation fileTree(dir: 'libs', include: ['*.jar'])
+            //ARouter 路由apt插件，用于生成相应代码，每个module都需要
+            extension.kapt 'com.alibaba:arouter-compiler:1.2.2'
+    }
+
+
+}

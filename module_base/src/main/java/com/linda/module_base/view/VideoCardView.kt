@@ -41,7 +41,7 @@ class VideoCardView : FrameLayout {
         Glide.with(context)
             .load(data.cover?.feed)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
-            .into(mVideoCover)
+            .into(videoCover)
 
         duration.text = data.duration?.let { DateUtil.getDuration(it) }
         titleBar.text = data.title

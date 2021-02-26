@@ -16,7 +16,7 @@ import com.linda.module_video_detail.R
 class BrowsePictureFragment : BaseFragment() {
 
     override fun getLayoutResId(): Int {
-        return R.layout.fragment_browse_picture
+        return R.layout.detail_fragment_browse_picture
     }
 
     override fun initView() {

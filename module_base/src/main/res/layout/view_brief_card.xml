@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/mAttention"
+        android:id="@+id/attention"
         android:layout_width="55dp"
         android:layout_height="25dp"
         android:background="@drawable/shape_bg_stroke_rect"
@@ -33,7 +33,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/cover"
         app:layout_constraintLeft_toRightOf="@id/cover"
-        app:layout_constraintRight_toLeftOf="@id/mAttention"
+        app:layout_constraintRight_toLeftOf="@id/attention"
         app:layout_constraintTop_toTopOf="@id/cover">
 
         <TextView

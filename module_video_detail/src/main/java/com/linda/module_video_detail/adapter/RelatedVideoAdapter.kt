@@ -13,8 +13,7 @@ import com.linda.module_base.bean.VideoItem
 import com.linda.module_base.listener.OnMultiViewClickListener
 import com.linda.module_base.utils.DisplayUtil
 import com.linda.module_video_detail.R
-import kotlinx.android.synthetic.main.item_related_video.view.*
-import kotlinx.android.synthetic.main.view_video_info.view.mVideoTitle
+import kotlinx.android.synthetic.main.detail_item_related_video.view.*
 
 /**
  * 描述 :     详情页相关视频列表Adapter
@@ -49,7 +48,7 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_TYPE_VIDEO_SMALL_CARD ->
-                ItemHolder(inflaterView(R.layout.item_related_video, parent))
+                ItemHolder(inflaterView(R.layout.detail_item_related_video, parent))
             else ->
                 ItemHolder(View(parent.context))
         }
@@ -102,13 +101,13 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         Glide.with(BaseApplication.getContext())
             .load(relatedVideo.cover.feed)
             .apply(options)
-            .into(itemView.mVideoCover)
+            .into(itemView.videoCover)
 
         itemView.setOnClickListener {
             onMultiViewClickListener?.onViewClick(position, itemView, relatedVideo, type)
         }
 
-        itemView.mVideoTitle.text = relatedVideo.title
+        itemView.videoTitle.text = relatedVideo.title
         itemView.category.text =
             "#" + relatedVideo.category + "/" + relatedVideo.author?.name
     }

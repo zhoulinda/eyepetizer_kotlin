@@ -7,18 +7,18 @@
     android:background="@color/cl_000000">
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/mViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.linda.module_video_detail.view.PictureInfoView
-        android:id="@+id/mPictureInfoView"
+        android:id="@+id/pictureInfoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
-        android:id="@+id/mIndex"
+        android:id="@+id/index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

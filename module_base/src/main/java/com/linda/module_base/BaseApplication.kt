@@ -9,7 +9,10 @@ import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.*
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 /**
  * 描述 :     基类Application
@@ -36,9 +39,18 @@ abstract class BaseApplication : MultiDexApplication(), IBaseApplication {
 
     private fun initComponent() {
         for (module in ModuleConfig.modules) {
-            val clazz = Class.forName(module)
-            val baseApplication = clazz.newInstance() as IBaseApplication
-            baseApplication.init()
+            try {
+                val clazz = Class.forName(module)
+                val baseApplication: IBaseApplication =
+                    clazz.newInstance() as IBaseApplication
+                baseApplication.init()
+            } catch (e: ClassNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            } catch (e: InstantiationException) {
+                e.printStackTrace()
+            }
         }
     }
 

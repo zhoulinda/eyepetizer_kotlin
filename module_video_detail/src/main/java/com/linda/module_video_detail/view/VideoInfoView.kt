@@ -10,10 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_video_detail.R
-import kotlinx.android.synthetic.main.view_video_info.view.*
-import kotlinx.android.synthetic.main.view_video_info.view.category
-import kotlinx.android.synthetic.main.view_video_info.view.mShare
-import kotlinx.android.synthetic.main.view_video_info.view.mVideoTitle
+import kotlinx.android.synthetic.main.detail_view_video_info.view.*
 
 /**
  * 描述 :     视频简信息
@@ -37,23 +34,23 @@ class VideoInfoView : FrameLayout {
     }
 
     private fun init(context: Context) {
-        LayoutInflater.from(context).inflate(R.layout.view_video_info, this, true)
+        LayoutInflater.from(context).inflate(R.layout.detail_view_video_info, this, true)
     }
 
     fun setData(videoDetail: VideoDetail) {
 
-        mVideoTitle.text = videoDetail.title
+        videoTitle.text = videoDetail.title
         category.text = "#" + videoDetail.category
-        mVideoBrief.text = videoDetail.description
-        mPraise.text = "" + videoDetail.consumption.collectionCount
-        mShare.text = "" + videoDetail.consumption.shareCount
-        mAuthorName.text = "" + videoDetail.author.name
+        videoBrief.text = videoDetail.description
+        praise.text = "" + videoDetail.consumption.collectionCount
+        share.text = "" + videoDetail.consumption.shareCount
+        authorName.text = "" + videoDetail.author.name
         description.text = "" + videoDetail.author.description
 
         Glide.with(BaseApplication.getContext())
             .load(videoDetail.author.icon)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(mAvatar)
+            .into(portrait)
 
 
     }

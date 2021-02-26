@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_video_detail.R
-import kotlinx.android.synthetic.main.view_picture_info.view.*
+import kotlinx.android.synthetic.main.detail_view_picture_info.view.*
 
 /**
  * 描述       图片信息View
@@ -34,7 +34,7 @@ class PictureInfoView : FrameLayout {
     }
 
     private fun init(context: Context) {
-        LayoutInflater.from(context).inflate(R.layout.view_picture_info, this, true)
+        LayoutInflater.from(context).inflate(R.layout.detail_view_picture_info, this, true)
     }
 
     fun setData(videoDetail: VideoDetail) {
@@ -42,10 +42,10 @@ class PictureInfoView : FrameLayout {
             .load(videoDetail.owner.avatar)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)
-        mAuthorName.text = videoDetail.owner.nickname
+        authorName.text = videoDetail.owner.nickname
         val tags = videoDetail.tags
         description.text = videoDetail.description
-        mTag.text = tags[0].name
+        label.text = tags[0].name
         storeCount.text = "" + videoDetail.consumption.collectionCount
         commentCount.text = "" + videoDetail.consumption.shareCount
     }

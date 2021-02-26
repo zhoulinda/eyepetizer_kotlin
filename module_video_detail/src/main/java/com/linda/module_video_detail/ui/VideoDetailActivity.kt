@@ -2,12 +2,7 @@ package com.linda.module_video_detail.ui
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.Color
-import android.os.Build
-import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -20,14 +15,14 @@ import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnViewClickListener
 import com.linda.module_base.ui.BaseActivity
+import com.linda.module_base.utils.MyLogger
 import com.linda.module_video_detail.R
 import com.linda.module_video_detail.contract.VideoDetailContract
 import com.linda.module_video_detail.presenter.VideoDetailPresenter
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
-import kotlinx.android.synthetic.main.activity_video_detail.*
-import kotlinx.android.synthetic.main.view_video_info.view.*
-
+import kotlinx.android.synthetic.main.detail_activity_video_detail.*
+import kotlinx.android.synthetic.main.detail_view_video_info.view.*
 
 /**
  * 描述 :     视频详情
@@ -52,18 +47,18 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
     private var orientationUtils: OrientationUtils? = null
 
     override fun getLayoutResId(): Int {
-        return R.layout.activity_video_detail
+        return R.layout.detail_activity_video_detail
     }
 
     override fun initView() {
         setTransStatusBar()
         ARouter.getInstance().inject(this)
-        mRelateVideoView.setOnViewClickListener(object : OnViewClickListener<Any> {
+        relateVideoView.setOnViewClickListener(object : OnViewClickListener<Any> {
             override fun onViewClick(view: View, data: Any) {
                 when (view.id) {
                     R.id.lookMore ->
                         relatedVideoList?.let { relatedVideoList ->
-                            mRelateVideoView.setData(
+                            relateVideoView.setData(
                                 relatedVideoList,
                                 true
                             )
@@ -96,6 +91,7 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
             .load(videoDetail.cover.detail)
             .into(imageView)
         videoPlayer.thumbImageView = imageView
+
         videoPlayer.setUp(videoDetail.playUrl, true, "")
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(true)
@@ -104,12 +100,12 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
         //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
         videoPlayer.fullscreenButton
             .setOnClickListener { orientationUtils.resolveByClick() }
-        videoPlayer.backButton.setOnClickListener { onBackPressed() }
+        videoPlayer.backButton.visibility = View.GONE
         videoPlayer.startPlayLogic()
-        Glide.with(this).load(videoDetail.cover.blurred).into(mDetailBg)
+        Glide.with(this).load(videoDetail.cover.blurred).into(detailBg)
 
-        mVideoInfoView.setData(videoDetail)
-        mVideoInfoView.mAvatar.setOnClickListener {
+        videoInfoView.setData(videoDetail)
+        videoInfoView.portrait.setOnClickListener {
             ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
                 .withInt(Constants.USER_ID, videoDetail.author.id!!)
                 .navigation()
@@ -121,7 +117,7 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
 
     override fun onGetVideoRelatedSuccess(relatedVideoList: BaseListData<RelatedVideo>) {
         this.relatedVideoList = relatedVideoList
-        mRelateVideoView.setData(relatedVideoList, false)
+        relateVideoView.setData(relatedVideoList, false)
     }
 
     override fun onGetVideoRelatedError() {

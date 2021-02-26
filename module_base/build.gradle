@@ -120,7 +120,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    implementation 'com.android.support:multidex:1.0.3'
+
     api 'com.trello.rxlifecycle4:rxlifecycle:4.0.0'
     api 'com.trello.rxlifecycle4:rxlifecycle-components:4.0.0'
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'

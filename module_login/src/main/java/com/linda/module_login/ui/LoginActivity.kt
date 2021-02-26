@@ -37,6 +37,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun initView() {
+        setStatusBarColor()
         login.setOnClickListener {
             login()
         }

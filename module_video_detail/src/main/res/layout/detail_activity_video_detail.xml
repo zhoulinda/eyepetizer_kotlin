@@ -7,10 +7,12 @@
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/videoPlayer"
         android:layout_width="match_parent"
-        android:layout_height="220dp" />
+        android:layout_height="220dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/mDetailBg"
+        android:id="@+id/detailBg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="fitXY"
@@ -20,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@id/videoPlayer" />
 
     <ScrollView
-        android:id="@+id/mScrollView"
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:overScrollMode="never"
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content">
 
             <com.linda.module_video_detail.view.VideoInfoView
-                android:id="@+id/mVideoInfoView"
+                android:id="@+id/videoInfoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -42,13 +44,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.linda.module_video_detail.view.RelatedVideoView
-                android:id="@+id/mRelateVideoView"
+                android:id="@+id/relateVideoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mVideoInfoView" />
+                app:layout_constraintTop_toBottomOf="@id/videoInfoView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

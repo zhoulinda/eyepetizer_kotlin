@@ -12,8 +12,8 @@ import com.linda.module_video_detail.R
 import com.linda.module_video_detail.adapter.PictureDetailPagerAdapter
 import com.linda.module_video_detail.contract.PictureDetailContract
 import com.linda.module_video_detail.presenter.PictureDetailPresenter
-import kotlinx.android.synthetic.main.activity_browse_picture.*
-import kotlinx.android.synthetic.main.view_picture_info.*
+import kotlinx.android.synthetic.main.detail_activity_browse_picture.*
+import kotlinx.android.synthetic.main.detail_view_picture_info.*
 
 /**
  * 描述 :    大图浏览
@@ -38,7 +38,7 @@ class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
     private var videoDetail: VideoDetail? = null
 
     override fun getLayoutResId(): Int {
-        return R.layout.activity_browse_picture
+        return R.layout.detail_activity_browse_picture
     }
 
     override fun initView() {
@@ -59,12 +59,12 @@ class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
 
     override fun onGetPictureDetailSuccess(videoDetail: VideoDetail) {
         this.videoDetail = videoDetail
-        mPictureInfoView.setData(videoDetail)
-        mIndex.text = "1/" + videoDetail.urls.size
+        pictureInfoView.setData(videoDetail)
+        index.text = "1/" + videoDetail.urls.size
         detailAdapter = PictureDetailPagerAdapter(this, videoDetail.urls)
-        mViewPager.adapter = detailAdapter
-        mViewPager.currentItem = 0
-        mViewPager.addOnPageChangeListener(object : OnPageChangeListener {
+        viewPager.adapter = detailAdapter
+        viewPager.currentItem = 0
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -76,7 +76,7 @@ class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
             }
 
             override fun onPageSelected(position: Int) {
-                mIndex.text = (position + 1).toString() + "/" + videoDetail.urls.size
+                index.text = (position + 1).toString() + "/" + videoDetail.urls.size
             }
         })
     }

@@ -3,7 +3,7 @@ package com.linda.module_main
 import com.linda.module_base.BaseApplication
 
 /**
- * 描述 :
+ * 描述 :     主页Application
  *
  * @author: linda
  * email:   zhoulinda@lexue.com

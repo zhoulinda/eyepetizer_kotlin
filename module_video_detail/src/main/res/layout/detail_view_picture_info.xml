@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/mAuthorName"
+        android:id="@+id/authorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -39,7 +39,7 @@
         tools:text="描述描述" />
 
     <TextView
-        android:id="@+id/mTag"
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -57,7 +57,7 @@
         android:background="@color/cl_999999"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mTag" />
+        app:layout_constraintTop_toBottomOf="@id/label" />
 
     <TextView
         android:id="@+id/storeCount"
@@ -89,7 +89,7 @@
         tools:text="0" />
 
     <TextView
-        android:id="@+id/mStore"
+        android:id="@+id/store"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"

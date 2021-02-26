@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.linda.module_video_detail">
 
-    <application android:name=".VideoDetailApplication">
+    <application>
 
         <activity android:name=".ui.VideoDetailActivity" />
-
         <activity android:name=".ui.BrowsePictureActivity" />
 
     </application>
+
 </manifest>

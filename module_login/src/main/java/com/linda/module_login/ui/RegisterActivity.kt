@@ -29,6 +29,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     }
 
     override fun initView() {
+        setStatusBarColor()
         counterDownView.setOnClickListener {
             getVerificationCode()
         }

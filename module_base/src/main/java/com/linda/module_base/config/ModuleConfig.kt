@@ -1,7 +1,7 @@
 package com.linda.module_base.config
 
 /**
- * 描述 :
+ * 描述 :     Component Application配置
  *
  * @author: linda
  * email:   zhoulinda@lexue.com
@@ -13,6 +13,11 @@ interface ModuleConfig {
 
         private const val MODULE_MAIN = "com.linda.module_main.MainApplication"
 
-        val modules = arrayOf(MODULE_MAIN)
+        private const val MODULE_LOGIN = "com.linda.module_login.LoginApplication"
+
+        private const val MODULE_VIDEO_DETAIL =
+            "com.linda.module_video_detail.VideoDetailApplication"
+
+        val modules = arrayOf(MODULE_MAIN, MODULE_LOGIN, MODULE_VIDEO_DETAIL)
     }
 }

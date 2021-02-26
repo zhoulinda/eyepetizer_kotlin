@@ -13,7 +13,7 @@ import com.linda.module_base.listener.OnMultiViewClickListener
 import com.linda.module_base.listener.OnViewClickListener
 import com.linda.module_video_detail.R
 import com.linda.module_video_detail.adapter.RelatedVideoAdapter
-import kotlinx.android.synthetic.main.view_related_video.view.*
+import kotlinx.android.synthetic.main.detail_view_related_video.view.*
 
 /**
  * 描述 :     相关视频列表
@@ -41,7 +41,7 @@ class RelatedVideoView : FrameLayout {
     }
 
     private fun init(context: Context) {
-        LayoutInflater.from(context).inflate(R.layout.view_related_video, this, true)
+        LayoutInflater.from(context).inflate(R.layout.detail_view_related_video, this, true)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.isNestedScrollingEnabled = false
         adapter = RelatedVideoAdapter()

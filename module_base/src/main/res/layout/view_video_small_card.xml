@@ -7,7 +7,7 @@
     android:layout_marginTop="8dp">
 
     <ImageView
-        android:id="@+id/mVideoCover"
+        android:id="@+id/videoCover"
         android:layout_width="185dp"
         android:layout_height="100dp"
         android:scaleType="fitXY"
@@ -27,8 +27,8 @@
         android:paddingBottom="2dp"
         android:textColor="@color/cl_ffffff"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/mVideoCover"
-        app:layout_constraintRight_toRightOf="@id/mVideoCover"
+        app:layout_constraintBottom_toBottomOf="@id/videoCover"
+        app:layout_constraintRight_toRightOf="@id/videoCover"
         tools:text="00:00" />
 
     <TextView
@@ -39,9 +39,9 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/cl_000000"
         android:textSize="15sp"
-        app:layout_constraintLeft_toRightOf="@id/mVideoCover"
+        app:layout_constraintLeft_toRightOf="@id/videoCover"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/mVideoCover"
+        app:layout_constraintTop_toTopOf="@id/videoCover"
         tools:text="标题标题标题标题标题标题标题标题标题标题标题标题" />
 
     <TextView
@@ -54,9 +54,9 @@
         android:singleLine="true"
         android:textColor="@color/cl_999999"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/mVideoCover"
+        app:layout_constraintBottom_toBottomOf="@id/videoCover"
         app:layout_constraintLeft_toLeftOf="@id/titleBar"
-        app:layout_constraintLeft_toRightOf="@id/mVideoCover"
+        app:layout_constraintLeft_toRightOf="@id/videoCover"
         tools:text="旅行/开眼精选" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

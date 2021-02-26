@@ -18,8 +18,8 @@ import com.linda.module_mine.R
 import com.linda.module_mine.adapter.PersonMainPagerAdapter
 import com.linda.module_mine.contract.PersonMainContract
 import com.linda.module_mine.presenter.PersonMainPresenter
-import kotlinx.android.synthetic.main.layout_person_main_header.*
 import kotlinx.android.synthetic.main.mine_activity_person_main.*
+import kotlinx.android.synthetic.main.mine_layout_person_main_header.*
 import org.jetbrains.anko.imageResource
 import kotlin.math.abs
 

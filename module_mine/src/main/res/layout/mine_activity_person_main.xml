@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <include layout="@layout/layout_person_main_header" />
+            <include layout="@layout/mine_layout_person_main_header" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
