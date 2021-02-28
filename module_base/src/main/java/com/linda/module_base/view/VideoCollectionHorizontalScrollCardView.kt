@@ -10,6 +10,7 @@ import com.linda.module_base.adapter.ItemBannerHolder
 import com.linda.module_base.adapter.VideoCollectionBannerImageAdapter
 import com.linda.module_base.bean.Card
 import com.linda.module_base.bean.ItemData
+import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_scroll_card.view.banner
@@ -55,8 +56,9 @@ class VideoCollectionHorizontalScrollCardView : FrameLayout {
 
         banner.setBannerRound(DisplayUtil.dip2px(3f).toFloat())
         banner.setOnBannerListener { data, _ ->
-            ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
-                .withString("url", (data as Card).data?.actionUrl)
+            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                .withInt(Constants.VIDEO_ID, (data as Card).data?.content?.data?.id!!)
+                .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
                 .navigation()
         }
         banner.isAutoLoop(false)

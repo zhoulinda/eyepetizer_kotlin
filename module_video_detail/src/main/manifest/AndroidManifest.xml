@@ -18,7 +18,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
 
-        <activity android:name=".ui.VideoDetailActivity">
+        <activity
+            android:name=".ui.VideoDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

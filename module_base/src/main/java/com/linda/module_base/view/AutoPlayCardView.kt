@@ -50,30 +50,13 @@ class AutoPlayCardView : FrameLayout {
             .load(data.content?.data?.cover?.feed)
             .into(imageView)
         videoPlayer.thumbImageView = imageView
-        videoPlayer.thumbImageViewLayout.visibility = View.VISIBLE
-
-//        mVideoPlayer.setUpLazy(data.content?.data?.playUrl, true, null, null, "")
-//        mVideoPlayer.playTag = position.toString()
-
         videoPlayer.backButton.visibility = View.GONE
-//        mVideoPlayer.startButton.setOnClickListener {
-//            onViewClickListener?.onViewClick(it, data)
-//        }
-//        mVideoPlayer.playPosition = position
-        //是否根据视频尺寸，自动选择竖屏全屏或者横屏全屏
-        videoPlayer.isAutoFullWithSize = true
-//        //音频焦点冲突时是否释放
-//        mVideoPlayer.isReleaseWhenLossAudio = false
-//        //全屏动画
-//        mVideoPlayer.isShowFullAnimation = true
-//        //小屏时不触摸滑动
-//        mVideoPlayer.setIsTouchWiget(false)
+        videoPlayer.thumbImageViewLayout.visibility = View.VISIBLE
 
         Glide.with(BaseApplication.getContext())
             .load(data.header?.icon)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)
-
         name.text = data.content?.data?.author?.name
         date.text = data.content?.data?.date?.let { DateUtil.getFormatDate(it, "yyyy.MM.dd") }
         description.text = data.content?.data?.description

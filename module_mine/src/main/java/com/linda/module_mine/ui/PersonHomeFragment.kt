@@ -1,5 +1,6 @@
 package com.linda.module_mine.ui
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -10,6 +11,7 @@ import com.linda.module_base.bean.ItemData
 import com.linda.module_base.bean.mine.TabData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
+import com.linda.module_base.listener.OnMultiViewClickListener
 import com.linda.module_base.ui.BaseFragment
 import com.linda.module_mine.R
 import com.linda.module_mine.contract.PersonHomeContract
@@ -41,6 +43,22 @@ class PersonHomeFragment : BaseFragment(), PersonHomeContract.View {
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = BaseCardAdapter()
         recyclerView.adapter = adapter
+        adapter?.setOnMultiViewClickListener(object :
+            OnMultiViewClickListener<ItemData> {
+            override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
+                if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
+                    ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                        .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
+                        .withString(Constants.RESOURCE_TYPE, data.content?.data?.resourceType)
+                        .navigation()
+                } else if (type == BaseCardAdapter.ITEM_TYPE_VIDEO_SMALL_CARD) {
+                    ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                        .withInt(Constants.VIDEO_ID, data.id!!)
+                        .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                        .navigation()
+                }
+            }
+        })
     }
 
     override fun initData() {
