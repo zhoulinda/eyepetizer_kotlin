@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.linda.module_base.R
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.ui.BaseActivity
-import com.linda.module_base.utils.MyLogger
+import com.linda.lib_common.utils.MyLogger
 import kotlinx.android.synthetic.main.activity_webview.*
 
 /**

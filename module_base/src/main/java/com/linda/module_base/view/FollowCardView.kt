@@ -8,10 +8,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.linda.lib_common.CommonApplication
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.R
 import com.linda.module_base.bean.ItemData
-import com.linda.module_base.utils.DisplayUtil
+import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_follow_card.view.*
 
 /**
@@ -48,12 +49,12 @@ class FollowCardView : FrameLayout {
 
         val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
         val options = RequestOptions.bitmapTransform(roundedCorners)
-        Glide.with(BaseApplication.getContext())
+        Glide.with(CommonApplication.getContext())
             .load(itemData.content?.data?.cover?.feed)
             .apply(options)
             .into(cover)
 
-        Glide.with(BaseApplication.getContext())
+        Glide.with(CommonApplication.getContext())
             .load(itemData.header?.icon)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)

@@ -9,11 +9,12 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.linda.lib_common.CommonApplication
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.R
 import com.linda.module_base.bean.ItemData
 import com.linda.module_base.listener.OnViewClickListener
-import com.linda.module_base.utils.DateUtil
+import com.linda.lib_common.utils.DateUtil
 import kotlinx.android.synthetic.main.view_auto_play_card.view.*
 
 
@@ -53,7 +54,7 @@ class AutoPlayCardView : FrameLayout {
         videoPlayer.backButton.visibility = View.GONE
         videoPlayer.thumbImageViewLayout.visibility = View.VISIBLE
 
-        Glide.with(BaseApplication.getContext())
+        Glide.with(CommonApplication.getContext())
             .load(data.header?.icon)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)

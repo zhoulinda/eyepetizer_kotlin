@@ -3,7 +3,7 @@ package com.linda.module_home.model
 import com.linda.module_base.bean.BaseListData
 import com.linda.module_base.bean.ItemData
 import com.linda.module_base.net.RetrofitManager
-import com.linda.module_base.net.rx.RxScheduler
+import com.linda.lib_net.rx.RxScheduler
 import com.linda.module_home.contract.DailyContract
 import io.reactivex.rxjava3.core.Flowable
 

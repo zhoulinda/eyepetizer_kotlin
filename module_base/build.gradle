@@ -1,133 +1,21 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply from: "${rootProject.rootDir}/common_config.gradle"
+project.ext.setLibDefaultConfig project
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
-
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        multiDexEnabled true
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-
-        kapt { arguments { arg("AROUTER_MODULE_NAME", project.getName()) } }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    androidExtensions {
-        experimental = true
-    }
-
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-//    api project(path: ':lib_imagerloader')
-//    api project(path: ':lib_smartplayer')
-
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    api 'androidx.appcompat:appcompat:1.2.0'
-    api 'androidx.palette:palette:1.0.0'
-    api 'androidx.palette:palette-ktx:1.0.0'
-    api 'androidx.constraintlayout:constraintlayout:2.0.1'
-    api 'com.android.support:multidex:1.0.3'
-    api 'com.youth.banner:banner:2.1.0'
-    api 'com.github.chrisbanes:PhotoView:2.3.0'
-
-    //Design
-    api 'com.google.android.material:material:1.2.1'
-    api 'com.scwang.smart:refresh-layout-kernel:2.0.1'
-    api 'com.scwang.smart:refresh-header-classics:2.0.1'
-    api 'com.scwang.smart:refresh-footer-classics:2.0.1'
-    api 'com.scwang.smart:refresh-header-material:2.0.1'
-
-    //Kotlin
-    // Anko Commons
-    api "org.jetbrains.anko:anko-commons:$anko_version"
-    // Anko Layouts
-    // sdk15, sdk19, sdk21, sdk23 are also available
-    api "org.jetbrains.anko:anko-sdk25:$anko_version"
-    api "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-    // Coroutine listeners for Anko Layouts
-    api "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
-    api "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
-    // Anko SQLite
-    api "org.jetbrains.anko:anko-sqlite:$anko_version"
-    // Appcompat-v7 (only Anko Commons)
-    api "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
-    // Appcompat-v7 (Anko Layouts)
-    api "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-    api "org.jetbrains.anko:anko-coroutines:$anko_version"
-    // CardView-v7
-    api "org.jetbrains.anko:anko-cardview-v7:$anko_version"
-    // Design
-    api "org.jetbrains.anko:anko-design:$anko_version"
-    api "org.jetbrains.anko:anko-design-coroutines:$anko_version"
-    // GridLayout-v7
-    api "org.jetbrains.anko:anko-gridlayout-v7:$anko_version"
-    // Percent
-    api "org.jetbrains.anko:anko-percent:$anko_version"
-    // RecyclerView-v7
-    api "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
-    api "org.jetbrains.anko:anko-recyclerview-v7-coroutines:$anko_version"
-    // Support-v4 (only Anko Commons)
-    api "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
-    // Support-v4 (Anko Layouts)
-    api "org.jetbrains.anko:anko-support-v4:$anko_version"
-    // ConstraintLayout
-    api "org.jetbrains.anko:anko-constraint-layout:$anko_version"
+    api project(path: ':lib_net')
 
     //ARouter
     api 'com.alibaba:arouter-api:1.5.0'
     kapt 'com.alibaba:arouter-compiler:1.2.2'
-
-    //Glide
-    api 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
-    api 'jp.wasabeef:glide-transformations:4.0.1'
-
-    //OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-
-    api 'com.trello.rxlifecycle4:rxlifecycle:4.0.0'
-    api 'com.trello.rxlifecycle4:rxlifecycle-components:4.0.0'
-    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-
-    api 'com.alibaba:fastjson:1.2.48'
-
-    api 'top.zibin:Luban:1.1.8'
 
     //VideoPlayer
     api 'com.shuyu:GSYVideoPlayer:8.1.0'

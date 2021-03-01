@@ -1,6 +1,7 @@
 package com.linda.module_main
 
-import com.linda.module_base.BaseApplication
+import com.linda.lib_common.CommonApplication
+import com.linda.lib_common.utils.MyLogger
 
 /**
  * 描述 :     主页Application
@@ -9,7 +10,7 @@ import com.linda.module_base.BaseApplication
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/7/25
  */
-class MainApplication : BaseApplication() {
+class MainApplication : CommonApplication() {
 
     override fun init() {
     }

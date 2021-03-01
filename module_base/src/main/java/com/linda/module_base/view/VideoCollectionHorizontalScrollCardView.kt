@@ -12,7 +12,7 @@ import com.linda.module_base.bean.Card
 import com.linda.module_base.bean.ItemData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.utils.DisplayUtil
+import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_scroll_card.view.banner
 import kotlinx.android.synthetic.main.view_video_collection_scroll_card.view.*
 

@@ -1,6 +1,6 @@
 package com.linda.module_login
 
-import com.linda.module_base.BaseApplication
+import com.linda.lib_common.CommonApplication
 
 /**
  * 描述 :     登录Application
@@ -9,7 +9,7 @@ import com.linda.module_base.BaseApplication
  * email:   zhoulinda@lexue.com
  * 创建日期: 2021/2/26
  */
-class LoginApplication : BaseApplication() {
+class LoginApplication : CommonApplication() {
 
     override fun init() {
     }

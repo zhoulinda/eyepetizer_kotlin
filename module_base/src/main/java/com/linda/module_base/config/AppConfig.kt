@@ -1,8 +1,5 @@
 package com.linda.module_base.config
 
-import android.text.TextUtils
-import com.linda.module_base.BuildConfig
-
 /**
  * 描述 :     app相关配置
  *
@@ -21,10 +18,5 @@ class AppConfig {
         const val REGISTER = "https://account.kaiyanapp.com/v2/api/register"
 
         const val LOGIN = "https://account.kaiyanapp.com/v1/api/login"
-
-        fun isDebug(): Boolean {
-            return !TextUtils.equals(BuildConfig.BUILD_TYPE, "release")
-        }
-
     }
 }

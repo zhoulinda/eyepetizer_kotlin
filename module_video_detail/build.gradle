@@ -14,4 +14,6 @@ android {
 
 dependencies {
     api project(path: ':module_base')
+
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }

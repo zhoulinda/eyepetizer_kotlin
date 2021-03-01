@@ -11,8 +11,8 @@ import com.linda.module_base.bean.Member
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.ui.BaseFragment
-import com.linda.module_base.utils.AppUtil
-import com.linda.module_base.utils.PrefsUtil
+import com.linda.lib_common.utils.AppUtil
+import com.linda.lib_common.utils.PrefsUtil
 import com.linda.module_mine.MinePresenter
 import com.linda.module_mine.R
 import kotlinx.android.synthetic.main.mine_fragment_mine.*

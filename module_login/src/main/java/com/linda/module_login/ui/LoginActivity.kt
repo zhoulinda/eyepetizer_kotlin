@@ -10,8 +10,7 @@ import com.linda.module_login.R
 import com.linda.module_base.bean.Login
 import com.linda.module_base.bean.Member
 import com.linda.module_base.constants.Constants
-import com.linda.module_base.utils.MyLogger
-import com.linda.module_base.utils.PrefsUtil
+import com.linda.lib_common.utils.PrefsUtil
 import com.linda.module_login.contract.LoginContract
 import com.linda.module_login.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.login_activity_login.*

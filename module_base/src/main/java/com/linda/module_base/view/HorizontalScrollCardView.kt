@@ -9,8 +9,7 @@ import com.bumptech.glide.Glide
 import com.linda.module_base.R
 import com.linda.module_base.bean.Card
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.utils.DisplayUtil
-import com.linda.module_base.utils.MyLogger
+import com.linda.lib_common.utils.DisplayUtil
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import kotlinx.android.synthetic.main.view_scroll_card.view.*

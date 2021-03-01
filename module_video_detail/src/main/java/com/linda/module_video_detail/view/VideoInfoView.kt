@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.linda.lib_common.CommonApplication
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_video_detail.R
@@ -47,7 +48,7 @@ class VideoInfoView : FrameLayout {
         authorName.text = "" + videoDetail.author.name
         description.text = "" + videoDetail.author.description
 
-        Glide.with(BaseApplication.getContext())
+        Glide.with(CommonApplication.getContext())
             .load(videoDetail.author.icon)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)

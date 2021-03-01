@@ -181,9 +181,9 @@ project.ext {
     //设置依赖
     setDependencies = {
         extension ->
-            extension.implementation fileTree(dir: 'libs', include: ['*.jar'])
+//            extension.implementation fileTree(dir: 'libs', include: ['*.jar'])
             //ARouter 路由apt插件，用于生成相应代码，每个module都需要
-            extension.kapt 'com.alibaba:arouter-compiler:1.2.2'
+//            extension.kapt 'com.alibaba:arouter-compiler:1.2.2'
     }
 
 

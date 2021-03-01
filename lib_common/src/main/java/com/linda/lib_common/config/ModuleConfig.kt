@@ -1,4 +1,4 @@
-package com.linda.module_base.config
+package com.linda.lib_common.config
 
 /**
  * 描述 :
@@ -11,10 +11,19 @@ interface ModuleConfig {
 
     companion object {
 
-        const val MODULE_MAIN = "com.linda.module_main.MainApplication"
+        private const val MODULE_BASE =
+            "com.linda.module_base.BaseApplication"
 
-        const val MODULE_NET = "com.linda.lib_net.NetApplication"
+        private const val MODULE_MAIN = "com.linda.module_main.MainApplication"
 
-        val modules = arrayOf(MODULE_MAIN, MODULE_NET)
+        private const val MODULE_LOGIN = "com.linda.module_login.LoginApplication"
+
+        private const val MODULE_VIDEO_DETAIL =
+            "com.linda.module_video_detail.VideoDetailApplication"
+
+        private const val MODULE_NET = "com.linda.lib_net.NetApplication"
+
+        val modules =
+            arrayOf(MODULE_BASE, MODULE_MAIN, MODULE_LOGIN, MODULE_VIDEO_DETAIL, MODULE_NET)
     }
 }

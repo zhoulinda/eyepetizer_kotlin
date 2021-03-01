@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.linda.module_base.R
 import com.linda.module_base.bean.ItemData
-import com.linda.module_base.utils.DisplayUtil
+import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_advertisement.view.*
 
 /**

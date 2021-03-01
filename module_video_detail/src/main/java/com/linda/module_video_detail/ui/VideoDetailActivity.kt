@@ -131,7 +131,7 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
             .setNeedLockFull(true)
             .setUrl(videoDetail.playUrl)
             .setCacheWithPlay(false)
-            .setVideoTitle("测试视频")
+            .setVideoTitle(videoDetail.title)
             .setVideoAllCallBack(object : GSYSampleCallBack() {
                 override fun onPrepared(url: String, vararg objects: Any) {
                     super.onPrepared(url, *objects)

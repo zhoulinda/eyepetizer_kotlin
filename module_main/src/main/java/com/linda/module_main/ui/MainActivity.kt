@@ -2,7 +2,7 @@ package com.linda.module_main.ui
 
 import androidx.viewpager.widget.ViewPager
 import com.linda.module_base.ui.BaseActivity
-import com.linda.module_base.view.navigationbar.NavigationBar
+import com.linda.lib_common.view.navigationbar.NavigationBar
 import com.linda.module_main.R
 import com.linda.module_main.adapter.MainFragmentPagerAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*

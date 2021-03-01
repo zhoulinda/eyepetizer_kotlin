@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.linda.module_base.utils.DisplayUtil;
+import com.linda.lib_common.utils.DisplayUtil;
 
 /**
  * 描述 :

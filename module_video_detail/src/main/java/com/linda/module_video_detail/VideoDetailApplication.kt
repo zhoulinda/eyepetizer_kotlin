@@ -1,6 +1,6 @@
 package com.linda.module_video_detail
 
-import com.linda.module_base.BaseApplication
+import com.linda.lib_common.CommonApplication
 
 /**
  * 描述 :     视频详情Application
@@ -9,7 +9,7 @@ import com.linda.module_base.BaseApplication
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/9/9
  */
-class VideoDetailApplication : BaseApplication() {
+class VideoDetailApplication : CommonApplication() {
 
     override fun init() {
     }

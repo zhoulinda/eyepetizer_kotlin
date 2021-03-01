@@ -3,7 +3,7 @@ package com.linda.module_login.model
 import com.linda.module_base.bean.Login
 import com.linda.module_base.config.AppConfig
 import com.linda.module_base.net.RetrofitManager
-import com.linda.module_base.net.rx.RxScheduler
+import com.linda.lib_net.rx.RxScheduler
 import com.linda.module_login.contract.LoginContract
 import io.reactivex.rxjava3.core.Flowable
 

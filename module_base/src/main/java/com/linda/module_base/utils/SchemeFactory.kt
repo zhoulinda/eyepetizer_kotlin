@@ -2,7 +2,6 @@ package com.linda.module_base.utils
 
 import android.content.Context
 import android.net.Uri
-import androidx.appcompat.widget.ViewUtils
 import com.alibaba.android.arouter.launcher.ARouter
 import com.linda.module_base.bean.EntryItem
 import com.linda.module_base.constants.RouterPaths
@@ -31,7 +30,8 @@ class SchemeFactory {
                 return
             }
 
-            if (entry.startsWith(SCHEME + "http://") || entry.startsWith(SCHEME + "https://")) {
+            if (entry.startsWith(SCHEME + "http://") || entry.startsWith(
+                    SCHEME + "https://")) {
                 ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY).navigation()
                 return
             }

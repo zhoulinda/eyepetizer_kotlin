@@ -2,7 +2,7 @@ package com.linda.module_video_detail.model
 
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.net.RetrofitManager
-import com.linda.module_base.net.rx.RxScheduler
+import com.linda.lib_net.rx.RxScheduler
 import com.linda.module_video_detail.contract.PictureDetailContract
 import io.reactivex.rxjava3.core.Flowable
 

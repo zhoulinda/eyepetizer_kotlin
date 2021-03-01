@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.linda.module_base.R
 import com.linda.module_base.bean.Banner
-import com.linda.module_base.utils.DisplayUtil
+import com.linda.lib_common.utils.DisplayUtil
 
 /**
  * 描述 :     日报列表中信息View

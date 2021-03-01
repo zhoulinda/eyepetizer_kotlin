@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.linda.module_base.R
 import com.linda.module_base.adapter.SquareCardAdapter
 import com.linda.module_base.bean.ItemData
-import com.linda.module_base.utils.DisplayUtil
+import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_special_square.view.*
 
 /**

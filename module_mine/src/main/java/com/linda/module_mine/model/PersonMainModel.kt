@@ -2,7 +2,7 @@ package com.linda.module_mine.model
 
 import com.linda.module_base.bean.mine.PersonMainData
 import com.linda.module_base.net.RetrofitManager
-import com.linda.module_base.net.rx.RxScheduler
+import com.linda.lib_net.rx.RxScheduler
 import com.linda.module_mine.contract.PersonMainContract
 import io.reactivex.rxjava3.core.Flowable
 

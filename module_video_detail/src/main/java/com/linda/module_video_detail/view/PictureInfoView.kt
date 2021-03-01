@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.linda.lib_common.CommonApplication
 import com.linda.module_base.BaseApplication
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_video_detail.R
@@ -38,7 +39,7 @@ class PictureInfoView : FrameLayout {
     }
 
     fun setData(videoDetail: VideoDetail) {
-        Glide.with(BaseApplication.getContext())
+        Glide.with(CommonApplication.getContext())
             .load(videoDetail.owner.avatar)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(portrait)
