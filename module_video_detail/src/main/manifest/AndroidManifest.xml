@@ -13,10 +13,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/detail_app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
+        tools:replace="android:label,android:name">
 
         <activity
             android:name=".ui.VideoDetailActivity"
