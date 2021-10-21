@@ -4,20 +4,21 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.view.View
 import android.widget.ImageView
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.linda.module_base.bean.BaseListData
 import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnViewClickListener
-import com.linda.module_base.ui.BaseActivity
+import com.linda.module_base.ui.BaseActivityV2
 import com.linda.module_video_detail.R
-import com.linda.module_video_detail.contract.VideoDetailContract
-import com.linda.module_video_detail.presenter.VideoDetailPresenter
+import com.linda.module_video_detail.databinding.DetailActivityVideoDetailBinding
+import com.linda.module_video_detail.model.VideoDetailViewModel
+import com.linda.module_video_detail.repository.VideoDetailRepository
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
@@ -33,7 +34,8 @@ import kotlinx.android.synthetic.main.detail_view_video_info.view.*
  * 创建日期: 2020/9/8
  */
 @Route(path = RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
+class VideoDetailActivity :
+    BaseActivityV2<DetailActivityVideoDetailBinding>(R.layout.detail_activity_video_detail) {
 
     @JvmField
     @Autowired(name = Constants.VIDEO_ID)
@@ -46,30 +48,44 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
     private var isPlay = false
     private var isPause = false
 
-    private var videoDetailPresenter: VideoDetailPresenter? = null
-    private var relatedVideoList: BaseListData<RelatedVideo>? = null
+    private val videoDetailViewModel by lazy { VideoDetailViewModel(VideoDetailRepository()) }
     private var orientationUtils: OrientationUtils? = null
 
-    override fun getLayoutResId(): Int {
-        return R.layout.detail_activity_video_detail
-    }
 
     override fun initView() {
         setTransStatusBar()
         ARouter.getInstance().inject(this)
+        videoDetailViewModel.run {
+
+            detailData.observe(this@VideoDetailActivity, Observer { data ->
+                setVideoPlayer(data)
+                Glide.with(this@VideoDetailActivity).load(data.cover.blurred).into(detailBg)
+                videoInfoView.run {
+                    setData(data)
+                    portrait.setOnClickListener {
+                        ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                            .withInt(Constants.USER_ID, data.author.id!!)
+                            .navigation()
+                    }
+                }
+            })
+
+            relatedVideos.observe(this@VideoDetailActivity, Observer { it ->
+                relateVideoView.setData(it.items, it.isShowAll)
+            })
+
+        }
+
         relateVideoView.setOnViewClickListener(object : OnViewClickListener<Any> {
             override fun onViewClick(view: View, data: Any) {
                 when (view.id) {
                     R.id.lookMore ->
-                        relatedVideoList?.let { relatedVideoList ->
-                            relateVideoView.setData(
-                                relatedVideoList,
-                                true
-                            )
-                        }
+                        videoDetailViewModel.showAllVideos()
+
                     R.id.mRootView ->
                         if (data is RelatedVideo)
-                            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                            ARouter.getInstance()
+                                .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
                                 .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 .withInt(Constants.VIDEO_ID, data.id)
@@ -81,23 +97,9 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
     }
 
     override fun initData() {
-        videoDetailPresenter = VideoDetailPresenter(this)
         videoId.let {
-            videoDetailPresenter?.getVideoDetail(it, resourceType)
-            videoDetailPresenter?.getVideoRelated(it)
-        }
-    }
-
-    override fun onGetVideoDetailSuccess(videoDetail: VideoDetail) {
-        setVideoPlayer(videoDetail)
-
-        Glide.with(this).load(videoDetail.cover.blurred).into(detailBg)
-
-        videoInfoView.setData(videoDetail)
-        videoInfoView.portrait.setOnClickListener {
-            ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                .withInt(Constants.USER_ID, videoDetail.author.id!!)
-                .navigation()
+            videoDetailViewModel.getVideoDetail(it, resourceType)
+            videoDetailViewModel.getVideoRelated(it)
         }
     }
 
@@ -159,17 +161,6 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
         videoPlayer.startPlayLogic()
     }
 
-    override fun onGetVideoDetailError() {
-    }
-
-    override fun onGetVideoRelatedSuccess(relatedVideoList: BaseListData<RelatedVideo>) {
-        this.relatedVideoList = relatedVideoList
-        relateVideoView.setData(relatedVideoList, false)
-    }
-
-    override fun onGetVideoRelatedError() {
-    }
-
     override fun onBackPressed() {
         if (orientationUtils != null) {
             orientationUtils!!.backToProtVideo()
@@ -204,7 +195,13 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
         super.onConfigurationChanged(newConfig)
         //如果旋转了就全屏
         if (isPlay && !isPause) {
-            videoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true)
+            videoPlayer.onConfigurationChanged(
+                this,
+                newConfig,
+                orientationUtils,
+                true,
+                true
+            )
         }
     }
 }

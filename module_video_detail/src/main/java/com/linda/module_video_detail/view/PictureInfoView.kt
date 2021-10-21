@@ -39,15 +39,16 @@ class PictureInfoView : FrameLayout {
     }
 
     fun setData(videoDetail: VideoDetail) {
-        Glide.with(CommonApplication.getContext())
-            .load(videoDetail.owner.avatar)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
-        authorName.text = videoDetail.owner.nickname
-        val tags = videoDetail.tags
-        description.text = videoDetail.description
-        label.text = tags[0].name
-        storeCount.text = "" + videoDetail.consumption.collectionCount
-        commentCount.text = "" + videoDetail.consumption.shareCount
+        videoDetail.run {
+            Glide.with(CommonApplication.getContext())
+                .load(owner.avatar)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+            authorName.text = owner.nickname
+            descriptionStr.text = videoDetail.description
+            labelStr.text = if (tags != null) tags!![0].name else ""
+            storeCount.text = "" + consumption.collectionCount
+            commentCount.text = "" + consumption.shareCount
+        }
     }
 }

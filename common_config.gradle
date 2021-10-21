@@ -94,6 +94,10 @@ project.ext {
             androidExtensions {
                 experimental = true
             }
+
+            extension.dataBinding {
+                enabled = true
+            }
     }
 
     //设置lib android配置（只可以作为lib,不可单独调试）
@@ -125,6 +129,10 @@ project.ext {
 
             androidExtensions {
                 experimental = true
+            }
+
+            extension.dataBinding {
+                enabled = true
             }
     }
 
@@ -174,6 +182,10 @@ project.ext {
                         manifest.srcFile 'src/main/AndroidManifest.xml'
                     }
                 }
+            }
+
+            extension.dataBinding {
+                enabled = true
             }
     }
 

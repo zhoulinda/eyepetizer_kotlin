@@ -18,11 +18,25 @@ object RetrofitManager {
             .create(ApiService::class.java)
     }
 
+    val serviceV2: ApiService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        getRetrofitV2()
+            .create(ApiService::class.java)
+    }
+
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConfig.BASE_SERVER_URL)  //自己配置
             .client(getOkHttpClient())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private fun getRetrofitV2(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(AppConfig.BASE_SERVER_URL)  //自己配置
+            .client(getOkHttpClient())
+//            .addCallAdapterFactory(DefaultCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

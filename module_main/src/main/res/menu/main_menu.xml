@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_tab_strip_icon_feed_selector"
+        android:title="首页" />
+
+    <item
+        android:id="@+id/community"
+        android:icon="@drawable/ic_tab_strip_icon_follow_selector"
+        android:title="社区" />
+
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_tab_strip_icon_catogery_selector"
+        android:title="通知" />
+
+    <item
+        android:id="@+id/mine"
+        android:icon="@drawable/ic_tab_strip_icon_profile_selector"
+        android:title="我的" />
+
+</menu>

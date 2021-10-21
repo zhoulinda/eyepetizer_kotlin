@@ -1,8 +1,6 @@
 package com.linda.module_main.ui
 
-import androidx.viewpager.widget.ViewPager
 import com.linda.module_base.ui.BaseActivity
-import com.linda.lib_common.view.navigationbar.NavigationBar
 import com.linda.module_main.R
 import com.linda.module_main.adapter.MainFragmentPagerAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -22,15 +20,23 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         setStatusBarColor()
-        navigationBar.setOnViewClickListener(object : NavigationBar.OnViewClickListener {
-            override fun onSelected(position: Int) {
-                viewPager?.currentItem = position
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    viewPager.currentItem = 0
+                }
+                R.id.community -> {
+                    viewPager.currentItem = 1
+                }
+                R.id.notification -> {
+                    viewPager.currentItem = 2
+                }
+                R.id.mine -> {
+                    viewPager.currentItem = 3
+                }
             }
-
-            override fun onReSelected(position: Int) {
-
-            }
-        })
+            true
+        }
 
         viewPager.offscreenPageLimit = 3
         val pagerAdapter = MainFragmentPagerAdapter(
@@ -38,21 +44,6 @@ class MainActivity : BaseActivity() {
             0
         )
         viewPager?.adapter = pagerAdapter
-        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                navigationBar?.setCurrentIndex(position)
-            }
-        })
     }
 
     override fun initData() {

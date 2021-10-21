@@ -48,7 +48,7 @@ data class VideoDetail(
     val slogan: Any,
     val src: Any,
     val subtitles: List<Any>,
-    val tags: List<Tag>,
+    val tags: List<Tag>?,
     val thumbPlayUrl: Any,
     val title: String,
     val titlePgc: String,

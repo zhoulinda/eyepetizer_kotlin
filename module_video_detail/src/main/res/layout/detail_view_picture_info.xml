@@ -26,7 +26,7 @@
         tools:text="linda" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionStr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -39,14 +39,14 @@
         tools:text="描述描述" />
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/labelStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/cl_ffffff"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/portrait"
-        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintTop_toBottomOf="@id/descriptionStr"
         tools:text="你好,欢迎参观我的家" />
 
     <View
@@ -57,7 +57,7 @@
         android:background="@color/cl_999999"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/label" />
+        app:layout_constraintTop_toBottomOf="@id/labelStr" />
 
     <TextView
         android:id="@+id/storeCount"

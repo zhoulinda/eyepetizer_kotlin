@@ -57,8 +57,14 @@ class RelatedVideoView : FrameLayout {
         }
     }
 
-    fun setData(relatedVideoList: BaseListData<RelatedVideo>, isShowAll: Boolean) {
-        var videoList = relatedVideoList.itemList as MutableList<VideoItem<RelatedVideo>>
+//    fun setData(relatedVideos: MutableList<VideoItem<RelatedVideo>>) {
+//
+//        lookMore.visibility = if (relatedVideos.size > 5) View.GONE else View.VISIBLE
+//        adapter?.setData(relatedVideos)
+//    }
+
+    fun setData(relatedVideoList: MutableList<VideoItem<RelatedVideo>>, isShowAll: Boolean) {
+        var videoList = relatedVideoList as MutableList<VideoItem<RelatedVideo>>
         if (!isShowAll && videoList.size > 5) {
             videoList =
                 videoList.subList(0, 6)

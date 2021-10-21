@@ -19,4 +19,6 @@ dependencies {
 
     //VideoPlayer
     api 'com.shuyu:GSYVideoPlayer:8.1.0'
+
+    api "androidx.navigation:navigation-fragment-ktx:2.0.0"
 }

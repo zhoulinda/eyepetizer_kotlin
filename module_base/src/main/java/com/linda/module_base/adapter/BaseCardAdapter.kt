@@ -2,6 +2,7 @@ package com.linda.module_base.adapter
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.linda.module_base.bean.Card
 import com.linda.module_base.bean.ItemData
