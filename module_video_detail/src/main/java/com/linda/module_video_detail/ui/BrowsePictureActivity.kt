@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.detail_view_picture_info.*
  * 创建日期: 2020/9/17
  */
 @Route(path = RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
-class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
+class BrowsePictureActivity : BaseActivity(R.layout.detail_activity_browse_picture),
+    PictureDetailContract.View {
 
     @JvmField
     @Autowired(name = Constants.PICTURE_ID)
@@ -33,13 +34,8 @@ class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
     @Autowired(name = Constants.RESOURCE_TYPE)
     var resourceType = ""
 
-    private var pictureDetailPresenter: PictureDetailPresenter? = null
-    private var detailAdapter: PictureDetailPagerAdapter? = null
+    private val pictureDetailPresenter by lazy { PictureDetailPresenter(this) }
     private var videoDetail: VideoDetail? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.detail_activity_browse_picture
-    }
 
     override fun initView() {
         setImmerseLayout(browsePicture)
@@ -53,32 +49,32 @@ class BrowsePictureActivity : BaseActivity(), PictureDetailContract.View {
     }
 
     override fun initData() {
-        pictureDetailPresenter = PictureDetailPresenter(this)
-        pictureDetailPresenter?.getPictureDetail(pictureId, resourceType)
+        pictureDetailPresenter.getPictureDetail(pictureId, resourceType)
     }
 
     override fun onGetPictureDetailSuccess(videoDetail: VideoDetail) {
         this.videoDetail = videoDetail
         pictureInfoView.setData(videoDetail)
         index.text = "1/" + videoDetail.urls.size
-        detailAdapter = PictureDetailPagerAdapter(this, videoDetail.urls)
-        viewPager.adapter = detailAdapter
-        viewPager.currentItem = 0
-        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+        viewPager.run {
+            adapter = PictureDetailPagerAdapter(this@BrowsePictureActivity, videoDetail.urls)
+            currentItem = 0
+            addOnPageChangeListener(object : OnPageChangeListener {
 
-            override fun onPageScrollStateChanged(state: Int) {}
+                override fun onPageScrollStateChanged(state: Int) {}
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
 
-            override fun onPageSelected(position: Int) {
-                index.text = (position + 1).toString() + "/" + videoDetail.urls.size
-            }
-        })
+                override fun onPageSelected(position: Int) {
+                    index.text = (position + 1).toString() + "/" + videoDetail.urls.size
+                }
+            })
+        }
     }
 
     override fun onGetPictureDetailError() {

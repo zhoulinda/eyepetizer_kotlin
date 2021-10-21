@@ -20,13 +20,9 @@ import kotlinx.android.synthetic.main.login_activity_register.*
  * 创建日期: 2021/2/23
  */
 @Route(path = RouterPaths.REGISTER_ACTIVITY)
-class RegisterActivity : BaseActivity(), RegisterContract.View {
+class RegisterActivity : BaseActivity(R.layout.login_activity_register), RegisterContract.View {
 
-    private var presenter: RegisterPresenter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.login_activity_register
-    }
+    private val presenter by lazy { RegisterPresenter(this) }
 
     override fun initView() {
         setStatusBarColor()
@@ -40,7 +36,6 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     }
 
     override fun initData() {
-        presenter = RegisterPresenter(this)
     }
 
     private fun getVerificationCode() {
@@ -50,7 +45,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
                 Toast.makeText(this, "手机号不能为空", Toast.LENGTH_SHORT).show()
             }
             else -> {
-                presenter?.getVerificationCode(phone)
+                presenter.getVerificationCode(phone)
             }
         }
     }
@@ -70,7 +65,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
                 Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show()
             }
             else -> {
-                presenter?.register(phone, verificationCode, password)
+                presenter.register(phone, verificationCode, password)
             }
         }
     }

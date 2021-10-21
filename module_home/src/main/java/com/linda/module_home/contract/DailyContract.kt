@@ -25,6 +25,8 @@ interface DailyContract {
         fun onGetDailyMoreDataSuccess(itemDataList: BaseListData<ItemData>)
 
         fun onGetDailyMoreDataError()
+
+        fun finishRefresh()
     }
 
     interface Presenter : IPresenter {

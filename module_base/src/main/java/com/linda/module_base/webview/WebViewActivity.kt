@@ -17,15 +17,11 @@ import kotlinx.android.synthetic.main.activity_webview.*
  * 创建日期: 2020/9/9
  */
 @Route(path = RouterPaths.WEBVIEW_ACTIVITY)
-class WebViewActivity : BaseActivity() {
+class WebViewActivity : BaseActivity(R.layout.activity_webview) {
 
     @JvmField
     @Autowired(name = "url")
     var url: String? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_webview
-    }
 
     override fun initView() {
         ARouter.getInstance().inject(this)

@@ -39,20 +39,20 @@ class VideoInfoView : FrameLayout {
     }
 
     fun setData(videoDetail: VideoDetail) {
+        videoDetail.run {
 
-        videoTitle.text = videoDetail.title
-        category.text = "#" + videoDetail.category
-        videoBrief.text = videoDetail.description
-        praise.text = "" + videoDetail.consumption.collectionCount
-        share.text = "" + videoDetail.consumption.shareCount
-        authorName.text = "" + videoDetail.author.name
-        description.text = "" + videoDetail.author.description
+            videoTitle.text = title
+            categoryStr.text = "#$category"
+            videoBrief.text = description
+            praise.text = "" + consumption.collectionCount
+            share.text = "" + consumption.shareCount
+            authorName.text = "" + author.name
+            descriptionStr.text = "" + author.description
 
-        Glide.with(CommonApplication.getContext())
-            .load(videoDetail.author.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
-
-
+            Glide.with(CommonApplication.getContext())
+                .load(author.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+        }
     }
 }

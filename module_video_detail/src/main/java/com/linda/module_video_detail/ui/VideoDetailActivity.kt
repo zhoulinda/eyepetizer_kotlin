@@ -33,7 +33,8 @@ import kotlinx.android.synthetic.main.detail_view_video_info.view.*
  * 创建日期: 2020/9/8
  */
 @Route(path = RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
+class VideoDetailActivity : BaseActivity(R.layout.detail_activity_video_detail),
+    VideoDetailContract.View {
 
     @JvmField
     @Autowired(name = Constants.VIDEO_ID)
@@ -46,13 +47,9 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
     private var isPlay = false
     private var isPause = false
 
-    private var videoDetailPresenter: VideoDetailPresenter? = null
+    private val videoDetailPresenter by lazy { VideoDetailPresenter(this) }
     private var relatedVideoList: BaseListData<RelatedVideo>? = null
     private var orientationUtils: OrientationUtils? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.detail_activity_video_detail
-    }
 
     override fun initView() {
         setTransStatusBar()
@@ -81,10 +78,9 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
     }
 
     override fun initData() {
-        videoDetailPresenter = VideoDetailPresenter(this)
-        videoId.let {
-            videoDetailPresenter?.getVideoDetail(it, resourceType)
-            videoDetailPresenter?.getVideoRelated(it)
+        videoDetailPresenter.run {
+            getVideoDetail(videoId, resourceType)
+            getVideoRelated(videoId)
         }
     }
 
@@ -93,11 +89,13 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
 
         Glide.with(this).load(videoDetail.cover.blurred).into(detailBg)
 
-        videoInfoView.setData(videoDetail)
-        videoInfoView.portrait.setOnClickListener {
-            ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                .withInt(Constants.USER_ID, videoDetail.author.id!!)
-                .navigation()
+        videoInfoView.run {
+            setData(videoDetail)
+            portrait.setOnClickListener {
+                ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                    .withInt(Constants.USER_ID, videoDetail.author.id!!)
+                    .navigation()
+            }
         }
     }
 
@@ -107,16 +105,17 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
         Glide.with(this)
             .load(videoDetail.cover.detail)
             .into(imageView)
-        videoPlayer.thumbImageView = imageView
 
-        videoPlayer.titleTextView.visibility = View.GONE
-        videoPlayer.backButton.visibility = View.GONE
-        videoPlayer.fullscreenButton
-            .setOnClickListener { //直接横屏
+        videoPlayer.run {
+            thumbImageView = imageView
+            titleTextView.visibility = View.GONE
+            backButton.visibility = View.GONE
+            fullscreenButton.setOnClickListener { //直接横屏
                 orientationUtils!!.resolveByClick()
                 //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-                videoPlayer.startWindowFullscreen(this, true, true)
+                videoPlayer.startWindowFullscreen(this@VideoDetailActivity, true, true)
             }
+        }
 
         orientationUtils = OrientationUtils(this, videoPlayer)
         orientationUtils!!.isEnable = false

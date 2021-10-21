@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.login_activity_login.*
  * 创建日期: 2021/2/23
  */
 @Route(path = RouterPaths.LOGIN_ACTIVITY)
-class LoginActivity : BaseActivity(), LoginContract.View {
+class LoginActivity : BaseActivity(R.layout.login_activity_login), LoginContract.View {
 
     private var userData: Member by PrefsUtil(
         Constants.USER_DATA, Member(
@@ -31,9 +31,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         )
     )
 
-    override fun getLayoutResId(): Int {
-        return R.layout.login_activity_login
-    }
+    private val presenter by lazy { LoginPresenter(this) }
 
     override fun initView() {
         setStatusBarColor()
@@ -51,7 +49,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     private fun login() {
-        val presenter = LoginPresenter(this)
         val phone = phone.text.toString()
         val password = password.text.toString()
         when {

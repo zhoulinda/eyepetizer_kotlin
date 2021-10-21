@@ -17,6 +17,8 @@ import com.linda.module_home.presenter.DiscoverPresenter
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.home_fragment_daily.*
+import kotlinx.android.synthetic.main.home_fragment_daily.smartRefreshLayout
+import kotlinx.android.synthetic.main.home_fragment_discover.*
 import kotlinx.android.synthetic.main.home_fragment_discover.recyclerView
 
 /**
@@ -28,49 +30,52 @@ import kotlinx.android.synthetic.main.home_fragment_discover.recyclerView
  */
 
 @Route(path = RouterPaths.DISCOVER_FRAGMENT)
-class DiscoverFragment : BaseFragment(), DiscoverContract.View, OnRefreshListener {
+class DiscoverFragment : BaseFragment(R.layout.home_fragment_discover), DiscoverContract.View,
+    OnRefreshListener {
 
-    private var adapter: BaseCardAdapter? = null
-    private var discoverPresenter: DiscoverPresenter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.home_fragment_discover
-    }
+    private val discoverAdapter by lazy { BaseCardAdapter() }
+    private val discoverPresenter by lazy { DiscoverPresenter(this) }
 
     override fun initView() {
-        smartRefreshLayout.setEnableLoadMore(false)
-        smartRefreshLayout.setOnRefreshListener(this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = BaseCardAdapter()
-        recyclerView.adapter = adapter
-        adapter?.setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
-            override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                    .withInt(Constants.VIDEO_ID, data.id!!)
-                    .withString(Constants.RESOURCE_TYPE, data.resourceType)
-                    .navigation()
+        smartRefreshLayout.run {
+            setEnableLoadMore(false)
+            setOnRefreshListener(this@DiscoverFragment)
+        }
+
+        recyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = discoverAdapter.apply {
+                setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
+                    override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
+                        ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                            .withInt(Constants.VIDEO_ID, data.id!!)
+                            .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                            .navigation()
+                    }
+                })
             }
-        })
+        }
     }
 
     override fun initData() {
-        discoverPresenter = DiscoverPresenter(this)
-        discoverPresenter?.getDiscoverData()
+        discoverPresenter.getDiscoverData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        discoverPresenter?.getDiscoverData()
+        discoverPresenter.getDiscoverData()
     }
 
     override fun onGetDiscoverDataSuccess(baseListData: BaseListData<ItemData>) {
-        adapter?.setData(baseListData.itemList)
+        discoverAdapter.setData(baseListData.itemList)
     }
 
     override fun onGetDiscoverDataError() {
     }
 
     override fun finishRefresh() {
-        smartRefreshLayout.finishRefresh()
-        smartRefreshLayout.finishLoadMore()
+        smartRefreshLayout.run {
+            finishRefresh()
+            finishLoadMore()
+        }
     }
 }

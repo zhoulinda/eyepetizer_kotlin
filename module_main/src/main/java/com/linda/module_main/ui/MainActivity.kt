@@ -14,11 +14,7 @@ import kotlinx.android.synthetic.main.main_activity_main.*
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/7/24
  */
-class MainActivity : BaseActivity() {
-
-    override fun getLayoutResId(): Int {
-        return R.layout.main_activity_main
-    }
+class MainActivity : BaseActivity(R.layout.main_activity_main) {
 
     override fun initView() {
         setStatusBarColor()
@@ -32,27 +28,28 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        viewPager.offscreenPageLimit = 3
-        val pagerAdapter = MainFragmentPagerAdapter(
-            supportFragmentManager,
-            0
-        )
-        viewPager?.adapter = pagerAdapter
-        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
+        viewPager.run {
+            offscreenPageLimit = 3
+            adapter = MainFragmentPagerAdapter(
+                supportFragmentManager,
+                0
+            )
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {
+                }
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
 
-            override fun onPageSelected(position: Int) {
-                navigationBar?.setCurrentIndex(position)
-            }
-        })
+                override fun onPageSelected(position: Int) {
+                    navigationBar?.setCurrentIndex(position)
+                }
+            })
+        }
     }
 
     override fun initData() {

@@ -12,11 +12,7 @@ import com.linda.module_base.ui.BaseFragment
  * 创建日期: 2021/2/2
  */
 @Route(path = RouterPaths.NOTIFICATION_FRAGMENT)
-class NotificationFragment : BaseFragment() {
-
-    override fun getLayoutResId(): Int {
-        return R.layout.notification_fragment_notificaiton
-    }
+class NotificationFragment : BaseFragment(R.layout.notification_fragment_notificaiton) {
 
     override fun initView() {
     }

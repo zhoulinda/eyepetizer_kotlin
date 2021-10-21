@@ -27,72 +27,73 @@ import kotlinx.android.synthetic.main.community_fragment_recommend.*
  * 创建日期: 2020/9/12
  */
 @Route(path = RouterPaths.RECOMMEND_FRAGMENT)
-class RecommendFragment : BaseFragment(), RecommendContract.View, OnRefreshLoadMoreListener {
+class RecommendFragment : BaseFragment(R.layout.community_fragment_recommend),
+    RecommendContract.View, OnRefreshLoadMoreListener {
 
-    private var recommendPresenter: RecommendPresenter? = null
-    private var recommendAdapter: BaseCardAdapter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.community_fragment_recommend
-    }
+    private val recommendPresenter by lazy { RecommendPresenter(this) }
+    private val recommendAdapter by lazy { BaseCardAdapter() }
 
     override fun initView() {
-        smartRefreshLayout.setEnableLoadMore(true)
-        smartRefreshLayout.setEnableOverScrollBounce(false)
-        smartRefreshLayout.setOnRefreshLoadMoreListener(this)
+        smartRefreshLayout.run {
+            setEnableLoadMore(true)
+            setEnableOverScrollBounce(false)
+            setOnRefreshLoadMoreListener(this@RecommendFragment)
+        }
 
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
-        recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(StaggeredGridItemDecoration(10, 10, 2))
-
-        recommendAdapter = BaseCardAdapter()
-        recommendAdapter?.setHasStableIds(true)
-        recyclerView.adapter = recommendAdapter
-
-        recommendAdapter?.setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
-            override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                val id = data.header?.id
-                val resourceType = data.content?.data?.resourceType
-                data.header?.id?.let {
-                    if (data.content?.data?.resourceType == Constants.VIDEO) {
-                        ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                            .withInt(Constants.VIDEO_ID, id!!)
-                            .withString(Constants.RESOURCE_TYPE, resourceType)
-                            .navigation()
-                        return
-                    }
-                    if (data.content?.data?.resourceType == Constants.UGC_PICTURE) {
-                        ARouter.getInstance().build(RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
-                            .withInt(Constants.PICTURE_ID, it)
-                            .withString(Constants.RESOURCE_TYPE, resourceType)
-                            .navigation()
-                        return
-                    }
+        recyclerView.run {
+            layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL).apply {
+                    StaggeredGridLayoutManager.GAP_HANDLING_NONE
                 }
+            addItemDecoration(StaggeredGridItemDecoration(10, 10, 2))
+            adapter = recommendAdapter.apply {
+                setHasStableIds(true)
+                setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
+                    override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
+                        val id = data.header?.id
+                        val resourceType = data.content?.data?.resourceType
+                        data.header?.id?.let {
+                            if (data.content?.data?.resourceType == Constants.VIDEO) {
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(Constants.VIDEO_ID, id!!)
+                                    .withString(Constants.RESOURCE_TYPE, resourceType)
+                                    .navigation()
+                                return
+                            }
+                            if (data.content?.data?.resourceType == Constants.UGC_PICTURE) {
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
+                                    .withInt(Constants.PICTURE_ID, it)
+                                    .withString(Constants.RESOURCE_TYPE, resourceType)
+                                    .navigation()
+                                return
+                            }
+                        }
+                    }
+                })
             }
-        })
+        }
     }
 
     override fun initData() {
-        recommendPresenter = RecommendPresenter(this)
-        recommendPresenter?.getRecommendData()
+        recommendPresenter.getRecommendData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        recommendPresenter?.getRecommendData()
+        recommendPresenter.getRecommendData()
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        recommendPresenter?.getMoreRecommendData()
+        recommendPresenter.getMoreRecommendData()
     }
 
     override fun onGetRecommendDataSuccess(baseListData: BaseListData<ItemData>) {
-        recommendAdapter?.setData(baseListData.itemList)
+        recommendAdapter.setData(baseListData.itemList)
     }
 
     override fun onGetMoreRecommendDataSuccess(baseListData: BaseListData<ItemData>) {
-        recommendAdapter?.insertData(baseListData.itemList)
+        recommendAdapter.insertData(baseListData.itemList)
     }
 
     override fun onGetRecommendDataError() {
@@ -104,7 +105,9 @@ class RecommendFragment : BaseFragment(), RecommendContract.View, OnRefreshLoadM
     }
 
     fun finishRefresh() {
-        smartRefreshLayout.finishRefresh()
-        smartRefreshLayout.finishLoadMore()
+        smartRefreshLayout.run {
+            finishRefresh()
+            finishLoadMore()
+        }
     }
 }

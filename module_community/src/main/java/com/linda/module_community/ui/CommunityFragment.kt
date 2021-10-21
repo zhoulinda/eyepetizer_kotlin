@@ -16,13 +16,9 @@ import kotlinx.android.synthetic.main.community_fragment_community.*
  * 创建日期: 2020/9/12
  */
 @Route(path = RouterPaths.COMMUNITY_FRAGMENT)
-class CommunityFragment : BaseFragment() {
+class CommunityFragment : BaseFragment(R.layout.community_fragment_community) {
 
     private val tabNames: Array<String> = arrayOf("推荐", "关注")
-
-    override fun getLayoutResId(): Int {
-        return R.layout.community_fragment_community
-    }
 
     override fun initView() {
 
@@ -31,18 +27,21 @@ class CommunityFragment : BaseFragment() {
             0,
             tabNames
         )
-        tabLayout?.setupWithViewPager(viewPager)
-        tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+        tabLayout.run {
+            setupWithViewPager(viewPager)
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewPager?.currentItem = tab?.position!!
-            }
-        })
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    viewPager?.currentItem = tab?.position!!
+                }
+            })
+        }
     }
 
     override fun initData() {

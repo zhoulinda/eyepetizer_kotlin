@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import com.trello.rxlifecycle4.components.support.RxFragment
 
 /**
@@ -15,7 +16,7 @@ import com.trello.rxlifecycle4.components.support.RxFragment
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/7/23
  */
-abstract class BaseFragment : RxFragment() {
+abstract class BaseFragment(@LayoutRes val layoutResId: Int) : RxFragment() {
 
     private var rootView: View? = null
 
@@ -34,7 +35,7 @@ abstract class BaseFragment : RxFragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (rootView == null) {
-            rootView = inflater.inflate(getLayoutResId(), null)
+            rootView = inflater.inflate(layoutResId, null)
         }
         return rootView
     }
@@ -44,8 +45,6 @@ abstract class BaseFragment : RxFragment() {
         initView()
         initData()
     }
-
-    abstract fun getLayoutResId(): Int
 
     abstract fun initView()
 

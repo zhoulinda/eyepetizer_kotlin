@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.detail_view_related_video.view.*
  */
 class RelatedVideoView : FrameLayout {
 
-    private var adapter: RelatedVideoAdapter? = null
+    private val adapter by lazy { RelatedVideoAdapter() }
 
     private var onViewClickListener: OnViewClickListener<Any>? = null
 
@@ -42,15 +42,17 @@ class RelatedVideoView : FrameLayout {
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.detail_view_related_video, this, true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled = false
-        adapter = RelatedVideoAdapter()
-        recyclerView.adapter = adapter
-        adapter?.setOnMultiViewClickListener(object : OnMultiViewClickListener<RelatedVideo> {
-            override fun onViewClick(position: Int, view: View, data: RelatedVideo, type: Int) {
-                onViewClickListener?.onViewClick(view, data)
-            }
-        })
+        recyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+        }
+        recyclerView.adapter = adapter.apply {
+            setOnMultiViewClickListener(object : OnMultiViewClickListener<RelatedVideo> {
+                override fun onViewClick(position: Int, view: View, data: RelatedVideo, type: Int) {
+                    onViewClickListener?.onViewClick(view, data)
+                }
+            })
+        }
 
         lookMore.setOnClickListener {
             onViewClickListener?.onViewClick(it, Any())
@@ -66,7 +68,7 @@ class RelatedVideoView : FrameLayout {
         } else {
             lookMore.visibility = View.GONE
         }
-        adapter?.setData(videoList)
+        adapter.setData(videoList)
     }
 
     fun setOnViewClickListener(onViewClickListener: OnViewClickListener<Any>) {

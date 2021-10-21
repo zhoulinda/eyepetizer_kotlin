@@ -69,13 +69,13 @@ interface ApiService {
      * 社区关注
      */
     @GET("api/v6/community/tab/follow")
-    fun getAttentionData(): Flowable<BaseListData<ItemData>>
+    fun getCommunityAttentionData(): Flowable<BaseListData<ItemData>>
 
     /**
      * 社区关注更多
      */
     @GET
-    fun getMoreAttentionData(@Url url: String): Flowable<BaseListData<ItemData>>
+    fun getMoreCommunityAttentionData(@Url url: String): Flowable<BaseListData<ItemData>>
 
     /**
      * 个人主页

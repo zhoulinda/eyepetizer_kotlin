@@ -1,6 +1,7 @@
 package com.linda.module_home.presenter
 
 import com.linda.module_home.contract.DailyContract
+import com.linda.module_home.contract.DiscoverContract
 import com.linda.module_home.model.DailyModel
 import com.linda.module_home.ui.DailyFragment
 
@@ -11,7 +12,7 @@ import com.linda.module_home.ui.DailyFragment
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/9/6
  */
-class DailyPresenter(private val view: DailyFragment) : DailyContract.Presenter {
+class DailyPresenter(private val view: DailyContract.View) : DailyContract.Presenter {
 
     private var nextPageUrl: String? = null
 

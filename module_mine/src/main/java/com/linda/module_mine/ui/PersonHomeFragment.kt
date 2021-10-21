@@ -26,50 +26,52 @@ import kotlinx.android.synthetic.main.mine_fragment_person_main_sub.*
  * 创建日期: 2021/2/5
  */
 @Route(path = RouterPaths.PERSON_HOME_FRAGMENT)
-class PersonHomeFragment : BaseFragment(), PersonHomeContract.View {
+class PersonHomeFragment : BaseFragment(R.layout.mine_fragment_person_main_sub),
+    PersonHomeContract.View {
 
     @JvmField
     @Autowired(name = Constants.TAB_DATA)
     var tabData: TabData? = null
 
-    private var adapter: BaseCardAdapter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.mine_fragment_person_main_sub
-    }
+    private val presenter by lazy { PersonHomePresenter(this) }
+    private val personHomeAdapter by lazy { BaseCardAdapter() }
 
     override fun initView() {
         ARouter.getInstance().inject(this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = BaseCardAdapter()
-        recyclerView.adapter = adapter
-        adapter?.setOnMultiViewClickListener(object :
-            OnMultiViewClickListener<ItemData> {
-            override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
-                    ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                        .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
-                        .withString(Constants.RESOURCE_TYPE, data.content?.data?.resourceType)
-                        .navigation()
-                } else if (type == BaseCardAdapter.ITEM_TYPE_VIDEO_SMALL_CARD) {
-                    ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                        .withInt(Constants.VIDEO_ID, data.id!!)
-                        .withString(Constants.RESOURCE_TYPE, data.resourceType)
-                        .navigation()
-                }
+        recyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = personHomeAdapter.apply {
+                setOnMultiViewClickListener(object :
+                    OnMultiViewClickListener<ItemData> {
+                    override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
+                        if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
+                            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
+                                .withString(
+                                    Constants.RESOURCE_TYPE,
+                                    data.content?.data?.resourceType
+                                )
+                                .navigation()
+                        } else if (type == BaseCardAdapter.ITEM_TYPE_VIDEO_SMALL_CARD) {
+                            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                .withInt(Constants.VIDEO_ID, data.id!!)
+                                .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                                .navigation()
+                        }
+                    }
+                })
             }
-        })
+        }
     }
 
     override fun initData() {
-        val presenter = PersonHomePresenter(this)
         tabData?.let {
             presenter.getPersonHomeData(it.apiUrl)
         }
     }
 
     override fun onGetPersonHomeDataSuccess(data: BaseListData<ItemData>) {
-        adapter?.setData(data.itemList)
+        personHomeAdapter.setData(data.itemList)
     }
 
     override fun onGetPersonHomeDataError() {

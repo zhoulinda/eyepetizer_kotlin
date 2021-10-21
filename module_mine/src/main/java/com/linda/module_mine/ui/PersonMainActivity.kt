@@ -31,7 +31,8 @@ import kotlin.math.abs
  * 创建日期: 2021/2/5
  */
 @Route(path = RouterPaths.PERSON_MAIN_ACTIVITY)
-class PersonMainActivity : BaseActivity(), PersonMainContract.View {
+class PersonMainActivity : BaseActivity(R.layout.mine_activity_person_main),
+    PersonMainContract.View {
 
     @JvmField
     @Autowired(name = Constants.USER_ID)
@@ -39,9 +40,7 @@ class PersonMainActivity : BaseActivity(), PersonMainContract.View {
 
     private var maxScrollHeight: Float = 0f
 
-    override fun getLayoutResId(): Int {
-        return R.layout.mine_activity_person_main
-    }
+    private val presenter by lazy { PersonMainPresenter(this) }
 
     override fun initView() {
         setImmerseLayout(toolbar)
@@ -49,7 +48,6 @@ class PersonMainActivity : BaseActivity(), PersonMainContract.View {
     }
 
     override fun initData() {
-        val presenter = PersonMainPresenter(this)
         presenter.getPersonMainData(userId)
     }
 
@@ -87,25 +85,28 @@ class PersonMainActivity : BaseActivity(), PersonMainContract.View {
         attentionCount.text = data.pgcInfo.followCount.toString()
         fansCount.text = data.pgcInfo.myFollowCount.toString()
 
-        viewPager.adapter = PersonMainPagerAdapter(
-            supportFragmentManager,
-            0, data.tabInfo.tabList
-        )
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
+        viewPager.run {
+            adapter = PersonMainPagerAdapter(
+                supportFragmentManager,
+                0, data.tabInfo.tabList
+            )
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {
+                }
 
-            override fun onPageSelected(position: Int) {
-                tabLayout.getTabAt(position)?.select()
-            }
-        })
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    tabLayout.getTabAt(position)?.select()
+                }
+            })
+        }
 
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (maxScrollHeight != 0f) {

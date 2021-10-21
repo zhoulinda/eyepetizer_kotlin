@@ -97,20 +97,22 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         relatedVideo: RelatedVideo,
         type: Int
     ) {
-        val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-        val options = RequestOptions.bitmapTransform(roundedCorners)
-        Glide.with(CommonApplication.getContext())
-            .load(relatedVideo.cover.feed)
-            .apply(options)
-            .into(itemView.videoCover)
+        itemView.run {
+            val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
+            val options = RequestOptions.bitmapTransform(roundedCorners)
+            Glide.with(CommonApplication.getContext())
+                .load(relatedVideo.cover.feed)
+                .apply(options)
+                .into(videoCover)
 
-        itemView.setOnClickListener {
-            onMultiViewClickListener?.onViewClick(position, itemView, relatedVideo, type)
+            setOnClickListener {
+                onMultiViewClickListener?.onViewClick(position, itemView, relatedVideo, type)
+            }
+
+            videoTitle.text = relatedVideo.title
+            category.text =
+                "#" + relatedVideo.category + "/" + relatedVideo.author?.name
         }
-
-        itemView.videoTitle.text = relatedVideo.title
-        itemView.category.text =
-            "#" + relatedVideo.category + "/" + relatedVideo.author?.name
     }
 
     private fun bindEmptyView() {

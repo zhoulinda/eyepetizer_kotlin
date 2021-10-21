@@ -17,12 +17,12 @@ import io.reactivex.rxjava3.core.Flowable
 class AttentionModel : AttentionContract.Model {
 
     override fun getAttentionData(): Flowable<BaseListData<ItemData>> {
-        return RetrofitManager.service.getAttentionData()
+        return RetrofitManager.service.getCommunityAttentionData()
             .compose(RxScheduler.io_main())
     }
 
     override fun getMoreAttentionData(url: String): Flowable<BaseListData<ItemData>> {
-        return RetrofitManager.service.getMoreAttentionData(url)
+        return RetrofitManager.service.getMoreCommunityAttentionData(url)
             .compose(RxScheduler.io_main())
     }
 }

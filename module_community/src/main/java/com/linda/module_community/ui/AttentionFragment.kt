@@ -27,69 +27,76 @@ import kotlinx.android.synthetic.main.community_fragment_attention.*
  * 创建日期: 2020/9/12
  */
 @Route(path = RouterPaths.ATTENTION_FRAGMENT)
-class AttentionFragment : BaseFragment(), AttentionContract.View, OnRefreshLoadMoreListener {
+class AttentionFragment : BaseFragment(R.layout.community_fragment_attention),
+    AttentionContract.View, OnRefreshLoadMoreListener {
 
-    private var presenter: AttentionPresenter? = null
-    private var adapter: BaseCardAdapter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.community_fragment_attention
-    }
+    private val attentionPresenter by lazy { AttentionPresenter(this) }
+    private val attentionAdapter by lazy { BaseCardAdapter() }
 
     override fun initView() {
-        smartRefreshLayout.setEnableLoadMore(true)
-        smartRefreshLayout.setOnRefreshLoadMoreListener(this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = BaseCardAdapter()
-        recyclerView.adapter = adapter
-        adapter?.setOnMultiViewClickListener(object :
-            OnMultiViewClickListener<ItemData> {
-            override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
-                    if (view.id == R.id.portrait) {
-                        ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                            .withInt(Constants.USER_ID, data.content?.data?.author?.id!!)
-                            .navigation()
-                    } else {
-                        ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                            .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
-                            .withString(Constants.RESOURCE_TYPE, data.content?.data?.resourceType)
-                            .navigation()
+        smartRefreshLayout.run {
+            setEnableLoadMore(true)
+            setOnRefreshLoadMoreListener(this@AttentionFragment)
+        }
+
+        recyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = attentionAdapter.apply {
+                setOnMultiViewClickListener(object :
+                    OnMultiViewClickListener<ItemData> {
+                    override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
+                        if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
+                            if (view.id == R.id.portrait) {
+                                ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                                    .withInt(Constants.USER_ID, data.content?.data?.author?.id!!)
+                                    .navigation()
+                            } else {
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
+                                    .withString(
+                                        Constants.RESOURCE_TYPE,
+                                        data.content?.data?.resourceType
+                                    )
+                                    .navigation()
+                            }
+                        }
                     }
-                }
+                })
             }
-        })
+        }
     }
 
     override fun initData() {
-        presenter = AttentionPresenter(this)
-        presenter?.getAttentionData()
+        attentionPresenter.getAttentionData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        presenter?.getAttentionData()
+        attentionPresenter.getAttentionData()
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        presenter?.getMoreAttentionData()
+        attentionPresenter.getMoreAttentionData()
     }
 
     override fun onGetAttentionDataSuccess(recommends: BaseListData<ItemData>) {
-        adapter?.setData(recommends.itemList)
+        attentionAdapter.setData(recommends.itemList)
     }
 
     override fun onGetAttentionDataError() {
     }
 
     override fun onGetMoreAttentionDataSuccess(recommends: BaseListData<ItemData>) {
-        adapter?.addData(recommends.itemList)
+        attentionAdapter.addData(recommends.itemList)
     }
 
     override fun onGetMoreAttentionDataError() {
     }
 
     override fun finishRefresh() {
-        smartRefreshLayout.finishRefresh()
-        smartRefreshLayout.finishLoadMore()
+        smartRefreshLayout.run {
+            finishRefresh()
+            finishLoadMore()
+        }
     }
 }
