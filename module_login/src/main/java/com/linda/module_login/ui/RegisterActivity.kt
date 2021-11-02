@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.ui.BaseActivityV2
+import com.linda.module_base.ui.BaseActivity
 import com.linda.module_login.R
 import com.linda.module_login.databinding.LoginActivityRegisterBinding
 import com.linda.module_login.model.RegisterViewModel
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.login_activity_register.*
  */
 @Route(path = RouterPaths.REGISTER_ACTIVITY)
 class RegisterActivity :
-    BaseActivityV2<LoginActivityRegisterBinding>(R.layout.login_activity_register) {
+    BaseActivity<LoginActivityRegisterBinding>(R.layout.login_activity_register) {
 
     private val viewModel by lazy { RegisterViewModel(RegisterRepository()) }
 

@@ -17,14 +17,12 @@ Email:zhoulinda@songguo7.com
  */
 class DiscoverViewModel(private val discoverRepository: DiscoverRepository) : ViewModel() {
 
-    val data: MutableLiveData<UiModel> = MutableLiveData()
+    val data: MutableLiveData<ArrayList<VideoItem<ItemData>>> = MutableLiveData()
 
     fun getDiscoverData() {
         GlobalScope.launch(Dispatchers.Main) {
             val discoverData = withContext(Dispatchers.IO) { discoverRepository.getDiscoverData() }
-            data.value = UiModel(true, discoverData.itemList)
+            data.value = discoverData.itemList
         }
     }
-
-    data class UiModel(val isRefresh: Boolean, val items: ArrayList<VideoItem<ItemData>>)
 }

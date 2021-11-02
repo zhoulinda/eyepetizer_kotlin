@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.linda.module_video_detail.model.VideoDetailViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/browsePicture"
@@ -13,19 +23,114 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.linda.module_video_detail.view.PictureInfoView
-            android:id="@+id/pictureInfoView"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/portrait"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            app:imageUrl="@{viewModel.detailData.owner.avatar}"
+            app:layout_constraintBottom_toTopOf="@id/description"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/authorName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginLeft="10dp"
+            android:text="@{viewModel.detailData.owner.nickname}"
+            android:textColor="@color/cl_ffffff"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintLeft_toRightOf="@id/portrait"
+            app:layout_constraintTop_toTopOf="@id/portrait"
+            tools:text="linda" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@{viewModel.detailData.description}"
+            android:textColor="@color/cl_ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/label"
+            app:layout_constraintLeft_toLeftOf="@id/portrait"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="描述描述" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@{viewModel.detailData.tagStr}"
+            android:textColor="@color/cl_ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/line"
+            app:layout_constraintLeft_toLeftOf="@id/portrait"
+            tools:text="你好,欢迎参观我的家" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="10dp"
+            android:background="@color/cl_999999"
+            app:layout_constraintBottom_toTopOf="@id/storeCount"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/storeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:drawableLeft="@drawable/ic_favorites_grey"
+            android:drawablePadding="5dp"
+            android:includeFontPadding="false"
+            android:text="@{viewModel.detailData.consumption.collectionCount.toString()}"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/portrait"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/commentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:drawableLeft="@drawable/ic_favorites_grey"
+            android:drawablePadding="5dp"
+            android:includeFontPadding="false"
+            android:text="@{viewModel.detailData.consumption.shareCount.toString()}"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintBottom_toBottomOf="@id/storeCount"
+            app:layout_constraintLeft_toRightOf="@id/storeCount"
+            app:layout_constraintTop_toTopOf="@id/storeCount"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintBottom_toBottomOf="@id/storeCount"
+            app:layout_constraintLeft_toRightOf="@id/commentCount"
+            app:layout_constraintTop_toTopOf="@id/storeCount"
+            tools:text="收藏" />
 
         <TextView
             android:id="@+id/index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="1/10"
+            android:text="@{viewModel.currentIndex.toString() + '/' + viewModel.totalIndex}"
             android:textColor="@color/cl_ffffff"
+            android:visibility="@{viewModel.detailData.isUrlsEmpty()? View.GONE:View.VISIBLE}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

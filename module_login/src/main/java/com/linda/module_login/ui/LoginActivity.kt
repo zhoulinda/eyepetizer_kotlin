@@ -9,7 +9,7 @@ import com.linda.lib_common.utils.PrefsUtil
 import com.linda.module_base.bean.Member
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.ui.BaseActivityV2
+import com.linda.module_base.ui.BaseActivity
 import com.linda.module_login.R
 import com.linda.module_login.databinding.LoginActivityLoginBinding
 import com.linda.module_login.model.LoginViewModel
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.login_activity_login.*
  * 创建日期: 2021/2/23
  */
 @Route(path = RouterPaths.LOGIN_ACTIVITY)
-class LoginActivity : BaseActivityV2<LoginActivityLoginBinding>(R.layout.login_activity_login) {
+class LoginActivity : BaseActivity<LoginActivityLoginBinding>(R.layout.login_activity_login) {
 
     private var userData: Member by PrefsUtil(
         Constants.USER_DATA, Member(

@@ -1,20 +1,15 @@
 package com.linda.module_base.adapter
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.linda.lib_common.CommonApplication
-import com.linda.module_base.BaseApplication
 import com.linda.module_base.R
 import com.linda.module_base.bean.Card
+import com.linda.module_base.bean.DataBean
 import com.linda.module_base.bean.ItemData
+import com.linda.module_base.databinding.ViewSpecialBinding
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.lib_common.utils.DisplayUtil
-import kotlinx.android.synthetic.main.view_special.view.*
+import org.jetbrains.anko.layoutInflater
 
 /**
  * 描述 :     热门分类adapter
@@ -46,13 +41,13 @@ class SquareCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemHolder(
-            inflaterView(R.layout.view_special, parent)
+            DataBindingUtil.inflate<ViewSpecialBinding>(
+                parent.context.layoutInflater,
+                R.layout.view_special,
+                parent,
+                false
+            )
         )
-    }
-
-    private fun inflaterView(mLayoutId: Int, parent: ViewGroup): View {
-        val view = LayoutInflater.from(parent.context)?.inflate(mLayoutId, parent, false)
-        return view ?: View(parent.context)
     }
 
     override fun getItemCount(): Int {
@@ -61,20 +56,19 @@ class SquareCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val recommend = datas[position].data
+        val data = datas[position].data
 
         if (holder is ItemHolder) {
-            val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-            val options = RequestOptions.bitmapTransform(roundedCorners)
-            Glide.with(CommonApplication.getContext())
-                .load(recommend?.image)
-                .apply(options)
-                .into(holder.itemView.mCategoryImage)
-            holder.itemView.mCategoryTitle.text = recommend?.title
+            holder.bind(data)
         }
     }
 
-    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ItemHolder(private val binding: ViewSpecialBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: DataBean?) {
+            binding.data = data
+        }
+    }
 
     fun setOnItemClClickListener(onMultiViewClickListener: OnMultiViewClickListener<ItemData>) {
         this.onMultiViewClickListener = onMultiViewClickListener

@@ -58,5 +58,12 @@ data class VideoDetail(
     val webAdTrack: Any,
     val webUrl: WebUrl,
     val owner: Owner,
-    val urls: List<String>
-)
+    val urls: List<String>?
+) {
+
+    val tagStr: String?
+        get() = if (tags != null) tags[0].name else ""
+
+    val isUrlsEmpty: Boolean?
+        get() = urls.isNullOrEmpty()
+}

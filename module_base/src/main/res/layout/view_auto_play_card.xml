@@ -1,123 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/portrait"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+        <variable
+            name="itemData"
+            type="com.linda.module_base.bean.ItemData" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/cl_000000"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/portrait"
-        app:layout_constraintTop_toTopOf="@id/portrait"
-        tools:text="名字" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/cl_999999"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintLeft_toLeftOf="@id/name"
-        tools:text="20202000" />
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="10dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@color/cl_000000"
-        android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="@id/portrait"
-        tools:text="描述描述描述描述描述描述描述描述描述描述描述描述描述" />
-
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-        android:id="@+id/videoPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        android:onClick="@{listener}">
 
-    <TextView
-        android:id="@+id/storeCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:drawableLeft="@drawable/ic_favorites_grey"
-        android:drawablePadding="5dp"
-        android:gravity="center"
-        android:textColor="@color/cl_999999"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/videoPlayer"
-        tools:text="0" />
+        <ImageView
+            android:id="@+id/portrait"
+            circleImageUrl="@{itemData.header.icon}"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:onClick="@{listener}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/commentCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:drawableLeft="@drawable/ic_favorites_grey"
-        android:drawablePadding="5dp"
-        android:gravity="center"
-        android:textColor="@color/cl_999999"
-        app:layout_constraintBottom_toBottomOf="@id/storeCount"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@id/storeCount"
-        app:layout_constraintTop_toTopOf="@id/storeCount"
-        tools:text="0" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@{itemData.content.data.author.name}"
+            android:textColor="@color/cl_000000"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/portrait"
+            app:layout_constraintTop_toTopOf="@id/portrait"
+            tools:text="名字" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/mStore"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="20dp"-->
-    <!--        android:drawableLeft="@drawable/ic_action_like"-->
-    <!--        android:gravity="center"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/mStoreCount"-->
-    <!--        app:layout_constraintHorizontal_weight="1"-->
-    <!--        app:layout_constraintLeft_toRightOf="@id/mCommentCount"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/mStoreCount"-->
-    <!--        tools:text="收藏" />-->
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{itemData.content.data.date}"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintLeft_toLeftOf="@id/name"
+            tools:text="20202000" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/mShare"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="20dp"-->
-    <!--        android:drawableLeft="@drawable/ic_action_like"-->
-    <!--        android:gravity="center"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/mStoreCount"-->
-    <!--        app:layout_constraintHorizontal_weight="1"-->
-    <!--        app:layout_constraintLeft_toRightOf="@id/mStore"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/mStoreCount"-->
-    <!--        tools:text="分享" />-->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{itemData.content.data.description}"
+            android:textColor="@color/cl_000000"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/portrait"
+            tools:text="描述描述描述描述描述描述描述描述描述描述描述描述描述" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_share_grey"
-        app:layout_constraintBottom_toBottomOf="@id/storeCount"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/storeCount" />
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+            android:id="@+id/videoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:onClick="@{listener}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/storeCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/ic_favorites_grey"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@{itemData.content.data.consumption.collectionCount.toString()}"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videoPlayer"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/commentCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@drawable/ic_favorites_grey"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@{itemData.content.data.consumption.replyCount.toString()}"
+            android:textColor="@color/cl_999999"
+            app:layout_constraintBottom_toBottomOf="@id/storeCount"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/storeCount"
+            app:layout_constraintTop_toTopOf="@id/storeCount"
+            tools:text="0" />
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/mStore"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginLeft="20dp"-->
+        <!--        android:drawableLeft="@drawable/ic_action_like"-->
+        <!--        android:gravity="center"-->
+        <!--        app:layout_constraintBottom_toBottomOf="@id/mStoreCount"-->
+        <!--        app:layout_constraintHorizontal_weight="1"-->
+        <!--        app:layout_constraintLeft_toRightOf="@id/mCommentCount"-->
+        <!--        app:layout_constraintTop_toTopOf="@id/mStoreCount"-->
+        <!--        tools:text="收藏" />-->
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/mShare"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginLeft="20dp"-->
+        <!--        android:drawableLeft="@drawable/ic_action_like"-->
+        <!--        android:gravity="center"-->
+        <!--        app:layout_constraintBottom_toBottomOf="@id/mStoreCount"-->
+        <!--        app:layout_constraintHorizontal_weight="1"-->
+        <!--        app:layout_constraintLeft_toRightOf="@id/mStore"-->
+        <!--        app:layout_constraintTop_toTopOf="@id/mStoreCount"-->
+        <!--        tools:text="分享" />-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_grey"
+            app:layout_constraintBottom_toBottomOf="@id/storeCount"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/storeCount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

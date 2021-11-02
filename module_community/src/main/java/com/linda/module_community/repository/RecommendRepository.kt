@@ -12,10 +12,10 @@ Email:zhoulinda@songguo7.com
 class RecommendRepository {
 
     suspend fun getCommunityRecommendData(): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getCommunityRecommendData()
+        return RetrofitManager.service.getCommunityRecommendData()
     }
 
     suspend fun getMoreCommunityRecommendData(url: String): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getMoreCommunityRecommendData(url)
+        return RetrofitManager.service.getMoreCommunityRecommendData(url)
     }
 }

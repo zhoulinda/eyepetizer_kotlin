@@ -10,7 +10,7 @@ import com.linda.module_base.bean.ItemData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.module_base.ui.BaseFragmentV2
+import com.linda.module_base.ui.BaseFragment
 import com.linda.module_home.R
 import com.linda.module_home.databinding.HomeFragmentDiscoverBinding
 import com.linda.module_home.model.DiscoverViewModel
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.home_fragment_discover.recyclerView
 
 @Route(path = RouterPaths.DISCOVER_FRAGMENT)
 class DiscoverFragment :
-    BaseFragmentV2<HomeFragmentDiscoverBinding>(R.layout.home_fragment_discover),
+    BaseFragment<HomeFragmentDiscoverBinding>(R.layout.home_fragment_discover),
     OnRefreshListener {
 
     private val discoverAdapter by lazy { BaseCardAdapter() }
@@ -39,7 +39,7 @@ class DiscoverFragment :
     override fun initView() {
         binding?.viewModel = discoverViewModel.apply {
             data.observe(viewLifecycleOwner, Observer {
-                discoverAdapter.setData(it.items)
+                discoverAdapter.setData(it)
                 smartRefreshLayout.finishRefresh()
             })
         }

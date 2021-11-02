@@ -12,10 +12,10 @@ Email:zhoulinda@songguo7.com
 class AttentionRepository {
 
     suspend fun getAttentionData(): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getCommunityAttentionData()
+        return RetrofitManager.service.getCommunityAttentionData()
     }
 
     suspend fun getMoreAttentionData(url: String): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getMoreCommunityAttentionData(url)
+        return RetrofitManager.service.getMoreCommunityAttentionData(url)
     }
 }

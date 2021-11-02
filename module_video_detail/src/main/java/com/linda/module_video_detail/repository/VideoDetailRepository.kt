@@ -13,10 +13,10 @@ Email:zhoulinda@songguo7.com
 class VideoDetailRepository {
 
     suspend fun getVideoDetail(videoId: Int, resourceType: String): VideoDetail {
-        return RetrofitManager.serviceV2.getVideoDetailData(videoId, resourceType)
+        return RetrofitManager.service.getVideoDetailData(videoId, resourceType)
     }
 
     suspend fun getVideoRelated(videoId: Int): BaseListData<RelatedVideo> {
-        return RetrofitManager.serviceV2.getRelatedVideoData(videoId)
+        return RetrofitManager.service.getRelatedVideoData(videoId)
     }
 }

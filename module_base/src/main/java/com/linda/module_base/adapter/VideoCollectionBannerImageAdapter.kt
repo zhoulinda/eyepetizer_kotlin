@@ -12,7 +12,7 @@ import com.youth.banner.adapter.BannerAdapter
  * email:   zhoulinda@lexue.com
  * 创建日期: 2021/2/22
  */
-abstract class VideoCollectionBannerImageAdapter(cards: ArrayList<Card>) :
+abstract class VideoCollectionBannerImageAdapter(cards: ArrayList<Card>?) :
     BannerAdapter<Card, ItemBannerHolder>(cards) {
 
     override fun onCreateHolder(parent: ViewGroup?, viewType: Int): ItemBannerHolder {

@@ -12,6 +12,6 @@ Email:zhoulinda@songguo7.com
 class DiscoverRepository {
 
     suspend fun getDiscoverData(): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getDiscoverData()
+        return RetrofitManager.service.getDiscoverData()
     }
 }

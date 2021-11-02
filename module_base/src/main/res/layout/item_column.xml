@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/mCategoryImage"
+    <data>
+
+        <variable
+            name="data"
+            type="com.linda.module_base.bean.DataBean" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY" />
+        android:layout_height="100dp">
 
-    <TextView
-        android:id="@+id/mCategoryTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="@color/cl_ffffff" />
+        <ImageView
+            android:id="@+id/mCategoryImage"
+            roundedCorners="@{6}"
+            setSrc2="@{data.image}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/mCategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@{data.title}"
+            android:textColor="@color/cl_ffffff" />
+
+    </RelativeLayout>
+</layout>

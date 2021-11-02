@@ -2,7 +2,17 @@ package com.linda.module_base.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.linda.lib_common.CommonApplication
+import com.linda.lib_common.utils.DateUtil
+import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.view_auto_play_ad.view.*
 
 /**
  * 描述 :
@@ -35,7 +45,54 @@ data class ItemData(
     val tag: String?,
     val type: String?,
     val category: String?,
-
     val titleList: List<String>?,
     val bannerList: List<Banner>
-) : Parcelable
+) : Parcelable {
+
+    fun getDuration(): String? {
+        return duration?.let { DateUtil.getDuration(it) }
+    }
+
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("imageUrl")
+        fun loadImage(view: ImageView, url: String) {
+            if (!url.isNullOrEmpty()) {
+                Glide.with(CommonApplication.getContext())
+                    .load(url)
+                    .into(view)
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("imageUrl", "roundedCorners")
+        fun loadRoundedImage(view: ImageView, url: String, roundedCorners: Float) {
+            if (!url.isNullOrEmpty()) {
+                Glide.with(CommonApplication.getContext())
+                    .load(url)
+                    .apply(
+                        RequestOptions.bitmapTransform(
+                            RoundedCorners(
+                                DisplayUtil.dip2px(
+                                    roundedCorners
+                                )
+                            )
+                        )
+                    )
+                    .into(view)
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("circleImageUrl")
+        fun loadCircleImage(view: ImageView, url: String) {
+            if (!url.isNullOrEmpty()) {
+                Glide.with(CommonApplication.getContext())
+                    .load(url)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(view)
+            }
+        }
+    }
+}

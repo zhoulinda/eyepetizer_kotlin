@@ -4,7 +4,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.ui.BaseFragment
-import com.linda.module_base.ui.BaseFragmentV2
 import com.linda.module_home.R
 import com.linda.module_home.adapter.HomeFragmentPagerAdapter
 import com.linda.module_home.databinding.HomeFragmentHomeBinding
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.home_fragment_home.*
  * 创建日期: 2020/7/25
  */
 @Route(path = RouterPaths.HOME_FRAGMENT)
-class HomeFragment : BaseFragmentV2<HomeFragmentHomeBinding>(R.layout.home_fragment_home) {
+class HomeFragment : BaseFragment<HomeFragmentHomeBinding>(R.layout.home_fragment_home) {
 
     private val tabNames: Array<String> = arrayOf("发现", "日报")
 

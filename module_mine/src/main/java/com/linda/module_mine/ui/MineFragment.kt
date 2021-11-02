@@ -10,11 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.linda.module_base.bean.Member
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.ui.BaseFragment
 import com.linda.lib_common.utils.AppUtil
 import com.linda.lib_common.utils.PrefsUtil
+import com.linda.module_base.ui.BaseFragment
 import com.linda.module_mine.MinePresenter
 import com.linda.module_mine.R
+import com.linda.module_mine.databinding.MineFragmentMineBinding
 import kotlinx.android.synthetic.main.mine_fragment_mine.*
 
 /**
@@ -25,7 +26,8 @@ import kotlinx.android.synthetic.main.mine_fragment_mine.*
  * 创建日期: 2020/7/25
  */
 @Route(path = RouterPaths.MINE_FRAGMENT)
-class MineFragment : BaseFragment(), View.OnClickListener {
+class MineFragment : BaseFragment<MineFragmentMineBinding>(R.layout.mine_fragment_mine),
+    View.OnClickListener {
 
     private var userData: Member by PrefsUtil(
         Constants.USER_DATA, Member(
@@ -34,10 +36,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     )
 
     private var minePresenter: MinePresenter? = null
-
-    override fun getLayoutResId(): Int {
-        return R.layout.mine_fragment_mine
-    }
 
     override fun initView() {
         toPersonMainPage.setOnClickListener(this)

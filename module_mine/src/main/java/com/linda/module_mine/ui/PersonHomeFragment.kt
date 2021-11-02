@@ -12,7 +12,7 @@ import com.linda.module_base.bean.mine.TabData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.module_base.ui.BaseFragmentV2
+import com.linda.module_base.ui.BaseFragment
 import com.linda.module_mine.R
 import com.linda.module_mine.databinding.MineFragmentPersonMainSubBinding
 import com.linda.module_mine.model.PersonHomeViewModel
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.mine_fragment_person_main_sub.*
  */
 @Route(path = RouterPaths.PERSON_HOME_FRAGMENT)
 class PersonHomeFragment :
-    BaseFragmentV2<MineFragmentPersonMainSubBinding>(R.layout.mine_fragment_person_main_sub) {
+    BaseFragment<MineFragmentPersonMainSubBinding>(R.layout.mine_fragment_person_main_sub) {
 
     @JvmField
     @Autowired(name = Constants.TAB_DATA)

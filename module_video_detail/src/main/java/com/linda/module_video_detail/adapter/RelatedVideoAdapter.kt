@@ -1,20 +1,16 @@
 package com.linda.module_video_detail.adapter
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.linda.lib_common.CommonApplication
-import com.linda.module_base.BaseApplication
 import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoItem
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.lib_common.utils.DisplayUtil
 import com.linda.module_video_detail.R
-import kotlinx.android.synthetic.main.detail_item_related_video.view.*
+import com.linda.module_video_detail.databinding.DetailItemRelatedVideoBinding
+import org.jetbrains.anko.layoutInflater
 
 /**
  * 描述 :     详情页相关视频列表Adapter
@@ -49,16 +45,24 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_TYPE_VIDEO_SMALL_CARD ->
-                ItemHolder(inflaterView(R.layout.detail_item_related_video, parent))
+                ItemHolder(
+                    DataBindingUtil.inflate(
+                        parent.context.layoutInflater,
+                        R.layout.detail_item_related_video,
+                        parent,
+                        false
+                    )
+                )
             else ->
-                ItemHolder(View(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate(
+                        parent.context.layoutInflater,
+                        R.layout.view_empty,
+                        parent,
+                        false
+                    )
+                )
         }
-    }
-
-    private fun inflaterView(mLayoutId: Int, parent: ViewGroup): View {
-        //创建view
-        val view = LayoutInflater.from(parent.context)?.inflate(mLayoutId, parent, false)
-        return view ?: View(parent.context)
     }
 
     override fun getItemCount(): Int {
@@ -68,17 +72,7 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemHolder) {
             val data = datas[position].data
-            when (getItemViewType(position)) {
-                ITEM_TYPE_VIDEO_SMALL_CARD ->
-                    bindRelatedVideo(
-                        holder.itemView,
-                        position,
-                        data,
-                        ITEM_TYPE_VIDEO_SMALL_CARD
-                    )
-                else ->
-                    bindEmptyView()
-            }
+            holder.bind(onMultiViewClickListener, data)
         }
     }
 
@@ -91,36 +85,30 @@ class RelatedVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    private fun bindRelatedVideo(
-        itemView: View,
-        position: Int,
-        relatedVideo: RelatedVideo,
-        type: Int
-    ) {
-        val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-        val options = RequestOptions.bitmapTransform(roundedCorners)
-        Glide.with(CommonApplication.getContext())
-            .load(relatedVideo.cover.feed)
-            .apply(options)
-            .into(itemView.videoCover)
+    class ItemHolder(private val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        itemView.setOnClickListener {
-            onMultiViewClickListener?.onViewClick(position, itemView, relatedVideo, type)
+        fun bind(
+            onMultiViewClickListener: OnMultiViewClickListener<RelatedVideo>?,
+            data: RelatedVideo
+        ) {
+            if (binding is DetailItemRelatedVideoBinding) {
+                binding.run {
+                    video = data
+                    listener = View.OnClickListener {
+                        onMultiViewClickListener?.onViewClick(
+                            position,
+                            itemView,
+                            data,
+                            itemViewType
+                        )
+                    }
+                }
+            }
         }
-
-        itemView.videoTitle.text = relatedVideo.title
-        itemView.category.text =
-            "#" + relatedVideo.category + "/" + relatedVideo.author?.name
     }
-
-    private fun bindEmptyView() {
-
-    }
-
-    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun setOnMultiViewClickListener(onMultiViewClickListener: OnMultiViewClickListener<RelatedVideo>) {
         this.onMultiViewClickListener = onMultiViewClickListener
     }
-
 }

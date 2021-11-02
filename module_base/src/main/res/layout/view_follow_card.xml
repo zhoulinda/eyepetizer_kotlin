@@ -1,65 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tool="http://schemas.android.com/tools">
 
-    <com.linda.module_base.view.RatioImageView
-        android:id="@+id/cover"
+    <data>
+
+        <variable
+            name="itemData"
+            type="com.linda.module_base.bean.ItemData" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:ratio="1.73" />
-
-    <ImageView
-        android:id="@+id/portrait"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cover" />
-
-    <ImageView
-        android:id="@+id/share"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_action"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/portrait" />
+        android:onClick="@{listener}">
 
-    <TextView
-        android:id="@+id/titleBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:ellipsize="end"
-        android:includeFontPadding="false"
-        android:singleLine="true"
-        android:textColor="@color/cl_000000"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toRightOf="@id/portrait"
-        app:layout_constraintRight_toLeftOf="@id/share"
-        app:layout_constraintTop_toTopOf="@id/portrait"
-        tool:text="为奇偶我好公司读后感何时可掇和接口啥口红解耦我王嘉尔合力攻坚间解耦的设计费" />
+        <com.linda.module_base.view.RatioImageView
+            android:id="@+id/cover"
+            imageUrl="@{itemData.content.data.cover.feed}"
+            roundedCorners="@{3}"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ratio="1.73" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:textColor="@color/cl_999999"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintLeft_toLeftOf="@id/titleBar"
-        app:layout_constraintLeft_toRightOf="@id/portrait"
-        app:layout_constraintTop_toBottomOf="@id/titleBar"
-        tool:text="开眼音乐精选" />
+        <ImageView
+            android:id="@+id/portrait"
+            circleImageUrl="@{itemData.header.icon}"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="@{listener}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cover" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_action"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/portrait" />
+
+        <TextView
+            android:id="@+id/titleBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="@{itemData.header.title}"
+            android:textColor="@color/cl_000000"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/portrait"
+            app:layout_constraintRight_toLeftOf="@id/share"
+            app:layout_constraintTop_toTopOf="@id/portrait"
+            tool:text="为奇偶我好公司读后感何时可掇和接口啥口红解耦我王嘉尔合力攻坚间解耦的设计费" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@{itemData.header.description}"
+            android:textColor="@color/cl_999999"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintLeft_toLeftOf="@id/titleBar"
+            app:layout_constraintLeft_toRightOf="@id/portrait"
+            app:layout_constraintTop_toBottomOf="@id/titleBar"
+            tool:text="开眼音乐精选" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

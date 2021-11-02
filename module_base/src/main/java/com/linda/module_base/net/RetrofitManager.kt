@@ -7,7 +7,6 @@ import com.linda.module_base.config.AppConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -18,21 +17,7 @@ object RetrofitManager {
             .create(ApiService::class.java)
     }
 
-    val serviceV2: ApiService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-        getRetrofitV2()
-            .create(ApiService::class.java)
-    }
-
     private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(AppConfig.BASE_SERVER_URL)  //自己配置
-            .client(getOkHttpClient())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    private fun getRetrofitV2(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConfig.BASE_SERVER_URL)  //自己配置
             .client(getOkHttpClient())

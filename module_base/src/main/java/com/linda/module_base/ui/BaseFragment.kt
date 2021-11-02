@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.trello.rxlifecycle4.components.support.RxFragment
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 /**
  * 描述 :     基类Fragment
@@ -15,9 +18,9 @@ import com.trello.rxlifecycle4.components.support.RxFragment
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/7/23
  */
-abstract class BaseFragment : RxFragment() {
+abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResId: Int) : Fragment() {
 
-    private var rootView: View? = null
+    protected var binding: T? = null
 
     protected var mContext: Context? = null
 
@@ -33,10 +36,12 @@ abstract class BaseFragment : RxFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (rootView == null) {
-            rootView = inflater.inflate(getLayoutResId(), null)
+        if (binding == null) {
+            binding = DataBindingUtil.inflate<T>(inflater, layoutResId, container, false).apply {
+                lifecycleOwner = this@BaseFragment
+            }
         }
-        return rootView
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +49,6 @@ abstract class BaseFragment : RxFragment() {
         initView()
         initData()
     }
-
-    abstract fun getLayoutResId(): Int
 
     abstract fun initView()
 

@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mColumnsCardRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <data>
 
-    <ImageView
-        android:id="@+id/cover"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="itemData"
+            type="com.linda.module_base.bean.ItemData" />
 
-    <TextView
-        android:id="@+id/description"
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mColumnsCardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textColor="@color/cl_000000"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cover" />
+        android:onClick="@{listener}">
 
-    <ImageView
-        android:id="@+id/portrait"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        <ImageView
+            android:id="@+id/cover"
+            imageUrl="@{itemData.content.data.cover.feed}"
+            roundedCorners="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/storeIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_grey_heart"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/portrait" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{itemData.content.data.description}"
+            android:textColor="@color/cl_000000"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cover" />
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/cl_999999"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintLeft_toRightOf="@id/portrait"
-        app:layout_constraintRight_toLeftOf="@id/storeCount"
-        app:layout_constraintTop_toTopOf="@id/portrait" />
+        <ImageView
+            android:id="@+id/portrait"
+            circleImageUrl="@{itemData.header.icon}"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="@id/author"
-        app:layout_constraintRight_toRightOf="@id/storeCount"
-        app:layout_constraintTop_toTopOf="@id/portrait" />
+        <ImageView
+            android:id="@+id/storeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_grey_heart"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/portrait" />
 
-    <TextView
-        android:id="@+id/storeCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="6dp"
-        android:text="100"
-        android:textColor="@color/cl_80000000"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintLeft_toRightOf="@id/author"
-        app:layout_constraintRight_toLeftOf="@id/storeIcon"
-        app:layout_constraintTop_toTopOf="@id/portrait" />
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{itemData.content.data.owner.nickname}"
+            android:textColor="@color/cl_999999"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintLeft_toRightOf="@id/portrait"
+            app:layout_constraintRight_toLeftOf="@id/storeCount"
+            app:layout_constraintTop_toTopOf="@id/portrait" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="@id/author"
+            app:layout_constraintRight_toRightOf="@id/storeCount"
+            app:layout_constraintTop_toTopOf="@id/portrait" />
+
+        <TextView
+            android:id="@+id/storeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:text="@{itemData.content.data.consumption.collectionCount.toString()}"
+            android:textColor="@color/cl_80000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/portrait"
+            app:layout_constraintLeft_toRightOf="@id/author"
+            app:layout_constraintRight_toLeftOf="@id/storeIcon"
+            app:layout_constraintTop_toTopOf="@id/portrait" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

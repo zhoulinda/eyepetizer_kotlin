@@ -34,7 +34,7 @@ class RecommendViewModel(private val recommendRepository: RecommendRepository) :
             val recommendData =
                 withContext(Dispatchers.IO) { recommendRepository.getMoreCommunityRecommendData(url) }
             url = recommendData.nextPageUrl
-            data.value = UiModel(true, recommendData.itemList)
+            data.value = UiModel(false, recommendData.itemList)
         }
     }
 

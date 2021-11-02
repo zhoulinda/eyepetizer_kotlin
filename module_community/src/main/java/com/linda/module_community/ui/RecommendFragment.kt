@@ -10,7 +10,7 @@ import com.linda.module_base.bean.ItemData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.module_base.ui.BaseFragmentV2
+import com.linda.module_base.ui.BaseFragment
 import com.linda.module_base.view.StaggeredGridItemDecoration
 import com.linda.module_community.R
 import com.linda.module_community.databinding.CommunityFragmentRecommendBinding
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.community_fragment_recommend.*
  */
 @Route(path = RouterPaths.RECOMMEND_FRAGMENT)
 class RecommendFragment :
-    BaseFragmentV2<CommunityFragmentRecommendBinding>(R.layout.community_fragment_recommend),
+    BaseFragment<CommunityFragmentRecommendBinding>(R.layout.community_fragment_recommend),
     OnRefreshLoadMoreListener {
 
     private val recommendAdapter by lazy { BaseCardAdapter() }
@@ -62,25 +62,19 @@ class RecommendFragment :
                 setHasStableIds(true)
                 setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        val id = data.header?.id
-                        val resourceType = data.content?.data?.resourceType
-                        data.header?.id?.let {
-                            if (data.content?.data?.resourceType == Constants.VIDEO) {
+                        when (val resourceType = data.content?.data?.resourceType) {
+                            Constants.VIDEO ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                    .withInt(Constants.VIDEO_ID, id!!)
+                                    .withInt(Constants.VIDEO_ID, data.header?.id!!)
                                     .withString(Constants.RESOURCE_TYPE, resourceType)
                                     .navigation()
-                                return
-                            }
-                            if (data.content?.data?.resourceType == Constants.UGC_PICTURE) {
+                            else ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
-                                    .withInt(Constants.PICTURE_ID, it)
+                                    .withInt(Constants.PICTURE_ID, data.header?.id!!)
                                     .withString(Constants.RESOURCE_TYPE, resourceType)
                                     .navigation()
-                                return
-                            }
                         }
                     }
                 })

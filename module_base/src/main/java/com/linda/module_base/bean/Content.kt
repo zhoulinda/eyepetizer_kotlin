@@ -2,6 +2,7 @@ package com.linda.module_base.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.linda.lib_common.utils.DateUtil
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -38,5 +39,11 @@ data class Content(
         val urls: List<String>?,
         val playUrl: String?,
         val date: Long
-    ) : Parcelable
+    ) : Parcelable {
+
+        fun getDate():String{
+            return DateUtil.getFormatDate(date, "yyyy.MM.dd")
+        }
+
+    }
 }

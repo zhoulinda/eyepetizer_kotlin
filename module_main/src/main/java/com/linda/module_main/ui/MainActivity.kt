@@ -3,6 +3,7 @@ package com.linda.module_main.ui
 import com.linda.module_base.ui.BaseActivity
 import com.linda.module_main.R
 import com.linda.module_main.adapter.MainFragmentPagerAdapter
+import com.linda.module_main.databinding.MainActivityMainBinding
 import kotlinx.android.synthetic.main.main_activity_main.*
 
 /**
@@ -12,11 +13,7 @@ import kotlinx.android.synthetic.main.main_activity_main.*
  * email:   zhoulinda@lexue.com
  * 创建日期: 2020/7/24
  */
-class MainActivity : BaseActivity() {
-
-    override fun getLayoutResId(): Int {
-        return R.layout.main_activity_main
-    }
+class MainActivity : BaseActivity<MainActivityMainBinding>(R.layout.main_activity_main) {
 
     override fun initView() {
         setStatusBarColor()
@@ -38,12 +35,13 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        viewPager.offscreenPageLimit = 3
-        val pagerAdapter = MainFragmentPagerAdapter(
-            supportFragmentManager,
-            0
-        )
-        viewPager?.adapter = pagerAdapter
+        viewPager.run {
+            offscreenPageLimit = 3
+            adapter = MainFragmentPagerAdapter(
+                supportFragmentManager,
+                0
+            )
+        }
     }
 
     override fun initData() {

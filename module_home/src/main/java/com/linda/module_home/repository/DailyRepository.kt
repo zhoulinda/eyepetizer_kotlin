@@ -12,10 +12,10 @@ Email:zhoulinda@songguo7.com
 class DailyRepository {
 
     suspend fun getDailyData(): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getDailyData()
+        return RetrofitManager.service.getDailyData()
     }
 
     suspend fun getMoreDailyData(url: String): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getMoreDailyData(url)
+        return RetrofitManager.service.getMoreDailyData(url)
     }
 }

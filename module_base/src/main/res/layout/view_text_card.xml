@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/titleBar"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="itemData"
+            type="com.linda.module_base.bean.ItemData" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/cl_000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="开眼专栏" />
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
 
-    <TextView
-        android:id="@+id/rightText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/cl_549cf8"
-        android:textSize="12sp"
-        tools:text="@string/app_name" />
+        <TextView
+            android:id="@+id/titleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{itemData.text}"
+            android:textColor="@color/cl_000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="开眼专栏" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/rightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@{itemData.rightText}"
+            android:textColor="@color/cl_549cf8"
+            android:textSize="12sp"
+            tools:text="@string/app_name" />
+
+    </RelativeLayout>
+</layout>

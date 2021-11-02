@@ -13,7 +13,7 @@ Email:zhoulinda@songguo7.com
 class RegisterRepository {
 
     suspend fun register(userName: String, verificationCode: String, password: String): Login {
-        return RetrofitManager.serviceV2.register(
+        return RetrofitManager.service.register(
             AppConfig.LOGIN,
             userName,
             verificationCode,
@@ -24,7 +24,7 @@ class RegisterRepository {
     suspend fun getVerificationCode(
         phone: String
     ): VerificationCode {
-        return RetrofitManager.serviceV2.getVerificationCode(
+        return RetrofitManager.service.getVerificationCode(
             AppConfig.GET_VERIFICATION_CODE,
             phone,
             "sms"

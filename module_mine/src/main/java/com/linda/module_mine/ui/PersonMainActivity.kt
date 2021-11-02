@@ -14,7 +14,7 @@ import com.linda.module_base.bean.mine.PersonMainData
 import com.linda.module_base.bean.mine.PgcInfo
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.ui.BaseActivityV2
+import com.linda.module_base.ui.BaseActivity
 import com.linda.module_mine.R
 import com.linda.module_mine.adapter.PersonMainPagerAdapter
 import com.linda.module_mine.databinding.MineActivityPersonMainBinding
@@ -34,7 +34,7 @@ import kotlin.math.abs
  */
 @Route(path = RouterPaths.PERSON_MAIN_ACTIVITY)
 class PersonMainActivity :
-    BaseActivityV2<MineActivityPersonMainBinding>(R.layout.mine_activity_person_main) {
+    BaseActivity<MineActivityPersonMainBinding>(R.layout.mine_activity_person_main) {
 
     @JvmField
     @Autowired(name = Constants.USER_ID)

@@ -2,15 +2,29 @@ package com.linda.module_base.adapter
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
+import com.bumptech.glide.Glide
+import com.linda.lib_common.CommonApplication
+import com.linda.lib_common.utils.DisplayUtil
+import com.linda.module_base.R
 import com.linda.module_base.bean.Card
 import com.linda.module_base.bean.ItemData
 import com.linda.module_base.bean.VideoItem
+import com.linda.module_base.constants.Constants
+import com.linda.module_base.constants.RouterPaths
+import com.linda.module_base.databinding.*
 import com.linda.module_base.listener.OnMultiViewClickListener
 import com.linda.module_base.view.*
+import com.youth.banner.adapter.BannerImageAdapter
+import com.youth.banner.holder.BannerImageHolder
 import kotlinx.android.synthetic.main.view_auto_play_card.view.*
 import kotlinx.android.synthetic.main.view_follow_card.view.portrait
+import org.jetbrains.anko.layoutInflater
 
 /**
  * 描述 :     发现Adapter
@@ -40,11 +54,6 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         const val ITEM_TYPE_VIDEO_COLLECTION_OF_HORIZONTAL_SCROLL_CARD = 14
         const val ITEM_TYPE_EMPTY_CARD = 0 //empty类型
     }
-
-    private val layoutParams = ViewGroup.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.WRAP_CONTENT
-    )
 
     fun setData(list: ArrayList<VideoItem<ItemData>>) {
         datas.clear()
@@ -77,96 +86,138 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_TYPE_HORIZONTAL_SCROLL_CARD ->
-                ItemHolder(HorizontalScrollCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewScrollCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_scroll_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_BANNER ->
-                ItemHolder(BannerCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewBannerCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_banner_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_BANNER3 ->
-                ItemHolder(AdvertisementView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewAdvertisementBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_advertisement,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_AUTO_PLAY_AD ->
-                ItemHolder(AutoPlayAdView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewAutoPlayAdBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_auto_play_ad,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_SPECIAL_SQUARE_CARD_COLLECTION ->
-                ItemHolder(SquareCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewSpecialSquareBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_special_square,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_COLUMN_CARD_LIST ->
-                ItemHolder(ColumnCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewColumnCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_column_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_TEXT_CARD ->
-                ItemHolder(TextCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewTextCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_text_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_VIDEO_SMALL_CARD ->
-                ItemHolder(VideoCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewVideoSmallCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_video_small_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_BRIEF_CARD ->
-                ItemHolder(BriefCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewBriefCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_brief_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_FOLLOW_CARD ->
-                ItemHolder(FollowCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewFollowCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_follow_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD ->
-                ItemHolder(AutoPlayCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewAutoPlayCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_auto_play_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_COMMUNITY_COLUMNS_CARD ->
-                ItemHolder(CommunityColumnsCard(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewColumnsCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_columns_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             ITEM_TYPE_VIDEO_COLLECTION_OF_HORIZONTAL_SCROLL_CARD ->
-                ItemHolder(VideoCollectionHorizontalScrollCardView(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewVideoCollectionScrollCardBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_video_collection_scroll_card,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
             else ->
-                ItemHolder(View(parent.context))
+                ItemHolder(
+                    DataBindingUtil.inflate<ViewEmptyBinding>(
+                        parent.context.layoutInflater,
+                        R.layout.view_empty,
+                        parent,
+                        false
+                    ), onMultiViewClickListener, viewType
+                )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemHolder) {
             val itemData = datas[position].data
-            when (getItemViewType(position)) {
-                ITEM_TYPE_HORIZONTAL_SCROLL_CARD ->
-                    bindScrollCard(
-                        position,
-                        holder.itemView,
-                        itemData.itemList
-                    )
-                ITEM_TYPE_BANNER ->
-                    bindBannerCard(position, holder.itemView, itemData)
-                ITEM_TYPE_BANNER3 ->
-                    bindAdvertisement(position, holder.itemView, itemData)
-                ITEM_TYPE_AUTO_PLAY_AD ->
-                    bindAutoPlayAdView(position, holder.itemView, itemData)
-                ITEM_TYPE_SPECIAL_SQUARE_CARD_COLLECTION ->
-                    bindSquareCard(
-                        position,
-                        holder.itemView,
-                        itemData
-                    )
-                ITEM_TYPE_COLUMN_CARD_LIST ->
-                    bindColumnCard(
-                        position,
-                        holder.itemView,
-                        itemData
-                    )
-                ITEM_TYPE_TEXT_CARD ->
-                    bindTextCard(position, holder.itemView, itemData)
-                ITEM_TYPE_BRIEF_CARD ->
-                    bindBriefCard(position, holder.itemView, itemData)
-                ITEM_TYPE_FOLLOW_CARD ->
-                    bindFollowCard(position, holder.itemView, itemData, ITEM_TYPE_FOLLOW_CARD)
-                ITEM_TYPE_VIDEO_SMALL_CARD ->
-                    bindVideoCard(position, holder.itemView, itemData, ITEM_TYPE_VIDEO_SMALL_CARD)
-                ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD ->
-                    bindAutoPlayCard(
-                        position,
-                        holder.itemView,
-                        itemData,
-                        ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD
-                    )
-                ITEM_TYPE_COMMUNITY_COLUMNS_CARD ->
-                    bindCommunityColumnsCard(
-                        position,
-                        holder.itemView,
-                        itemData,
-                        ITEM_TYPE_COMMUNITY_COLUMNS_CARD
-                    )
-                ITEM_TYPE_VIDEO_COLLECTION_OF_HORIZONTAL_SCROLL_CARD ->
-                    bindVideoCollectionHorizontalScrollCard(
-                        position,
-                        holder.itemView,
-                        itemData,
-                        ITEM_TYPE_VIDEO_COLLECTION_OF_HORIZONTAL_SCROLL_CARD
-                    )
-                else -> bindTextCard(position, holder.itemView, itemData)
-
-            }
+            holder.bind(itemData, position)
         }
     }
 
@@ -208,177 +259,195 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return datas.size
     }
 
-    /**
-     * 自动播放
-     */
-    private fun bindAutoPlayAdView(position: Int, itemView: View, data: ItemData) {
-        if (itemView is AutoPlayAdView) {
-            itemView.setData(data)
-        }
-    }
+    class ItemHolder(
+        private val binding: ViewDataBinding,
+        private val onMultiViewClickListener: OnMultiViewClickListener<ItemData>?,
+        private val type: Int
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: ItemData, position: Int) {
+            when (binding) {
+                is ViewScrollCardBinding -> {
+                    binding.banner.run {
+                        adapter = object : BannerImageAdapter<Card>(data.itemList) {
+                            override fun onBindView(
+                                holder: BannerImageHolder,
+                                data: Card?,
+                                position: Int,
+                                size: Int
+                            ) {
+                                Glide.with(context)
+                                    .load(data?.data?.image)
+                                    .into(holder.imageView)
+                            }
+                        }
+                        setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+                        setOnBannerListener { data, _ ->
+                            ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
+                                .withString("url", (data as Card).data?.actionUrl)
+                                .navigation()
+                        }
+                        isAutoLoop(false)
+                    }
+                }
+                is ViewBannerCardBinding -> {
+                    binding.itemData = data
+                }
 
-    /**
-     * 海报
-     */
-    private fun bindBannerCard(position: Int, itemView: View, data: ItemData) {
-        if (itemView is BannerCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(data)
-        }
-    }
+                is ViewAdvertisementBinding -> {
+                    binding.itemData = data
+                }
 
-    /**
-     *  Banner
-     */
-    private fun bindScrollCard(
-        position: Int,
-        itemView: View,
-        cards: ArrayList<Card>?
-    ) {
-        if (itemView is HorizontalScrollCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(cards)
-        }
-    }
+                is ViewAutoPlayAdBinding -> {
+                    binding.itemData = data
+                }
 
+                is ViewSpecialSquareBinding -> {
+                    binding.run {
+                        recyclerView.run {
+                            layoutManager =
+                                GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
+                            if (itemDecorationCount > 0) removeItemDecorationAt(0)
+                            addItemDecoration(
+                                GridSpaceItemDecoration(
+                                    DisplayUtil.dip2px(6f),
+                                    DisplayUtil.dip2px(6f),
+                                    RecyclerView.HORIZONTAL
+                                )
+                            )
+                            adapter =
+                                SquareCardAdapter().apply { data.itemList?.let { setData(it) } }
+                        }
+                        itemData = data
+                    }
+                }
 
-    /**
-     * BriefCard
-     */
-    private fun bindBriefCard(position: Int, itemView: View, data: ItemData) {
-        if (itemView is BriefCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(data)
-        }
-    }
+                is ViewColumnCardBinding -> {
+                    binding.run {
+                        recyclerView.run {
+                            layoutManager = GridLayoutManager(context, 2)
+                            addItemDecoration(
+                                GridSpaceItemDecoration(
+                                    DisplayUtil.dip2px(6f),
+                                    DisplayUtil.dip2px(6f),
+                                    RecyclerView.VERTICAL
+                                )
+                            )
+                            data.itemList?.let { ColumnCardAdapter().setData(it) }
+                        }
+                        itemData = data
+                    }
+                }
 
-    /**
-     * NormalCard
-     */
-    private fun bindFollowCard(position: Int, itemView: View, data: ItemData, type: Int) {
-        if (itemView is FollowCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(data)
-            itemView.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, itemView, data, type)
+                is ViewTextCardBinding -> {
+                    binding.itemData = data
+                }
+
+                is ViewVideoSmallCardBinding -> {
+                    binding.run {
+                        itemData = data
+                        listener = View.OnClickListener {
+                            onMultiViewClickListener?.onViewClick(position, it, data, type)
+                        }
+                    }
+                }
+
+                is ViewBriefCardBinding -> {
+                    binding.itemData = data
+                }
+
+                is ViewFollowCardBinding -> {
+                    binding.run {
+                        itemData = data
+                        listener = View.OnClickListener {
+                            onMultiViewClickListener?.onViewClick(position, it, data, type)
+                        }
+                    }
+                }
+
+                is ViewAutoPlayCardBinding -> {
+                    binding.run {
+                        videoPlayer.run {
+                            val imageView = ImageView(CommonApplication.getContext())
+                            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                            Glide.with(CommonApplication.getContext())
+                                .load(data.content?.data?.cover?.feed)
+                                .into(imageView)
+                            thumbImageView = imageView
+                            backButton.visibility = View.GONE
+                            thumbImageViewLayout.visibility = View.VISIBLE
+                            startButton.setOnClickListener {
+                                onMultiViewClickListener?.onViewClick(
+                                    position,
+                                    it,
+                                    data,
+                                    type
+                                )
+                            }
+                        }
+                        itemData = data
+                        listener = View.OnClickListener {
+                            onMultiViewClickListener?.onViewClick(position, it, data, type)
+                        }
+                    }
+                }
+
+                is ViewColumnsCardBinding -> {
+                    binding.run {
+                        cover.layoutParams = binding.cover.layoutParams.apply {
+                            val originWidth = data.content?.data?.width
+                            val originHeight = data.content?.data?.height
+                            val realWidth =
+                                (DisplayUtil.getScreenWidth(CommonApplication.getContext()) / 2) - DisplayUtil.dip2px(
+                                    15f
+                                )
+                            val realHeight = realWidth * originHeight!! / originWidth!!
+                            width = realWidth
+                            height = realHeight.toInt()
+                        }
+                        itemData = data
+                        listener = View.OnClickListener {
+                            onMultiViewClickListener?.onViewClick(position, it, data, type)
+                        }
+                    }
+                }
+
+                is ViewVideoCollectionScrollCardBinding -> {
+                    binding.run {
+                        banner.run {
+                            adapter = object : VideoCollectionBannerImageAdapter(data.itemList) {
+                                override fun onBindView(
+                                    holder: ItemBannerHolder?,
+                                    data: Card?,
+                                    position: Int,
+                                    size: Int
+                                ) {
+                                    data?.let { holder?.itemView?.setData(it) }
+                                }
+                            }
+                            setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+                            setOnBannerListener { data, _ ->
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(
+                                        Constants.VIDEO_ID,
+                                        (data as Card).data?.content?.data?.id!!
+                                    )
+                                    .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
+                                    .navigation()
+                            }
+                            isAutoLoop(false)
+                        }
+                        itemData = data
+                    }
+                }
+
+                is ViewEmptyBinding -> {
+                    binding.itemData = data
+                }
             }
-            itemView.portrait.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, it, data, type)
-            }
         }
     }
-
-    /**
-     * VideoCard
-     */
-    private fun bindVideoCard(position: Int, itemView: View, data: ItemData, type: Int) {
-        if (itemView is VideoCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(data)
-            itemView.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, itemView, data, type)
-            }
-        }
-    }
-
-    /**
-     * TextCard
-     */
-    private fun bindTextCard(position: Int, itemView: View, data: ItemData) {
-        if (itemView is TextCardView) {
-            itemView.setData(data)
-        }
-    }
-
-    /**
-     * 广告
-     */
-    private fun bindAdvertisement(position: Int, itemView: View, data: ItemData) {
-        if (itemView is AdvertisementView) {
-            itemView.setData(data)
-        }
-    }
-
-
-    /**
-     *  热门分类
-     */
-    private fun bindSquareCard(
-        position: Int,
-        itemView: View,
-        data: ItemData
-    ) {
-        if (itemView is SquareCardView) {
-            itemView.setData(data)
-        }
-    }
-
-    /**
-     * 专题策划
-     */
-    private fun bindColumnCard(
-        position: Int,
-        itemView: View,
-        data: ItemData
-    ) {
-        if (itemView is ColumnCardView) {
-            itemView.setData(data)
-        }
-    }
-
-    /**
-     * 自动播放View
-     */
-    private fun bindAutoPlayCard(
-        position: Int,
-        itemView: View,
-        data: ItemData,
-        type: Int
-    ) {
-        if (itemView is AutoPlayCardView) {
-            itemView.setData(position, data)
-            itemView.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, itemView, data, type)
-            }
-            itemView.videoPlayer.startButton.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, it, data, type)
-            }
-            itemView.portrait.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, it, data, type)
-            }
-        }
-    }
-
-    /**
-     * 瀑布流Card
-     */
-    private fun bindCommunityColumnsCard(
-        position: Int,
-        itemView: View,
-        data: ItemData,
-        type: Int
-    ) {
-        if (itemView is CommunityColumnsCard) {
-            itemView.setData(data)
-            itemView.setOnClickListener {
-                onMultiViewClickListener?.onViewClick(position, itemView, data, 0)
-            }
-        }
-    }
-
-    private fun bindVideoCollectionHorizontalScrollCard(
-        position: Int,
-        itemView: View,
-        data: ItemData,
-        type: Int
-    ) {
-        if (itemView is VideoCollectionHorizontalScrollCardView) {
-            itemView.layoutParams = layoutParams
-            itemView.setData(data)
-        }
-    }
-
-    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var onMultiViewClickListener: OnMultiViewClickListener<ItemData>? = null
 

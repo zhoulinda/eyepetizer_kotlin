@@ -5,17 +5,20 @@ import android.content.res.Configuration
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
+import com.linda.module_base.adapter.BaseCardAdapter
 import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.listener.OnViewClickListener
-import com.linda.module_base.ui.BaseActivityV2
+import com.linda.module_base.listener.OnMultiViewClickListener
+import com.linda.module_base.ui.BaseActivity
 import com.linda.module_video_detail.R
+import com.linda.module_video_detail.adapter.RelatedVideoAdapter
 import com.linda.module_video_detail.databinding.DetailActivityVideoDetailBinding
 import com.linda.module_video_detail.model.VideoDetailViewModel
 import com.linda.module_video_detail.repository.VideoDetailRepository
@@ -24,7 +27,6 @@ import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import kotlinx.android.synthetic.main.detail_activity_video_detail.*
-import kotlinx.android.synthetic.main.detail_view_video_info.view.*
 
 /**
  * 描述 :     视频详情
@@ -35,7 +37,7 @@ import kotlinx.android.synthetic.main.detail_view_video_info.view.*
  */
 @Route(path = RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
 class VideoDetailActivity :
-    BaseActivityV2<DetailActivityVideoDetailBinding>(R.layout.detail_activity_video_detail) {
+    BaseActivity<DetailActivityVideoDetailBinding>(R.layout.detail_activity_video_detail) {
 
     @JvmField
     @Autowired(name = Constants.VIDEO_ID)
@@ -49,51 +51,50 @@ class VideoDetailActivity :
     private var isPause = false
 
     private val videoDetailViewModel by lazy { VideoDetailViewModel(VideoDetailRepository()) }
+    private val relateVideoAdapter by lazy { RelatedVideoAdapter() }
     private var orientationUtils: OrientationUtils? = null
 
 
     override fun initView() {
         setTransStatusBar()
         ARouter.getInstance().inject(this)
-        videoDetailViewModel.run {
-
+        binding?.viewModel = videoDetailViewModel.apply {
             detailData.observe(this@VideoDetailActivity, Observer { data ->
                 setVideoPlayer(data)
-                Glide.with(this@VideoDetailActivity).load(data.cover.blurred).into(detailBg)
-                videoInfoView.run {
-                    setData(data)
-                    portrait.setOnClickListener {
-                        ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                            .withInt(Constants.USER_ID, data.author.id!!)
-                            .navigation()
-                    }
+                portrait.setOnClickListener {
+                    ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                        .withInt(Constants.USER_ID, data.author.id!!)
+                        .navigation()
                 }
             })
 
             relatedVideos.observe(this@VideoDetailActivity, Observer { it ->
-                relateVideoView.setData(it.items, it.isShowAll)
+                relateVideoAdapter.setData(it)
             })
-
         }
 
-        relateVideoView.setOnViewClickListener(object : OnViewClickListener<Any> {
-            override fun onViewClick(view: View, data: Any) {
-                when (view.id) {
-                    R.id.lookMore ->
-                        videoDetailViewModel.showAllVideos()
-
-                    R.id.mRootView ->
-                        if (data is RelatedVideo)
-                            ARouter.getInstance()
-                                .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                .withInt(Constants.VIDEO_ID, data.id)
-                                .withString(Constants.RESOURCE_TYPE, data.resourceType)
-                                .navigation()
-                }
+        recyclerView.run {
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+            adapter = relateVideoAdapter.apply {
+                setOnMultiViewClickListener(object : OnMultiViewClickListener<RelatedVideo> {
+                    override fun onViewClick(
+                        position: Int,
+                        view: View,
+                        data: RelatedVideo,
+                        type: Int
+                    ) {
+                        ARouter.getInstance()
+                            .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                            .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .withInt(Constants.VIDEO_ID, data.id)
+                            .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                            .navigation()
+                    }
+                })
             }
-        })
+        }
     }
 
     override fun initData() {

@@ -12,6 +12,6 @@ Email:zhoulinda@songguo7.com
 class LoginRepository {
 
     suspend fun login(userName: String, password: String): Login {
-        return RetrofitManager.serviceV2.login(AppConfig.LOGIN, userName, password)
+        return RetrofitManager.service.login(AppConfig.LOGIN, userName, password)
     }
 }

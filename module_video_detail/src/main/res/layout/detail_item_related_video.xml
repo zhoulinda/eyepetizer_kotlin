@@ -1,53 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:id="@+id/mRootView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="8dp">
+    xmlns:tool="http://schemas.android.com/tools">
 
-    <com.linda.module_base.view.RatioImageView
-        android:id="@+id/videoCover"
-        android:layout_width="160dp"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="video"
+            type="com.linda.module_base.bean.RelatedVideo" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mRootView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:ratio="1.85" />
+        android:onClick="@{listener}"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp">
 
-    <TextView
-        android:id="@+id/videoTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/cl_000000"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toRightOf="@id/videoCover"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tool:text="视频标题-视屏标题标题标题" />
+        <com.linda.module_base.view.RatioImageView
+            android:id="@+id/videoCover"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:image="@{video.cover.feed}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ratio="1.85" />
 
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/cl_aaaaaa"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/videoCover"
-        app:layout_constraintLeft_toLeftOf="@id/videoTitle"
-        app:layout_constraintRight_toLeftOf="@id/share"
-        tool:text="#影视" />
+        <TextView
+            android:id="@+id/videoTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@{video.title}"
+            android:textColor="@color/cl_000000"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/videoCover"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="视频标题-视屏标题标题标题" />
 
-    <ImageView
-        android:id="@+id/share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_action"
-        app:layout_constraintBottom_toBottomOf="@id/videoCover"
-        app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@{'#' + video.category + '/' + video.author.name}"
+            android:textColor="@color/cl_aaaaaa"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/videoCover"
+            app:layout_constraintLeft_toLeftOf="@id/videoTitle"
+            app:layout_constraintRight_toLeftOf="@id/share"
+            tool:text="#影视" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_action"
+            app:layout_constraintBottom_toBottomOf="@id/videoCover"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

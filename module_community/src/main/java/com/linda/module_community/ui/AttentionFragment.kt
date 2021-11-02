@@ -10,7 +10,7 @@ import com.linda.module_base.bean.ItemData
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
 import com.linda.module_base.listener.OnMultiViewClickListener
-import com.linda.module_base.ui.BaseFragmentV2
+import com.linda.module_base.ui.BaseFragment
 import com.linda.module_community.R
 import com.linda.module_community.databinding.CommunityFragmentAttentionBinding
 import com.linda.module_community.model.AttentionViewModel
@@ -28,10 +28,9 @@ import kotlinx.android.synthetic.main.community_fragment_attention.*
  */
 @Route(path = RouterPaths.ATTENTION_FRAGMENT)
 class AttentionFragment :
-    BaseFragmentV2<CommunityFragmentAttentionBinding>(R.layout.community_fragment_attention),
+    BaseFragment<CommunityFragmentAttentionBinding>(R.layout.community_fragment_attention),
     OnRefreshLoadMoreListener {
 
-    private val linearLayoutManager by lazy { LinearLayoutManager(context) }
     private val attentionAdapter: BaseCardAdapter by lazy { BaseCardAdapter() }
     private val attentionViewMode by lazy { AttentionViewModel(AttentionRepository()) }
 
@@ -52,17 +51,17 @@ class AttentionFragment :
         }
 
         recyclerView.run {
-            layoutManager = linearLayoutManager
+            layoutManager = LinearLayoutManager(context)
             adapter = attentionAdapter.apply {
                 setOnMultiViewClickListener(object :
                     OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
-                            if (view.id == R.id.portrait) {
+                        when (view.id) {
+                            R.id.portrait ->
                                 ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
                                     .withInt(Constants.USER_ID, data.content?.data?.author?.id!!)
                                     .navigation()
-                            } else {
+                            else ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
                                     .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
@@ -71,7 +70,7 @@ class AttentionFragment :
                                         data.content?.data?.resourceType
                                     )
                                     .navigation()
-                            }
+
                         }
                     }
                 })

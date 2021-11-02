@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.linda.module_base.constants.Constants
 import com.linda.module_base.constants.RouterPaths
-import com.linda.module_base.ui.BaseActivityV2
+import com.linda.module_base.ui.BaseActivity
 import com.linda.module_video_detail.R
 import com.linda.module_video_detail.adapter.PictureDetailPagerAdapter
 import com.linda.module_video_detail.databinding.DetailActivityBrowsePictureBinding
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.detail_activity_browse_picture.*
  */
 @Route(path = RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
 class BrowsePictureActivity :
-    BaseActivityV2<DetailActivityBrowsePictureBinding>(R.layout.detail_activity_browse_picture) {
+    BaseActivity<DetailActivityBrowsePictureBinding>(R.layout.detail_activity_browse_picture) {
 
     @JvmField
     @Autowired(name = Constants.PICTURE_ID)
@@ -39,20 +39,17 @@ class BrowsePictureActivity :
     override fun initView() {
         setImmerseLayout(browsePicture)
         ARouter.getInstance().inject(this)
-        detailViewModel.run {
+        binding?.viewModel = detailViewModel.apply {
             detailData.observe(this@BrowsePictureActivity, Observer { data ->
-                pictureInfoView.run {
-                    setData(data)
-                    setOnClickListener {
-                        ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                            .withInt(Constants.USER_ID, data.owner.uid!!)
-                            .withString(Constants.RESOURCE_TYPE, data.resourceType)
-                            .navigation()
-                    }
+                portrait.setOnClickListener {
+                    ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                        .withInt(Constants.USER_ID, data.owner.uid!!)
+                        .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                        .navigation()
                 }
-                index.text = "1/" + data.urls.size
                 viewPager.run {
-                    adapter = PictureDetailPagerAdapter(this@BrowsePictureActivity, data.urls)
+                    adapter =
+                        data.urls?.let { PictureDetailPagerAdapter(this@BrowsePictureActivity, it) }
                     currentItem = 0
                     addOnPageChangeListener(object : OnPageChangeListener {
                         override fun onPageScrollStateChanged(state: Int) {}
@@ -64,7 +61,7 @@ class BrowsePictureActivity :
                         }
 
                         override fun onPageSelected(position: Int) {
-                            index.text = (position + 1).toString() + "/" + data.urls.size
+                            detailViewModel.setCurrentIndex(position + 1)
                         }
                     })
                 }

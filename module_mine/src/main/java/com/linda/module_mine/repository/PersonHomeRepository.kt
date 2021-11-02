@@ -12,7 +12,7 @@ Email:zhoulinda@songguo7.com
 class PersonHomeRepository {
 
     suspend fun getPersonHomeData(url: String): BaseListData<ItemData> {
-        return RetrofitManager.serviceV2.getPersonHomeData(url)
+        return RetrofitManager.service.getPersonHomeData(url)
     }
 
 }
