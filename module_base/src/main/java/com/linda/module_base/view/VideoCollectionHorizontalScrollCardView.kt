@@ -42,25 +42,28 @@ class VideoCollectionHorizontalScrollCardView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        titleBar.text = data.header?.title
-        banner.adapter = object : VideoCollectionBannerImageAdapter(data.itemList!!) {
-            override fun onBindView(
-                holder: ItemBannerHolder?,
-                data: Card?,
-                position: Int,
-                size: Int
-            ) {
-                data?.let { holder?.itemView?.setData(it) }
+        data.run {
+            titleBar.text = header?.title
+            banner.run {
+                adapter = object : VideoCollectionBannerImageAdapter(data.itemList!!) {
+                    override fun onBindView(
+                        holder: ItemBannerHolder?,
+                        data: Card?,
+                        position: Int,
+                        size: Int
+                    ) {
+                        data?.let { holder?.itemView?.setData(it) }
+                    }
+                }
+                setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+                setOnBannerListener { data, _ ->
+                    ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                        .withInt(Constants.VIDEO_ID, (data as Card).data?.content?.data?.id!!)
+                        .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
+                        .navigation()
+                }
+                isAutoLoop(false)
             }
         }
-
-        banner.setBannerRound(DisplayUtil.dip2px(3f).toFloat())
-        banner.setOnBannerListener { data, _ ->
-            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                .withInt(Constants.VIDEO_ID, (data as Card).data?.content?.data?.id!!)
-                .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
-                .navigation()
-        }
-        banner.isAutoLoop(false)
     }
 }

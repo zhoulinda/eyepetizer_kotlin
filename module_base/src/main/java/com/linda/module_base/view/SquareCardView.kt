@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.view_special_square.view.*
  */
 class SquareCardView : FrameLayout {
 
-    private var adapter: SquareCardAdapter? = null
+    private val squareAdapter: SquareCardAdapter by lazy { SquareCardAdapter() }
 
     constructor(context: Context) : this(context, null)
 
@@ -37,25 +37,24 @@ class SquareCardView : FrameLayout {
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.view_special_square, this, true)
-        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
-        recyclerView.addItemDecoration(
-            GridSpaceItemDecoration(
-                DisplayUtil.dip2px(6f),
-                DisplayUtil.dip2px(6f),
-                RecyclerView.HORIZONTAL
+        recyclerView.run {
+            layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
+            addItemDecoration(
+                GridSpaceItemDecoration(
+                    DisplayUtil.dip2px(6f),
+                    DisplayUtil.dip2px(6f),
+                    RecyclerView.HORIZONTAL
+                )
             )
-        )
-        adapter = SquareCardAdapter()
-        recyclerView.adapter = adapter
+            recyclerView.adapter = squareAdapter
+        }
     }
 
     fun setData(data: ItemData) {
-        titleBar.text = data.header?.title
-        lookMore.text = data.header?.rightText
-        lookMore.setOnClickListener {
-        }
-        data.itemList?.let {
-            adapter?.setData(it)
+        data.run {
+            titleBar.text = header?.title
+            lookMore.text = header?.rightText
+            itemList?.let { squareAdapter.setData(it) }
         }
     }
 

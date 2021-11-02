@@ -37,13 +37,16 @@ class BriefCardView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        Glide.with(context)
-            .load(data.icon)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
-            .into(cover)
+        data.run {
+            Glide.with(context)
+                .load(data.icon)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+                .into(coverImage)
 
-        titleBar.text = data.title
-        description.text = data.description
+            titleBar.text = data.title
+            descriptionStr.text = data.description
+        }
+
     }
 
 }

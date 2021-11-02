@@ -44,19 +44,22 @@ class PersonHomeFragment : BaseFragment(R.layout.mine_fragment_person_main_sub),
                 setOnMultiViewClickListener(object :
                     OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
-                            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
-                                .withString(
-                                    Constants.RESOURCE_TYPE,
-                                    data.content?.data?.resourceType
-                                )
-                                .navigation()
-                        } else if (type == BaseCardAdapter.ITEM_TYPE_VIDEO_SMALL_CARD) {
-                            ARouter.getInstance().build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                .withInt(Constants.VIDEO_ID, data.id!!)
-                                .withString(Constants.RESOURCE_TYPE, data.resourceType)
-                                .navigation()
+                        when (type) {
+                            BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD ->
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
+                                    .withString(
+                                        Constants.RESOURCE_TYPE,
+                                        data.content?.data?.resourceType
+                                    )
+                                    .navigation()
+                            BaseCardAdapter.ITEM_TYPE_VIDEO_SMALL_CARD ->
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(Constants.VIDEO_ID, data.id!!)
+                                    .withString(Constants.RESOURCE_TYPE, data.resourceType)
+                                    .navigation()
                         }
                     }
                 })

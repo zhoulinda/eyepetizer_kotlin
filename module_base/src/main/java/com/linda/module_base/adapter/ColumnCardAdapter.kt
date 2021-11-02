@@ -58,16 +58,18 @@ class ColumnCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val roundedCorners = RoundedCorners(DisplayUtil.dip2px(6f))
         val options = RequestOptions.bitmapTransform(roundedCorners)
         if (holder is ItemHolder) {
-            Glide.with(holder.itemView.context)
-                .load(data?.image)
-                .override(
-                    (DisplayUtil.getScreenWidth(holder.itemView.context) - DisplayUtil.dip2px(
-                        24f
-                    ) / 2), DisplayUtil.dip2px(100f)
-                )
-                .apply(options)
-                .into(holder.itemView.mCategoryImage)
-            holder.itemView.mCategoryTitle.text = data?.title
+            holder.itemView.run {
+                Glide.with(context)
+                    .load(data?.image)
+                    .override(
+                        (DisplayUtil.getScreenWidth(context) - DisplayUtil.dip2px(
+                            24f
+                        ) / 2), DisplayUtil.dip2px(100f)
+                    )
+                    .apply(options)
+                    .into(mCategoryImage)
+                mCategoryTitle.text = data?.title
+            }
         }
     }
 

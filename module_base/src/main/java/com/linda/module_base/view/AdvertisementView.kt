@@ -38,18 +38,20 @@ class AdvertisementView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        titleBar.text = data.header?.title
-        description.text = data.header?.description
-        label.text = data.label?.text
+        data.run {
+            titleBar.text = header?.title
+            descriptionStr.text = header?.description
+            labelStr.text = label?.text
 
-        Glide.with(context)
-            .load(data.image)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(DisplayUtil.dip2px(15f))))
-            .into(cover)
+            Glide.with(context)
+                .load(image)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(DisplayUtil.dip2px(15f))))
+                .into(coverImage)
 
-        Glide.with(context)
-            .load(data.header?.icon)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(DisplayUtil.dip2px(10f))))
-            .into(portrait)
+            Glide.with(context)
+                .load(header?.icon)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(DisplayUtil.dip2px(10f))))
+                .into(portrait)
+        }
     }
 }

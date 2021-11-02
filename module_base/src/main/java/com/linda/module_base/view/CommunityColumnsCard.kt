@@ -41,30 +41,34 @@ class CommunityColumnsCard : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        val originWidth = data.content?.data?.width
-        val originHeight = data.content?.data?.height
-        val realWidth = (DisplayUtil.getScreenWidth(context) / 2) - DisplayUtil.dip2px(15f)
-        val realHeight = realWidth * originHeight!! / originWidth!!
-        val layoutParams = cover.layoutParams
-        layoutParams.width = realWidth
-        layoutParams.height = realHeight.toInt()
-        cover.layoutParams = layoutParams
+        data.run {
+            val originWidth = content?.data?.width
+            val originHeight = content?.data?.height
+            val realWidth = (DisplayUtil.getScreenWidth(context) / 2) - DisplayUtil.dip2px(15f)
+            val realHeight = realWidth * originHeight!! / originWidth!!
 
-        val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-        val options = RequestOptions.bitmapTransform(roundedCorners)
+            coverImage.layoutParams = coverImage.layoutParams.apply {
+                width = realWidth
+                height = realHeight.toInt()
+            }
 
-        Glide.with(CommonApplication.getContext())
-            .load(data.content.data.cover?.feed)
-            .apply(options)
-            .into(cover)
+            val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
+            val options = RequestOptions.bitmapTransform(roundedCorners)
 
-        Glide.with(CommonApplication.getContext())
-            .load(data.header?.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
+            Glide.with(CommonApplication.getContext())
+                .load(content?.data?.cover?.feed)
+                .apply(options)
+                .into(coverImage)
 
-        description.text = data.content.data.description
-        author.text = data.content.data.owner?.nickname
-        storeCount.text = "" + data.content.data.consumption?.collectionCount
+            Glide.with(CommonApplication.getContext())
+                .load(data.header?.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+
+            descriptionStr.text = content?.data?.description
+            author.text = content?.data?.owner?.nickname
+            storeCount.text = "" + content?.data?.consumption?.collectionCount
+        }
+
     }
 }

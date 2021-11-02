@@ -61,16 +61,18 @@ class SquareCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val recommend = datas[position].data
+        val data = datas[position].data
 
         if (holder is ItemHolder) {
-            val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-            val options = RequestOptions.bitmapTransform(roundedCorners)
-            Glide.with(CommonApplication.getContext())
-                .load(recommend?.image)
-                .apply(options)
-                .into(holder.itemView.mCategoryImage)
-            holder.itemView.mCategoryTitle.text = recommend?.title
+            holder.itemView.run {
+                val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
+                val options = RequestOptions.bitmapTransform(roundedCorners)
+                Glide.with(CommonApplication.getContext())
+                    .load(data?.image)
+                    .apply(options)
+                    .into(mCategoryImage)
+                mCategoryTitle.text = data?.title
+            }
         }
     }
 

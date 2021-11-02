@@ -78,6 +78,7 @@ class PersonMainActivity : BaseActivity(R.layout.mine_activity_person_main),
             .error(R.drawable.ic_avatar)
             .into(portrait)
 
+        back.setOnClickListener { finish() }
         name.text = data.pgcInfo.name
         brief.text = data.pgcInfo.brief
         description.text = data.pgcInfo.description

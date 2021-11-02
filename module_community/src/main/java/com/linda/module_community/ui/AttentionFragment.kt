@@ -45,12 +45,12 @@ class AttentionFragment : BaseFragment(R.layout.community_fragment_attention),
                 setOnMultiViewClickListener(object :
                     OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        if (type == BaseCardAdapter.ITEM_TYPE_AUTO_PLAY_FOLLOW_CARD) {
-                            if (view.id == R.id.portrait) {
+                        when (view.id) {
+                            R.id.portrait ->
                                 ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
                                     .withInt(Constants.USER_ID, data.content?.data?.author?.id!!)
                                     .navigation()
-                            } else {
+                            else ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
                                     .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
@@ -59,7 +59,7 @@ class AttentionFragment : BaseFragment(R.layout.community_fragment_attention),
                                         data.content?.data?.resourceType
                                     )
                                     .navigation()
-                            }
+
                         }
                     }
                 })

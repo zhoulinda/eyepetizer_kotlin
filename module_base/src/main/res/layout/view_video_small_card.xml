@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/durationStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="6dp"
@@ -45,7 +45,7 @@
         tools:text="标题标题标题标题标题标题标题标题标题标题标题标题" />
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/categoryStr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="6dp"

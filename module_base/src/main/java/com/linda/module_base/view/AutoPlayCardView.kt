@@ -45,24 +45,28 @@ class AutoPlayCardView : FrameLayout {
 
     fun setData(position: Int, data: ItemData) {
         //增加封面
-        val imageView = ImageView(context)
-        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        Glide.with(context)
-            .load(data.content?.data?.cover?.feed)
-            .into(imageView)
-        videoPlayer.thumbImageView = imageView
-        videoPlayer.backButton.visibility = View.GONE
-        videoPlayer.thumbImageViewLayout.visibility = View.VISIBLE
+        data.run {
+            val imageView = ImageView(context)
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            Glide.with(context)
+                .load(content?.data?.cover?.feed)
+                .into(imageView)
+            videoPlayer.run {
+                thumbImageView = imageView
+                backButton.visibility = View.GONE
+                thumbImageViewLayout.visibility = View.VISIBLE
+            }
 
-        Glide.with(CommonApplication.getContext())
-            .load(data.header?.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
-        name.text = data.content?.data?.author?.name
-        date.text = data.content?.data?.date?.let { DateUtil.getFormatDate(it, "yyyy.MM.dd") }
-        description.text = data.content?.data?.description
-        storeCount.text = "" + data.content?.data?.consumption?.collectionCount
-        commentCount.text = "" + data.content?.data?.consumption?.replyCount
+            Glide.with(CommonApplication.getContext())
+                .load(header?.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+            name.text = content?.data?.author?.name
+            date.text = content?.data?.date?.let { DateUtil.getFormatDate(it, "yyyy.MM.dd") }
+            descriptionStr.text = content?.data?.description
+            storeCount.text = "" + content?.data?.consumption?.collectionCount
+            commentCount.text = "" + content?.data?.consumption?.replyCount
+        }
     }
 
 

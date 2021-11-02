@@ -9,11 +9,12 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.linda.lib_common.CommonApplication
-import com.linda.module_base.BaseApplication
 import com.linda.module_base.R
 import com.linda.module_base.bean.ItemData
 import com.linda.lib_common.utils.DisplayUtil
 import kotlinx.android.synthetic.main.view_follow_card.view.*
+import kotlinx.android.synthetic.main.view_follow_card.view.descriptionStr
+import kotlinx.android.synthetic.main.view_follow_card.view.portrait
 
 /**
  * 描述 :
@@ -40,29 +41,23 @@ class FollowCardView : FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.view_follow_card, this, true)
     }
 
-    fun setData(itemData: ItemData) {
-        titleBar.text = itemData.header?.title
-        description.text = itemData.header?.description
-//        portrait.setOnClickListener {
-//            onViewClickListener?.onViewClick(portrait, itemData)
-//        }
+    fun setData(data: ItemData) {
+        data.run {
+            titleBar.text = header?.title
+            descriptionStr.text = header?.description
 
-        val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
-        val options = RequestOptions.bitmapTransform(roundedCorners)
-        Glide.with(CommonApplication.getContext())
-            .load(itemData.content?.data?.cover?.feed)
-            .apply(options)
-            .into(cover)
+            val roundedCorners = RoundedCorners(DisplayUtil.dip2px(3f))
+            val options = RequestOptions.bitmapTransform(roundedCorners)
+            Glide.with(CommonApplication.getContext())
+                .load(content?.data?.cover?.feed)
+                .apply(options)
+                .into(coverImage)
 
-        Glide.with(CommonApplication.getContext())
-            .load(itemData.header?.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
+            Glide.with(CommonApplication.getContext())
+                .load(header?.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+        }
+
     }
-
-//    private var onViewClickListener: OnViewClickListener<ItemData>? = null
-//
-//    fun setOnViewClickListener(onViewClickListener: OnViewClickListener<ItemData>) {
-//        this.onViewClickListener = onViewClickListener
-//    }
 }

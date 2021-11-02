@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.linda.module_base.view.RatioImageView
-        android:id="@+id/cover"
+        android:id="@+id/coverImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cover" />
+        app:layout_constraintTop_toBottomOf="@id/coverImage" />
 
     <ImageView
         android:id="@+id/share"
@@ -50,7 +50,7 @@
         tool:text="为奇偶我好公司读后感何时可掇和接口啥口红解耦我王嘉尔合力攻坚间解耦的设计费" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"

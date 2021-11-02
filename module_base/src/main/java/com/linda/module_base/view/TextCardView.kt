@@ -34,7 +34,9 @@ class TextCardView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        titleBar.text = data.text
-        rightText.text = data.rightText
+        data.run {
+            titleBar.text = text
+            rightStr.text = rightText
+        }
     }
 }

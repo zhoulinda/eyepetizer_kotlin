@@ -7,7 +7,7 @@
     android:layout_marginTop="20dp">
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/coverImage"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:scaleType="fitXY"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/labelStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -45,7 +45,7 @@
         tools:text="宝格丽" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/portrait"

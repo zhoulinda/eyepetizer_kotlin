@@ -46,25 +46,31 @@ class DailyFragment : BaseFragment(R.layout.home_fragment_daily), DailyContract.
                 setOnMultiViewClickListener(object :
                     OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        if (type == BaseCardAdapter.ITEM_TYPE_INFORMATION_CARD) {
-                            ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
-                                .withString("url", "http://www.baidu.com")
-                                .navigation()
-                        } else if (type == BaseCardAdapter.ITEM_TYPE_FOLLOW_CARD) {
-                            if (view.id == R.id.portrait) {
-                                ARouter.getInstance().build(RouterPaths.PERSON_MAIN_ACTIVITY)
-                                    .withInt(Constants.USER_ID, data.content?.data?.author?.id!!)
+                        when (type) {
+                            BaseCardAdapter.ITEM_TYPE_INFORMATION_CARD ->
+                                ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
+                                    .withString("url", "http://www.baidu.com")
                                     .navigation()
-                            } else {
-                                ARouter.getInstance()
-                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                    .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
-                                    .withString(
-                                        Constants.RESOURCE_TYPE,
-                                        data.content?.data?.resourceType
-                                    )
-                                    .navigation()
-                            }
+                            BaseCardAdapter.ITEM_TYPE_FOLLOW_CARD ->
+                                when (view.id) {
+                                    R.id.portrait ->
+                                        ARouter.getInstance()
+                                            .build(RouterPaths.PERSON_MAIN_ACTIVITY)
+                                            .withInt(
+                                                Constants.USER_ID,
+                                                data.content?.data?.author?.id!!
+                                            )
+                                            .navigation()
+                                    else ->
+                                        ARouter.getInstance()
+                                            .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                            .withInt(Constants.VIDEO_ID, data.content?.data?.id!!)
+                                            .withString(
+                                                Constants.RESOURCE_TYPE,
+                                                data.content?.data?.resourceType
+                                            )
+                                            .navigation()
+                                }
                         }
                     }
                 })

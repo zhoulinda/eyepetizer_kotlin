@@ -38,13 +38,15 @@ class VideoCardView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
-        Glide.with(context)
-            .load(data.cover?.feed)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
-            .into(videoCover)
+        data.run {
+            Glide.with(context)
+                .load(cover?.feed)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
+                .into(videoCover)
+            durationStr.text = duration?.let { DateUtil.getDuration(it) }
+            titleBar.text = title
+            categoryStr.text = category
+        }
 
-        duration.text = data.duration?.let { DateUtil.getDuration(it) }
-        titleBar.text = data.title
-        category.text = data.category
     }
 }

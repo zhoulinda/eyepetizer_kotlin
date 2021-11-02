@@ -37,13 +37,14 @@ class AutoPlayAdView : FrameLayout {
     }
 
     fun setData(data: ItemData) {
+        data.run {
+            Glide.with(context)
+                .load(detail?.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
 
-        Glide.with(context)
-            .load(data.detail?.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
-
-        titleBar.text = data.detail?.title
-        description.text = data.detail?.description
+            titleBar.text = detail?.title
+            descriptionStr.text = detail?.description
+        }
     }
 }

@@ -57,7 +57,7 @@
         android:background="@color/cl_999999"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/label" />
+        app:layout_constraintTop_toBottomOf="@id/labelStr" />
 
     <TextView
         android:id="@+id/storeCount"

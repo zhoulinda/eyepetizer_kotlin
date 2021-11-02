@@ -50,25 +50,19 @@ class RecommendFragment : BaseFragment(R.layout.community_fragment_recommend),
                 setHasStableIds(true)
                 setOnMultiViewClickListener(object : OnMultiViewClickListener<ItemData> {
                     override fun onViewClick(position: Int, view: View, data: ItemData, type: Int) {
-                        val id = data.header?.id
-                        val resourceType = data.content?.data?.resourceType
-                        data.header?.id?.let {
-                            if (data.content?.data?.resourceType == Constants.VIDEO) {
+                        when (val resourceType = data.content?.data?.resourceType) {
+                            Constants.VIDEO ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                    .withInt(Constants.VIDEO_ID, id!!)
+                                    .withInt(Constants.VIDEO_ID, data.header?.id!!)
                                     .withString(Constants.RESOURCE_TYPE, resourceType)
                                     .navigation()
-                                return
-                            }
-                            if (data.content?.data?.resourceType == Constants.UGC_PICTURE) {
+                            else ->
                                 ARouter.getInstance()
                                     .build(RouterPaths.DETAIL_BROWSE_PICTURE_ACTIVITY)
-                                    .withInt(Constants.PICTURE_ID, it)
+                                    .withInt(Constants.PICTURE_ID, data.header?.id!!)
                                     .withString(Constants.RESOURCE_TYPE, resourceType)
                                     .navigation()
-                                return
-                            }
                         }
                     }
                 })

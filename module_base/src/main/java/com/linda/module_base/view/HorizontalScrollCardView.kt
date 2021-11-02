@@ -40,24 +40,27 @@ class HorizontalScrollCardView : FrameLayout {
     }
 
     fun setData(cards: ArrayList<Card>?) {
-        banner.adapter = object : BannerImageAdapter<Card>(cards) {
-            override fun onBindView(
-                holder: BannerImageHolder?,
-                data: Card?,
-                position: Int,
-                size: Int
-            ) {
-                Glide.with(context)
-                    .load(data?.data?.image)
-                    .into(holder!!.imageView)
+        banner.run {
+            adapter = object : BannerImageAdapter<Card>(cards) {
+                override fun onBindView(
+                    holder: BannerImageHolder?,
+                    data: Card?,
+                    position: Int,
+                    size: Int
+                ) {
+                    Glide.with(context)
+                        .load(data?.data?.image)
+                        .into(holder!!.imageView)
+                }
             }
+
+            setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+            setOnBannerListener { data, _ ->
+                ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
+                    .withString("url", (data as Card).data?.actionUrl)
+                    .navigation()
+            }
+            isAutoLoop(false)
         }
-        banner.setBannerRound(DisplayUtil.dip2px(3f).toFloat())
-        banner.setOnBannerListener { data, _ ->
-            ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
-                .withString("url", (data as Card).data?.actionUrl)
-                .navigation()
-        }
-        banner.isAutoLoop(false)
     }
 }

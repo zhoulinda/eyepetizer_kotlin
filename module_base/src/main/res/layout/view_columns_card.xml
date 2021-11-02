@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/coverImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionStr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -26,7 +26,7 @@
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cover" />
+        app:layout_constraintTop_toBottomOf="@id/coverImage" />
 
     <ImageView
         android:id="@+id/portrait"
@@ -34,7 +34,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        app:layout_constraintTop_toBottomOf="@id/descriptionStr" />
 
     <ImageView
         android:id="@+id/storeIcon"

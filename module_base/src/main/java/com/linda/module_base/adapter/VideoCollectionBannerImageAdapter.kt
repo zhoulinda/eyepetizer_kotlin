@@ -16,13 +16,13 @@ abstract class VideoCollectionBannerImageAdapter(cards: ArrayList<Card>) :
     BannerAdapter<Card, ItemBannerHolder>(cards) {
 
     override fun onCreateHolder(parent: ViewGroup?, viewType: Int): ItemBannerHolder {
-        val view = VideoCollectionHorizontalScrollCardItemView(parent!!.context)
-        //注意，必须设置为match_parent，这个是viewpager2强制要求的
-        val params = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        view.layoutParams = params
+        val view = VideoCollectionHorizontalScrollCardItemView(parent!!.context).apply {
+            //注意，必须设置为match_parent，这个是viewpager2强制要求的
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        }
         return ItemBannerHolder(view)
     }
 }

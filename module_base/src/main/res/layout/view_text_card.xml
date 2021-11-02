@@ -16,7 +16,7 @@
         tools:text="开眼专栏" />
 
     <TextView
-        android:id="@+id/rightText"
+        android:id="@+id/rightStr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

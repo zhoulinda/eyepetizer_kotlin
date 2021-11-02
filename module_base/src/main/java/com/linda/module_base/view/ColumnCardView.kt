@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.view_column_card.view.*
  */
 class ColumnCardView : FrameLayout {
 
-    private var adapter: ColumnCardAdapter? = null
+    private val columnCardAdapter: ColumnCardAdapter by lazy { ColumnCardAdapter() }
 
     constructor(context: Context) : this(context, null)
 
@@ -37,22 +37,24 @@ class ColumnCardView : FrameLayout {
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.view_column_card, this, true)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.addItemDecoration(
-            GridSpaceItemDecoration(
-                DisplayUtil.dip2px(6f),
-                DisplayUtil.dip2px(6f),
-                RecyclerView.VERTICAL
+        recyclerView.run {
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(
+                GridSpaceItemDecoration(
+                    DisplayUtil.dip2px(6f),
+                    DisplayUtil.dip2px(6f),
+                    RecyclerView.VERTICAL
+                )
             )
-        )
-        adapter = ColumnCardAdapter()
-        recyclerView.adapter = adapter
+            adapter = columnCardAdapter
+        }
     }
 
-    fun setData(itemData: ItemData) {
-        titleBar.text = itemData.header?.title
-        lookMore.text = itemData.header?.rightText
-        lookMore.setOnClickListener { }
-        itemData.itemList?.let { adapter?.setData(it) }
+    fun setData(data: ItemData) {
+        data.run {
+            titleBar.text = header?.title
+            lookMore.text = header?.rightText
+            itemList?.let { columnCardAdapter.setData(it) }
+        }
     }
 }
