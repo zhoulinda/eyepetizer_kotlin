@@ -13,7 +13,6 @@ import com.linda.module_base.constants.RouterPaths
 import com.linda.lib_common.utils.AppUtil
 import com.linda.lib_common.utils.PrefsUtil
 import com.linda.module_base.ui.BaseFragment
-import com.linda.module_mine.MinePresenter
 import com.linda.module_mine.R
 import com.linda.module_mine.databinding.MineFragmentMineBinding
 import kotlinx.android.synthetic.main.mine_fragment_mine.*
@@ -35,8 +34,6 @@ class MineFragment : BaseFragment<MineFragmentMineBinding>(R.layout.mine_fragmen
         )
     )
 
-    private var minePresenter: MinePresenter? = null
-
     override fun initView() {
         toPersonMainPage.setOnClickListener(this)
         portrait.setOnClickListener(this)
@@ -52,7 +49,6 @@ class MineFragment : BaseFragment<MineFragmentMineBinding>(R.layout.mine_fragmen
     }
 
     override fun initData() {
-        minePresenter = MinePresenter()
     }
 
     override fun onClick(v: View?) {

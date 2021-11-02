@@ -12,7 +12,6 @@ import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.bean.VideoItem
 import com.linda.module_video_detail.repository.VideoDetailRepository
-import kotlinx.android.synthetic.main.detail_view_picture_info.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
-import com.linda.module_base.adapter.BaseCardAdapter
 import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.constants.Constants
@@ -53,7 +52,6 @@ class VideoDetailActivity :
     private val videoDetailViewModel by lazy { VideoDetailViewModel(VideoDetailRepository()) }
     private val relateVideoAdapter by lazy { RelatedVideoAdapter() }
     private var orientationUtils: OrientationUtils? = null
-
 
     override fun initView() {
         setTransStatusBar()
@@ -110,16 +108,17 @@ class VideoDetailActivity :
         Glide.with(this)
             .load(videoDetail.cover.detail)
             .into(imageView)
-        videoPlayer.thumbImageView = imageView
 
-        videoPlayer.titleTextView.visibility = View.GONE
-        videoPlayer.backButton.visibility = View.GONE
-        videoPlayer.fullscreenButton
-            .setOnClickListener { //直接横屏
+        videoPlayer.run {
+            thumbImageView = imageView
+            titleTextView.visibility = View.GONE
+            backButton.visibility = View.GONE
+            fullscreenButton.setOnClickListener { //直接横屏
                 orientationUtils!!.resolveByClick()
                 //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-                videoPlayer.startWindowFullscreen(this, true, true)
+                videoPlayer.startWindowFullscreen(this@VideoDetailActivity, true, true)
             }
+        }
 
         orientationUtils = OrientationUtils(this, videoPlayer)
         orientationUtils!!.isEnable = false

@@ -36,15 +36,17 @@ class VideoCollectionHorizontalScrollCardItemView : FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.view_video_collection_item_card, this, true)
     }
 
-    fun setData(data: Card) {
-        Glide.with(context)
-            .load(data.data?.content?.data?.cover?.feed)
-            .into(image)
-        Glide.with(context)
-            .load(data.data?.content?.data?.author?.icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(portrait)
-        videoTitle.text = data.data?.header?.title
-        description.text = data.data?.header?.description
+    fun setData(card: Card) {
+        card.run {
+            Glide.with(context)
+                .load(data?.content?.data?.cover?.feed)
+                .into(image)
+            Glide.with(context)
+                .load(data?.content?.data?.author?.icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(portrait)
+            videoTitle.text = data?.header?.title
+            description.text = data?.header?.description
+        }
     }
 }

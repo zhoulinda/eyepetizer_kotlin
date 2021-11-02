@@ -3,7 +3,6 @@ package com.linda.module_base.api
 import com.linda.module_base.bean.*
 import com.linda.module_base.bean.mine.PersonMainData
 import io.reactivex.rxjava3.core.Flowable
-import retrofit2.Call
 import retrofit2.http.*
 
 /**
