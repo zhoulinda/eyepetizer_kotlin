@@ -21,9 +21,9 @@
         android:background="@drawable/shape_bg_stroke_rect"
         android:text="+ 关注"
         android:textColor="@color/cl_000000"
-        app:layout_constraintBottom_toBottomOf="@id/cover"
+        app:layout_constraintBottom_toBottomOf="@id/coverImage"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cover" />
+        app:layout_constraintTop_toTopOf="@id/coverImage" />
 
     <LinearLayout
         android:id="@+id/mContainer"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/cover"
+        app:layout_constraintBottom_toBottomOf="@id/coverImage"
         app:layout_constraintLeft_toRightOf="@id/coverImage"
         app:layout_constraintRight_toLeftOf="@id/attention"
         app:layout_constraintTop_toTopOf="@id/coverImage">
