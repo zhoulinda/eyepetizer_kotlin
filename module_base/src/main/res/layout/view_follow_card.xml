@@ -22,23 +22,24 @@
 
         <com.linda.module_base.view.RatioImageView
             android:id="@+id/cover"
-            imageUrl="@{itemData.content.data.cover.feed}"
-            roundedCorners="@{3}"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="10dp"
+            app:imageUrl="@{itemData.content.data.cover.feed}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:ratio="1.73" />
+            app:ratio="1.73"
+            app:roundedCorners="@{3f}" />
 
         <ImageView
             android:id="@+id/portrait"
-            circleImageUrl="@{itemData.header.icon}"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:onClick="@{listener}"
+            app:circleCropImage="@{true}"
+            app:imageUrl="@{itemData.header.icon}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cover" />
 

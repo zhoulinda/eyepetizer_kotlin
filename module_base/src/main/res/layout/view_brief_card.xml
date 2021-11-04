@@ -18,13 +18,13 @@
 
         <ImageView
             android:id="@+id/cover"
-            imageUrl="@{itemData.icon}"
-            roundedCorners="@{10}"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:scaleType="fitXY"
+            app:imageUrl="@{itemData.icon}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="@{10f}" />
 
         <Button
             android:id="@+id/attention"

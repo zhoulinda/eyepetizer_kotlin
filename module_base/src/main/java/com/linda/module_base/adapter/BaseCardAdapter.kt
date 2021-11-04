@@ -1,5 +1,6 @@
 package com.linda.module_base.adapter
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -92,7 +93,30 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         R.layout.view_scroll_card,
                         parent,
                         false
-                    ), onMultiViewClickListener, viewType
+                    ).apply {
+                        Log.e("linda: ", "      createHolder   ")
+                        banner.run {
+                            adapter = object : BannerImageAdapter<Card>(null) {
+                                override fun onBindView(
+                                    holder: BannerImageHolder,
+                                    data: Card?,
+                                    position: Int,
+                                    size: Int
+                                ) {
+                                    Glide.with(holder.imageView.context)
+                                        .load(data?.data?.image)
+                                        .into(holder.imageView)
+                                }
+                            }
+                            setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+                            setOnBannerListener { data, _ ->
+                                ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
+                                    .withString("url", (data as Card).data?.actionUrl)
+                                    .navigation()
+                            }
+                            isAutoLoop(false)
+                        }
+                    }, onMultiViewClickListener, viewType
                 )
             ITEM_TYPE_BANNER ->
                 ItemHolder(
@@ -128,7 +152,21 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         R.layout.view_special_square,
                         parent,
                         false
-                    ), onMultiViewClickListener, viewType
+                    ).apply {
+                        recyclerView.run {
+                            layoutManager =
+                                GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
+                            addItemDecoration(
+                                GridSpaceItemDecoration(
+                                    DisplayUtil.dip2px(6f),
+                                    DisplayUtil.dip2px(6f),
+                                    RecyclerView.HORIZONTAL
+                                )
+                            )
+                            adapter =
+                                SquareCardAdapter()
+                        }
+                    }, onMultiViewClickListener, viewType
                 )
             ITEM_TYPE_COLUMN_CARD_LIST ->
                 ItemHolder(
@@ -137,7 +175,19 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         R.layout.view_column_card,
                         parent,
                         false
-                    ), onMultiViewClickListener, viewType
+                    ).apply {
+                        recyclerView.run {
+                            layoutManager = GridLayoutManager(context, 2)
+                            addItemDecoration(
+                                GridSpaceItemDecoration(
+                                    DisplayUtil.dip2px(6f),
+                                    DisplayUtil.dip2px(6f),
+                                    RecyclerView.VERTICAL
+                                )
+                            )
+                            adapter = ColumnCardAdapter()
+                        }
+                    }, onMultiViewClickListener, viewType
                 )
             ITEM_TYPE_TEXT_CARD ->
                 ItemHolder(
@@ -200,7 +250,32 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         R.layout.view_video_collection_scroll_card,
                         parent,
                         false
-                    ), onMultiViewClickListener, viewType
+                    ).apply {
+                        banner.run {
+                            adapter = object : VideoCollectionBannerImageAdapter(null) {
+                                override fun onBindView(
+                                    holder: ItemBannerHolder?,
+                                    data: Card?,
+                                    position: Int,
+                                    size: Int
+                                ) {
+                                    data?.let { holder?.itemView?.setData(it) }
+                                }
+                            }
+                            setBannerRound(DisplayUtil.dip2px(3f).toFloat())
+                            setOnBannerListener { data, _ ->
+                                ARouter.getInstance()
+                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
+                                    .withInt(
+                                        Constants.VIDEO_ID,
+                                        (data as Card).data?.content?.data?.id!!
+                                    )
+                                    .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
+                                    .navigation()
+                            }
+                            isAutoLoop(false)
+                        }
+                    }, onMultiViewClickListener, viewType
                 )
             else ->
                 ItemHolder(
@@ -268,27 +343,7 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(data: ItemData, position: Int) {
             when (binding) {
                 is ViewScrollCardBinding -> {
-                    binding.banner.run {
-                        adapter = object : BannerImageAdapter<Card>(data.itemList) {
-                            override fun onBindView(
-                                holder: BannerImageHolder,
-                                data: Card?,
-                                position: Int,
-                                size: Int
-                            ) {
-                                Glide.with(context)
-                                    .load(data?.data?.image)
-                                    .into(holder.imageView)
-                            }
-                        }
-                        setBannerRound(DisplayUtil.dip2px(3f).toFloat())
-                        setOnBannerListener { data, _ ->
-                            ARouter.getInstance().build(RouterPaths.WEBVIEW_ACTIVITY)
-                                .withString("url", (data as Card).data?.actionUrl)
-                                .navigation()
-                        }
-                        isAutoLoop(false)
-                    }
+                    binding.itemData = data
                 }
                 is ViewBannerCardBinding -> {
                     binding.itemData = data
@@ -303,40 +358,11 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
 
                 is ViewSpecialSquareBinding -> {
-                    binding.run {
-                        recyclerView.run {
-                            layoutManager =
-                                GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
-                            if (itemDecorationCount > 0) removeItemDecorationAt(0)
-                            addItemDecoration(
-                                GridSpaceItemDecoration(
-                                    DisplayUtil.dip2px(6f),
-                                    DisplayUtil.dip2px(6f),
-                                    RecyclerView.HORIZONTAL
-                                )
-                            )
-                            adapter =
-                                SquareCardAdapter().apply { data.itemList?.let { setData(it) } }
-                        }
-                        itemData = data
-                    }
+                    binding.itemData = data
                 }
 
                 is ViewColumnCardBinding -> {
-                    binding.run {
-                        recyclerView.run {
-                            layoutManager = GridLayoutManager(context, 2)
-                            addItemDecoration(
-                                GridSpaceItemDecoration(
-                                    DisplayUtil.dip2px(6f),
-                                    DisplayUtil.dip2px(6f),
-                                    RecyclerView.VERTICAL
-                                )
-                            )
-                            data.itemList?.let { ColumnCardAdapter().setData(it) }
-                        }
-                        itemData = data
-                    }
+                    binding.itemData = data
                 }
 
                 is ViewTextCardBinding -> {
@@ -413,33 +439,7 @@ class BaseCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
 
                 is ViewVideoCollectionScrollCardBinding -> {
-                    binding.run {
-                        banner.run {
-                            adapter = object : VideoCollectionBannerImageAdapter(data.itemList) {
-                                override fun onBindView(
-                                    holder: ItemBannerHolder?,
-                                    data: Card?,
-                                    position: Int,
-                                    size: Int
-                                ) {
-                                    data?.let { holder?.itemView?.setData(it) }
-                                }
-                            }
-                            setBannerRound(DisplayUtil.dip2px(3f).toFloat())
-                            setOnBannerListener { data, _ ->
-                                ARouter.getInstance()
-                                    .build(RouterPaths.DETAIL_VIDEO_DETAIL_ACTIVITY)
-                                    .withInt(
-                                        Constants.VIDEO_ID,
-                                        (data as Card).data?.content?.data?.id!!
-                                    )
-                                    .withString(Constants.RESOURCE_TYPE, data.data?.content?.type)
-                                    .navigation()
-                            }
-                            isAutoLoop(false)
-                        }
-                        itemData = data
-                    }
+                    binding.itemData = data
                 }
 
                 is ViewEmptyBinding -> {

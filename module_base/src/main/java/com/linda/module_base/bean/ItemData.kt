@@ -52,47 +52,4 @@ data class ItemData(
     fun getDuration(): String? {
         return duration?.let { DateUtil.getDuration(it) }
     }
-
-
-    companion object {
-        @JvmStatic
-        @BindingAdapter("imageUrl")
-        fun loadImage(view: ImageView, url: String) {
-            if (!url.isNullOrEmpty()) {
-                Glide.with(CommonApplication.getContext())
-                    .load(url)
-                    .into(view)
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter("imageUrl", "roundedCorners")
-        fun loadRoundedImage(view: ImageView, url: String, roundedCorners: Float) {
-            if (!url.isNullOrEmpty()) {
-                Glide.with(CommonApplication.getContext())
-                    .load(url)
-                    .apply(
-                        RequestOptions.bitmapTransform(
-                            RoundedCorners(
-                                DisplayUtil.dip2px(
-                                    roundedCorners
-                                )
-                            )
-                        )
-                    )
-                    .into(view)
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter("circleImageUrl")
-        fun loadCircleImage(view: ImageView, url: String) {
-            if (!url.isNullOrEmpty()) {
-                Glide.with(CommonApplication.getContext())
-                    .load(url)
-                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                    .into(view)
-            }
-        }
-    }
 }

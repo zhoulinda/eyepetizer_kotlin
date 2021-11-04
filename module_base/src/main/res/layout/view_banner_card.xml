@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:imageUrl="@{itemData.image}"
-        app:roundedCorners="@{6}">
+        app:roundedCorners="@{6f}">
 
     </ImageView>
 </layout>

@@ -30,10 +30,11 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            app:image="@{video.cover.feed}"
+            app:imageUrl="@{video.cover.feed}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:ratio="1.85" />
+            app:ratio="1.85"
+            app:roundedCorners="@{3f}" />
 
         <TextView
             android:id="@+id/videoTitle"

@@ -22,14 +22,14 @@
 
         <ImageView
             android:id="@+id/cover"
-            imageUrl="@{itemData.content.data.cover.feed}"
-            roundedCorners="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:foregroundGravity="center_horizontal"
+            app:imageUrl="@{itemData.content.data.cover.feed}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="@{3f}" />
 
         <TextView
             android:id="@+id/description"
@@ -47,10 +47,11 @@
 
         <ImageView
             android:id="@+id/portrait"
-            circleImageUrl="@{itemData.header.icon}"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
+            app:circleCropImage="@{true}"
+            app:imageUrl="@{itemData.header.icon}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description" />
 

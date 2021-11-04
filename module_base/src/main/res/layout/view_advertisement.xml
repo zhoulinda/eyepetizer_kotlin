@@ -18,13 +18,13 @@
 
         <ImageView
             android:id="@+id/cover"
-            imageUrl="@{itemData.image}"
-            roundedCorners="@{15}"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:scaleType="fitXY"
+            app:imageUrl="@{itemData.image}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="@{15f}" />
 
         <TextView
             android:id="@+id/label"
@@ -40,13 +40,13 @@
 
         <ImageView
             android:id="@+id/portrait"
-            imageUrl="@{itemData.header.icon}"
-            roundedCorners="@{10}"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginTop="10dp"
+            app:imageUrl="@{itemData.header.icon}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cover" />
+            app:layout_constraintTop_toBottomOf="@id/cover"
+            app:roundedCorners="@{10f}" />
 
         <TextView
             android:id="@+id/titleBar"

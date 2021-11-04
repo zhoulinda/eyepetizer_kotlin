@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,12 +15,12 @@
 
         <ImageView
             android:id="@+id/mCategoryImage"
-            roundedCorners="@{6}"
-            setSrc2="@{data.image}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            app:imageUrl="@{data.image}"
+            app:roundedCorners="@{6f}" />
 
         <TextView
             android:id="@+id/mCategoryTitle"

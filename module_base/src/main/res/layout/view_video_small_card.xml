@@ -23,13 +23,13 @@
 
         <ImageView
             android:id="@+id/videoCover"
-            imageUrl="@{itemData.cover.feed}"
-            roundedCorners="@{6}"
             android:layout_width="185dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
+            app:imageUrl="@{itemData.cover.feed}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="@{6f}" />
 
         <TextView
             android:id="@+id/duration"

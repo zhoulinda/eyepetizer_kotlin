@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            app:bgImage="@{viewModel.detailData.cover.blurred}"
+            app:imageUrl="@{viewModel.detailData.cover.blurred}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -151,6 +151,7 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_avatar"
+                    app:circleCropImage="@{true}"
                     app:imageUrl="@{viewModel.detailData.author.icon}"
                     app:layout_constraintLeft_toLeftOf="@id/praise"
                     app:layout_constraintTop_toBottomOf="@id/praise" />

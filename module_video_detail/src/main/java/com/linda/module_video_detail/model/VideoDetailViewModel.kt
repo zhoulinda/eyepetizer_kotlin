@@ -1,13 +1,7 @@
 package com.linda.module_video_detail.model
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
-import com.linda.lib_common.CommonApplication
 import com.linda.module_base.bean.RelatedVideo
 import com.linda.module_base.bean.VideoDetail
 import com.linda.module_base.bean.VideoItem
@@ -77,28 +71,5 @@ class VideoDetailViewModel(private val videoDetailRepository: VideoDetailReposit
     fun showAllRelateVideos() {
         isShowMore.value = false
         relatedVideos.value = originRelatedVideos
-    }
-
-    companion object {
-        @JvmStatic
-        @BindingAdapter("imageUrl")
-        fun loadImage(view: ImageView, url: String?) {
-            if (!url.isNullOrEmpty()) {
-                Glide.with(CommonApplication.getContext())
-                    .load(url)
-                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                    .into(view)
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter("bgImage")
-        fun loadBgImage(view: ImageView, url: String?) {
-            if (!url.isNullOrEmpty()) {
-                Glide.with(CommonApplication.getContext())
-                    .load(url)
-                    .into(view)
-            }
-        }
     }
 }

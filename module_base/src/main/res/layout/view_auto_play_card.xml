@@ -24,10 +24,11 @@
 
         <ImageView
             android:id="@+id/portrait"
-            circleImageUrl="@{itemData.header.icon}"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:onClick="@{listener}"
+            app:circleCropImage="@{true}"
+            app:imageUrl="@{itemData.header.icon}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

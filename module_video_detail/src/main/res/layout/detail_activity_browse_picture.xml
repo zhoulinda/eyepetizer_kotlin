@@ -28,6 +28,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
+            app:circleCropImage="@{true}"
             app:imageUrl="@{viewModel.detailData.owner.avatar}"
             app:layout_constraintBottom_toTopOf="@id/description"
             app:layout_constraintLeft_toLeftOf="parent" />
